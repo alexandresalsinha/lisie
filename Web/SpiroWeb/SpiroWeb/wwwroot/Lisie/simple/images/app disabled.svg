@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="185px" height="56px" viewBox="0 0 185 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>4D261E9E-1613-4AAA-A849-E7BF0686D88A</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BTN-/-Apple-/-Disable" transform="translate(0.910313, 0.000000)">
+            <rect fill="#000000" x="0" y="0" width="184" height="56"></rect>
+            <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" opacity="0.25" fill-rule="nonzero" x="1" y="1" width="182" height="54" rx="27"></rect>
+            <text id="App-Store" opacity="0.25" font-family="Montserrat-Medium, Montserrat Medium" font-size="18" font-weight="normal" line-spacing="30" letter-spacing="-1" fill="#FFFFFF">
+                <tspan x="39.257" y="30">App Store</tspan>
+            </text>
+            <path d="M145.231429,18.3150503 C145.997838,17.3257074 146.578825,15.9273622 146.368681,14.5 C145.116056,14.5870512 143.651913,15.3884743 142.7976,16.4330878 C142.01883,17.379596 141.378783,18.7876138 141.628759,20.154178 C142.99813,20.1970128 144.411454,19.376245 145.231429,18.3150503 L145.231429,18.3150503 Z M152,31.7416509 C151.451977,32.96313 151.188266,33.5089268 150.482291,34.5908483 C149.497497,36.1011164 148.108896,37.9816968 146.386536,37.9955147 C144.857839,38.0120958 144.463647,36.9937355 142.3883,37.0061718 C140.312953,37.0172255 139.880302,38.0148595 138.348859,37.9998319 C136.627872,37.9844605 135.312067,36.2876542 134.327273,34.7773866 C131.572047,30.5574792 131.28224,25.6038551 132.98125,22.9688312 C134.189923,21.0979229 136.096331,20.0035661 137.887365,20.0035661 C139.709989,20.0035661 140.856856,21.0094901 142.366324,21.0094901 C143.830467,21.0094901 144.721864,20.0008024 146.830175,20.0008024 C148.426173,20.0008024 150.116942,20.8754588 151.320121,22.3843454 C147.375451,24.5592416 148.014125,30.2258559 152,31.7416509 L152,31.7416509 Z" id="Icon" fill-opacity="0.25" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

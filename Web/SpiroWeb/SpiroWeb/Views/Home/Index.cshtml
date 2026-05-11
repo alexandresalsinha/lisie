@@ -1,0 +1,227 @@
+﻿@{
+    Layout = "";
+
+
+    string patternIos = "iPhone|iPad|iPod|Opera Mini";
+    string patternAndroid = "Android";
+    bool _isAndroid = System.Text.RegularExpressions.Regex.IsMatch(Request.UserAgent, patternAndroid, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+    bool _isIos = System.Text.RegularExpressions.Regex.IsMatch(Request.UserAgent, patternIos, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="msapplication-TileColor" content="#F2A378">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="description" content="A app com a lista que te ajuda a poupar tempo e dinheiro, comparando os preços de cada produto nos diferentes supermercados." />
+    <meta name="keywords" content="Lisie, Lisie.app, Mobile Application, Shopping Helper, Shopping productivity, Groceries manager">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lisie" />
+    <meta property="og:description" content="A app com a lista que te ajuda a poupar tempo e dinheiro, comparando os preços de cada produto nos diferentes supermercados." />
+    <meta property="og:title" content="Lisie App: A lista de compras em Android e IOS que te ajuda a poupar" />
+    <meta property="og:url" content="https://lisie.app" />
+    <meta property="og:image" content="https://lisie.app/media/images/lisie_logo.png">
+
+    <title>Lisie App: A lista de compras em Android e IOS que te ajuda a poupar</title>
+
+    <link rel="canonical" href="https://lisie.app/">
+    <link rel="shortcut icon" href="/Lisie/simple/favicon.ico">
+    <link href="/Lisie/simple/icons/icon-16x16.png" rel="apple-touch-icon" sizes="16x16" />
+    <link href="/Lisie/simple/icons/icon-32x32.png" rel="apple-touch-icon" sizes="32x32" />
+    <link href="/Lisie/simple/icons/icon-48x48.png" rel="apple-touch-icon" sizes="48x48" />
+    <link href="/Lisie/simple/icons/icon-128x128.png" rel="apple-touch-icon" sizes="128x128" />
+    <link href="/Lisie/simple/icons/icon-167x167.png" rel="apple-touch-icon" sizes="167x167" />
+    <link href="/Lisie/simple/icons/icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+    <link href="/Lisie/simple/icons/icon-192x192.png" rel="apple-touch-icon" sizes="192x192" />
+    <link href="/Lisie/simple/icons/icon-256x256.png" rel="apple-touch-icon" sizes="256x256" />
+    <link href="/Lisie/simple/icons/icon-512x512.png" rel="apple-touch-icon" sizes="512x512" />
+
+    <link rel="manifest" href="/Lisie/simple/manifest.json" />
+    <link rel="stylesheet" href="/Lisie/simple/reset.css">
+    <link rel="stylesheet" href="/Lisie/simple/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet">
+    @*<script>
+            window.onload = function () {
+                var requestIsFromIos = /iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent);
+                var requestIsFromAndroid = /Android/i.test(navigator.userAgent);
+                console.log("requestIsFromIos", requestIsFromIos);
+                console.log("requestIsFromAndroid", requestIsFromAndroid);
+                //document.getElementById("ios").textContent = "is ios - " + requestIsFromIos;
+                //document.getElementById("android").textContent = "is android - " + requestIsFromAndroid;
+
+                if (requestIsFromAndroid) {
+                    document.getElementById("iosDownload").style.display = "none";
+                }
+                if (requestIsFromIos) {
+                    document.getElementById("androidDownload").style.display = "none";
+                }
+                setTimeout(() => {
+                    window.location.href = _storeUrl;
+                }, 1000);
+            }
+        </script>*@
+</head>
+
+<body>
+    <section class="heading">
+        <div class="wrapper" style="padding-bottom: 0;">
+            <div class="heading__container">
+                <div>
+                    <div class="heading__div">
+                        <figure class="heading__logo" style="width:75px;height:75px;margin-bottom:32px">
+                            <img src="/Lisie/simple/images/Symbol.png" alt="Lisie">
+                        </figure>
+                        <span class="heading__span">Lisie.app</span>
+
+                    </div>
+
+                    <h1 style="margin-bottom: 20px;">
+                        A lista de compras para poupar tempo e dinheiro
+                    </h1>
+                    <p class="heading_subtitle">
+                        O elemento que faltava na tua família.
+                    </p>
+                    @if (Request.Browser.IsMobileDevice)
+                    {
+                        <div class="buttonContainer">
+
+                            @if (_isAndroid)
+                            {
+                                <a id="androidDownload" class="button" href="https://play.google.com/store/apps/details?id=com.lisie.org">
+                                    <p>Google Play<img src="/Lisie/simple/images/PlayC.svg" alt="Google Play" /></p>
+                                </a>
+                            }
+                            @if (_isIos)
+                            {
+                                <a id="iosDownload" class="button" href="https://apps.apple.com/pt/app/lisie/id1559628262">
+                                    <p>App Store<img src="/Lisie/simple/images/apple_tomato.svg" alt="App Store" /></p>
+                                </a>
+                            }
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="buttonContainer">
+                            <a id="androidDownload" class="button" href="https://play.google.com/store/apps/details?id=com.lisie.org">
+                                <p>Google Play<img src="/Lisie/simple/images/PlayC.svg" alt="Google Play" /></p>
+                            </a>
+                            <a id="iosDownload" class="button" href="https://apps.apple.com/pt/app/lisie/id1559628262">
+                                <p>App Store<img src="/Lisie/simple/images/apple_tomato.svg" alt="App Store" /></p>
+                            </a>
+                        </div>
+                    }
+
+                </div>
+                <div class="heading__video_container">
+                    <video class="heading__video" src="/Lisie/simple/images/1284x2778.mp4" loop muted autoPlay></video>
+                    <Figure style="max-width: 530px;">
+                        <img src="/Lisie/simple/images/iPhone 8.png" alt="Lisie app">
+                    </Figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wot">
+        <div class="wrapper">
+            <h2>
+                Sobre a Lisie
+            </h2>
+            <p class="text-body">
+                A app com a lista que te mantém a par do que tens na despensa e do que te falta comprar.
+            </p>
+            <br />
+            <p class="text-body">
+                Ajuda-te a poupar tempo e dinheiro, comparando os preços de cada produto nos diferentes supermercados.
+            </p>
+            <br />
+            <p class="text-body">
+                Agora a família está completa.
+            </p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="wrapper">
+            <article class="features__item">
+                <figure style="margin: 0 auto">
+                    <img src="/Lisie/simple/images/ReadCodeCarrot_512x512_compressed_03.gif" alt="Lista Compras">
+                </figure>
+                @*<h3>Lista Compras</h3>*@
+                <br />
+
+                <h3 class="text-body" style="font-weight: 400;">
+                    Lê o <span style="font-weight:bold;color:#3B4157">código de barras</span><br /> do produto
+                </h3>
+            </article>
+            <article class="features__item">
+                <figure style="margin: 0 auto 16px">
+                    <img src="/Lisie/simple/images/PricesComparison_512x512_optimized.gif" alt="Comparador de Preços">
+                </figure>
+                <h3>@*Comparador de preços*@</h3>
+                <br />
+
+                <h3 class="text-body" style="font-weight: 400;">
+                    Descobre <span style="font-weight:bold;color:#3B4157">onde é mais barato</span>
+                </h3>
+            </article>
+            <article class="features__item">
+                <figure style="margin: 0 auto 16px">
+                    <img src="/Lisie/simple/images/ChangeList_512x512_optimized.gif" alt="Compra Online">
+                </figure>
+                @*<h3>Compra online</h3>*@
+
+
+                <h3 class="text-body" style="font-weight: 400;">
+                    <span style="font-weight:bold;color:#3B4157">Gere o ciclo</span> do produto
+                </h3>
+            </article>
+        </div>
+    </section>
+
+    <section class="media">
+        <figure style="margin: 0 auto; max-width: 1440px;margin-bottom: 40px;">
+            <img src="/Lisie/simple/images/image 1.png" alt="Lista de ecrãs">
+        </figure>
+    </section>
+
+    <section class="ctaBlock">
+        <div class="wrapper">
+            <h2 class="white">Faz download da Lisie</h2>
+            <p class="text-body white">o elemento que faltava na tua família</p>
+            <div class="buttonContainer center" style="margin-top: 52px; margin-bottom: 16px">
+                <a class="button" href="https://play.google.com/store/apps/details?id=com.lisie.org">
+                    <p>Google Play<img src="/Lisie/simple/images/PlayC.svg" alt="Google Play" /></p>
+                </a>
+                <a class="button" href="https://apps.apple.com/pt/app/lisie/id1559628262">
+                    <p>App Store<img src="/Lisie/simple/images/apple_tomato.svg" alt="App Store" /></p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrapper">
+            <div class="footer__linkList">
+                <a href="https://www.facebook.com/LisieApp/" class="footer__link" target="_blank">
+                    <img src="/Lisie/simple/images/Facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/lisie.app/" class="footer__link" target="_blank">
+                    <img src="/Lisie/simple/images/Instagram.svg" alt="Instagram">
+                </a>
+            </div>
+            <p class="text-small white">
+                Envia-nos o teu feedback para <a href="mailto:hello@lisie.app" style='color: var(--neu-03)'>hello@lisie.app</a>
+            </p>
+            <p class="text-small white">
+                Lisie © Copyright 2022
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

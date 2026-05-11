@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ClassLibrary1.UserProductsList>
+
+
+@{
+    double globalTotalPrice = 0;
+}
+
+
+<div style="width:100%" id="mainContainer">
+    <table class="u-full-width">
+        <tr>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.Products.Picture)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.Products.Name)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.Products.CategoryString)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th style="text-align: center;">
+                Quantity Weight
+            </th>
+            <th style="text-align: center;">
+                Total Price
+            </th>
+
+            <th style="text-align: center;">
+                Actions
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            var imgSrc = string.Empty;
+            double totalPrice = (double)(item.Products.Price * Convert.ToInt32(item.Quantity));
+            globalTotalPrice += totalPrice;
+
+            if (item.Products.Picture != null)
+            {
+                var base64 = Convert.ToBase64String(item.Products.Picture);
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <tr data-productlistid="@item.Id">
+                <td style="text-align: center; vertical-align: middle;">
+                    <img style="width:140px" src="@imgSrc" />
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="@Url.Action("Details", "ShoppingCart", new { id = item.Id })">@item.Products.Name</a>
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Products.CategoryString)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                    <div style="display: inline-block;vertical-align: inherit;">
+                        <span data-userproductlistid="@item.Id" class="glyphicon glyphicon-chevron-up" aria-hidden="false" style="display: block; cursor:pointer" onclick="AddQuantityToShoppingListItem(@item.Id)"></span>
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="false" style="display: block; cursor:pointer" onclick="SubtractQuantityToShoppingListItem(@item.Id)"></span>
+                    </div>
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.QuantityWeight)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @totalPrice€
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="@Url.Action("Edit", "ShoppingCart", new { id = item.Id })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Edit"></span></a>
+                    <a href="@Url.Action("Delete", "ShoppingCart", new { id = item.Id })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div style="width:100%; text-align:right; font-size:14pt">
+        <p><b> Total :</b> @globalTotalPrice €</p>
+    </div>
+</div>

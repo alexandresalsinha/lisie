@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">SpiroStockManagementAndroid</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Spiro Stock Management</string>
+    <string name="title_activity_add_product">Add New Product</string>
+    <string name="title_activity_add_product_to_list">Add Product To List</string>
+    <string name="title_activity_add_product_new">Add New Product</string>
+
+    <string-array name="NewProduct_AddtoListOptions">
+        <item>Don´t add to Inventory or Cart</item>
+        <item>Add to Inventory</item>
+        <item>Add to Cart</item>
+    </string-array>
+
+    <string name="title_activity_view_products_list">View Products List</string>
+
+</resources>

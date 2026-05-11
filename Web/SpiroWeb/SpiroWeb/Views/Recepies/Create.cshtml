@@ -1,0 +1,379 @@
+﻿@model ClassLibrary1.Recepies
+@using System.Web.Script.Serialization;
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+
+    //var imgSrc = string.Empty;
+    //if (Model.Picture != null)
+    //{
+    //    var base64 = Convert.ToBase64String(Model.Picture);
+    //    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    //}
+
+    var serializer = new JavaScriptSerializer();
+    //var _recipeIngredientsJson = serializer.Serialize((List<SpiroWeb.Models.RecipeIngredientViewModel>)ViewBag.RecipeIngredients);
+    //var _recipeDirectionsJson = serializer.Serialize((List<SpiroWeb.Models.RecipeDirectionsViewModel>)ViewBag.RecipeDirections);
+    var _recepiesCategoriesJson = serializer.Serialize((List<string>)ViewBag.RecepiesCategories);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    @Html.AntiForgeryToken()
+    <form action="/recepies/Create" method="post" onsubmit="validateMyForm(event)" enctype="multipart/form-data">
+
+        <div class="form-horizontal">
+            <h4>New Recipe</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+
+                <img id="recipeImage" src="~/Content/images/custom/no_img.png" style="margin-left:50%" />
+                <div class="col-md-10">
+                    <div>
+                        <fieldset>
+                            <input type="hidden" name="ActionName" value="Upload" />
+                            <input type="file" id="postedFile" name="postedFile" />
+                        </fieldset>
+                        @*<input type="submit" value="Upload" />*@
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="recipeIngredientsJson" id="recipeIngredientsJson" value="" />
+            <input type="hidden" name="recipeDirectionsJson" id="recipeDirectionsJson" value="" />
+            <div class="form-group">
+
+
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cuisine, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cuisine, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cuisine, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input class="autocomplete-with-hidden-ingredient" data-url="/Recepies/GetCategoriesAutocomplete" style="width:200px;height:25px;font-size:12pt" placeholder="Category" type="text" value="@Model.Category" id="Category" name="Category">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Yield, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Yield, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Yield, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimePreparing, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimePreparing, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimePreparing, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeCooking, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimeCooking, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeCooking, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeReady, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimeReady, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeReady, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Commentary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Commentary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Commentary, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Visible, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Visible, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Visible, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="RecipeIngredients">Recipe Ingredients</label>
+                <div class="col-md-10" id="recipeIngredients" style="text-align:center">
+                    <input type="button" onclick="CreateIngredient()" value="Adicionar" class="btn btn-default" style="margin-bottom:20px" />
+                    @foreach (var _RecipeIngredient in Model.RecipeIngredients)
+                    {
+                        <div class="recipeIngredientDiv" data-recipe-ingredient-id="@_RecipeIngredient.Id">
+                            <input class="autocomplete-with-hidden-ingredient" data-url="/Recepies/GetIngredientsAutocomplete" id="searchIngredientAutocompleteTextbox" name="Name" style="width:200px;height:35px;font-size:12pt" placeholder="Name" type="text" value="@_RecipeIngredient.Ingredients.Name">
+                            <input id="selectedIngredientId" name="selectedIngredientId" type="hidden" value="@_RecipeIngredient.Ingredients.Id">
+                            <input type="text" name="recipeIngredientAmount" id="recipeIngredientAmount" placeholder="Amount" style="height:35px" value="@_RecipeIngredient.Amount" />
+                            <input class="autocomplete-with-hidden-ingredient" data-url="/Recepies/GetIngredientUnitsAutocomplete" id="searchIngredientUnitsAutocompleteTextbox" name="Units" style="width:200px;height:35px;font-size:12pt" type="text" placeholder="Units" value="@_RecipeIngredient.Units">
+                            <input type="button" onclick="RemoveIngredient(this)" value="Remover" class="btn btn-default" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="RecipeIngredients">Directions</label>
+                <div class="col-md-10" id="recipeDirections" style="text-align:center">
+                    <input type="button" onclick="CreateDirection()" value="Adicionar" class="btn btn-default" style="margin-bottom:20px" />
+                    @foreach (var _recipeDirection in Model.RecipeDirections)
+                    {
+                        <div class="recipeDirectionDiv" data-recipe-direction-id="@_recipeDirection.Id">
+                            <input type="text" name="recipeDirection" id="recipeDirection" placeholder="Direction" style="width:300px; height:35px" value="@_recipeDirection.Direction" />
+                            <input type="button" onclick="RemoveDirection(this)" value="Remover" class="btn btn-default" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+            @*</form>*@
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </form>
+    <script>
+        var RecipeCategories = @Html.Raw(_recepiesCategoriesJson);
+        var RecipeIngredients = [];
+        var RecipeDirections = [];
+        var _newIngredients = 0;
+        var _newDirections = 0;
+        function CreateIngredient() {
+            _newIngredients++;
+
+            var _div = document.getElementById('recipeIngredients');
+            const _newDiv = document.createElement('div');
+            var _recipeIngredientId = "New" + _newIngredients;
+
+            _newDiv.className = "recipeIngredientDiv";
+            _newDiv.dataset["recipeIngredientId"] = "new" + _newIngredients;
+
+            _newDiv.innerHTML = `
+                <input class="autocomplete-with-hidden-ingredient" data-url="/Recepies/GetIngredientsAutocomplete" id="searchIngredientAutocompleteTextbox" name="Name" style="width:200px;height:35px;font-size:12pt" placeholder="Name" type="text" value="">
+                <input id="selectedIngredientId" name="selectedIngredientId" type="hidden" value="">
+                <input type="text" name="recipeIngredientAmount" id="recipeIngredientAmount" placeholder="Quantity" style="height:35px"/>
+                <input class="autocomplete-with-hidden-ingredient" data-url="/Recepies/GetIngredientUnitsAutocomplete" id="searchIngredientUnitsAutocompleteTextbox" name="Units" style="width:200px;height:35px;font-size:12pt" type="text" placeholder="Units" value="">
+                <input type="button" onclick="RemoveIngredient(this)" value="Remover" class="btn btn-default" />
+              `;
+
+            _div.appendChild(_newDiv);
+            _newDiv.firstElementChild.focus();
+            loadAutoComplete();
+        }
+
+        function CreateDirection() {
+            _newDirections++;
+
+            var _div = document.getElementById('recipeDirections');
+            const _newDiv = document.createElement('div');
+            //_newDiv.id = "new" + _newIngredients;
+            var _recipeIngredientId = "New" + _newIngredients;
+
+            _newDiv.className = "recipeDirectionDiv";
+            _newDiv.dataset["recipeDirectionId"] = "new" + _newDirections;
+
+            _newDiv.innerHTML = `
+                <input type="text" name="recipeDirection" id="recipeDirection"  placeholder="Direction" style="width:300px; height:35px" value="" />
+                <input type="button" onclick="RemoveDirection(this)" value="Remover" class="btn btn-default" />
+              `;
+
+            _div.appendChild(_newDiv);
+            _newDiv.firstElementChild.focus();
+            loadAutoComplete();
+        }
+
+        function RemoveIngredient(input) {
+            //debugger
+            //var _div = input.parentNode;
+            //var _recipeIngredientId = _div.dataset["recipeIngredientId"];
+            document.getElementById('recipeIngredients').removeChild(input.parentNode);
+            //var _toRemove = _.find(RecipeIngredients, function (num) { return num.Id == _recipeIngredientId });
+            //if (_toRemove != undefined && _toRemove != null)
+            //    _toRemove.ItemType = "remove";
+        }
+
+        function RemoveDirection(input) {
+            debugger
+            //var _div = input.parentNode;
+            //var _recipeDirectionId = _div.dataset["recipeDirectionId"];
+            document.getElementById('recipeDirections').removeChild(input.parentNode);
+            //var _toRemove = _.find(RecipeDirections, function (item) { return item.Id == _recipeDirectionId });
+            //if (_toRemove != undefined && _toRemove != null)
+            //    _toRemove.ItemType = "remove";
+        }
+
+        function validateMyForm(event){
+            console.log(event);
+            debugger
+
+            var _recipeIngredientDivs = document.querySelectorAll('.recipeIngredientDiv');
+            for (var i = 0; i < _recipeIngredientDivs.length; i++) {
+                var _div = _recipeIngredientDivs[i];
+                var _recipeIngredientId = _div.dataset["recipeIngredientId"];
+                //var _toEdit = _.find(RecipeIngredients, function (item) { return item.Id == _recipeIngredientId });
+
+                //if (_toEdit == undefined && _toEdit == null) { //is to create
+                    var _searchIngredientAutocompleteTextbox = _div.querySelector('#searchIngredientAutocompleteTextbox');
+                    var _recipeIngredientAmount = _div.querySelector('#recipeIngredientAmount');
+                    var _searchIngredientUnitsAutocompleteTextbox = _div.querySelector('#searchIngredientUnitsAutocompleteTextbox');
+                    var _selectedIngredientId = _div.querySelector('#selectedIngredientId');
+                    var _new = {};
+                    _new.Name = _searchIngredientAutocompleteTextbox.value;
+                    _new.Amount = _recipeIngredientAmount.value;
+                    debugger
+                    _new.IngredientId = (_selectedIngredientId.value != null && _selectedIngredientId.value != "") ? parseInt(_selectedIngredientId.value) : -1;
+                    _new.Units = _searchIngredientUnitsAutocompleteTextbox.value;
+                    RecipeIngredients.push(_new);
+                //}
+                //else if (_toEdit.ItemType == undefined && _toEdit.ItemType != "remove") {
+                //    var _searchIngredientAutocompleteTextbox = _div.querySelector('#searchIngredientAutocompleteTextbox');
+                //    var _recipeIngredientAmount = _div.querySelector('#recipeIngredientAmount');
+                //    var _searchIngredientUnitsAutocompleteTextbox = _div.querySelector('#searchIngredientUnitsAutocompleteTextbox');
+                //    var _selectedIngredientId = _div.querySelector('#selectedIngredientId');
+                //    _toEdit.Name = _searchIngredientAutocompleteTextbox.value.trim();
+                //    _toEdit.Amount = _recipeIngredientAmount.value.trim();
+                //    _toEdit.IngredientId = (_selectedIngredientId.value != null && _selectedIngredientId.value != "") ? parseInt(_selectedIngredientId.value) : -1;
+                //    _toEdit.Units = _searchIngredientUnitsAutocompleteTextbox.value.trim();
+                //}
+            }
+
+            var _recipeDirectionDivs = document.querySelectorAll('.recipeDirectionDiv');
+            for (var i = 0; i < _recipeDirectionDivs.length; i++) {
+                var _div = _recipeDirectionDivs[i];
+                var _recipeDirectionId = _div.dataset["recipeDirectionId"];
+                //var _toEdit = _.find(RecipeDirections, function (item) { return item.Id == _recipeDirectionId });
+
+                //if (_toEdit == undefined && _toEdit == null) { //is to create
+                    var _recipeDirection = _div.querySelector('#recipeDirection');
+                    var _new = {};
+                    _new.Direction = _recipeDirection.value.trim();
+                    RecipeDirections.push(_new);
+                //}
+                //else if (_toEdit.ItemType == undefined && _toEdit.ItemType != "remove") { //is to edit
+                //    var _recipeDirection = _div.querySelector('#recipeDirection');
+                //    _toEdit.Direction = _recipeDirection.value.trim();
+                //}
+            }
+
+            document.getElementById('recipeIngredientsJson').value = JSON.stringify(RecipeIngredients);
+            document.getElementById('recipeDirectionsJson').value = JSON.stringify(RecipeDirections);
+            //event.preventDefault();
+        }
+
+        function loadAutoComplete() {
+            $('.autocomplete-with-hidden-ingredient').autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var url = $(this.element).data('url');
+
+                    $.getJSON(url, { term: request.term }, function (data) {
+                        response(data);
+                    })
+                },
+                select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                    //$(event.target).text(ui.item.text);
+                    //AddProductToShoppingCart(ui.item.id, false);
+                },
+                change: function (event, ui) {
+                    if (!ui.item) {
+                        //debugger
+                        //$(event.target).val('').next('input[type=hidden]').val('');
+                    }
+                }
+            });
+        }
+
+        function loadCategoryAutoComplete() {
+            $('.autocomplete-with-hidden-category').autocomplete({
+                minLength: 0,
+                source: RecipeCategories,
+                select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                    //$(event.target).text(ui.item.text);
+                    //AddProductToShoppingCart(ui.item.id, false);
+                },
+                change: function (event, ui) {
+                    if (!ui.item) {
+                        //debugger
+                        //$(event.target).val('').next('input[type=hidden]').val('');
+                    }
+                }
+            });
+        }
+        window.onload = function runOnLoad() {
+            loadAutoComplete();
+        };
+
+        document.getElementById('postedFile').onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+            // FileReader support
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    document.getElementById("recipeImage").src = fr.result;
+                }
+                fr.readAsDataURL(files[0]);
+            }
+
+            // Not supported
+            else {
+                // fallback -- perhaps submit the input to an iframe and temporarily store
+                // them on the server until the user's session ends.
+            }
+        }
+    </script>
+</body>
+</html>

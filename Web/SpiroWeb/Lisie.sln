@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LisieWeb", "SpiroWeb\LisieWeb.csproj", "{54EA8548-BE0B-4B73-A8EE-9066FE663507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager", "ClassLibrary1\DataManager.csproj", "{F1BD0B27-DFF6-41A8-902A-18613E3015F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiroStockManagmentDatabaseClass", "..\..\SpiroStockManagement Desktop\SpiroStockManagmentDatabaseClass\SpiroStockManagmentDatabaseClass.csproj", "{0A9B89C0-B939-4547-AF54-7DC0E9982C93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LisieStores", "Extensibility\LisieStores.csproj", "{C5BF74C8-76AB-46B7-8A0D-60598343A892}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		MyCloudFtp|Any CPU = MyCloudFtp|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.MyCloudFtp|Any CPU.ActiveCfg = MyCloudFtp|Any CPU
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.MyCloudFtp|Any CPU.Build.0 = MyCloudFtp|Any CPU
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54EA8548-BE0B-4B73-A8EE-9066FE663507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.MyCloudFtp|Any CPU.ActiveCfg = MyCloudFtp|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.MyCloudFtp|Any CPU.Build.0 = MyCloudFtp|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BD0B27-DFF6-41A8-902A-18613E3015F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.MyCloudFtp|Any CPU.ActiveCfg = MyCloudFtp|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.MyCloudFtp|Any CPU.Build.0 = MyCloudFtp|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9B89C0-B939-4547-AF54-7DC0E9982C93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.MyCloudFtp|Any CPU.ActiveCfg = MyCloudFtp|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.MyCloudFtp|Any CPU.Build.0 = MyCloudFtp|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BF74C8-76AB-46B7-8A0D-60598343A892}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD56664F-5393-49D1-A4FB-DDBAAA0898A1}
+	EndGlobalSection
+EndGlobal

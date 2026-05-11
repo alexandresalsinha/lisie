@@ -1,0 +1,22 @@
+Plesk :
+
+https://spirostockmanagement.com:8443
+user : Spiro
+pass : nt6JU242rv
+
+
+Database  : 
+cp47.webserver.pt\SQL21012ADV
+user : Spiro pass : NI/+70#_gUW4JGE
+
+Emails:
+	Accounts
+		mail:accounts@spirostockmanagement.com
+		pass:nt6JU242rv
+
+
+
+
+azure DB:´
+
+Server=tcp:xicopitz.database.windows.net,1433;Initial Catalog=SpiroStockManagement;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;

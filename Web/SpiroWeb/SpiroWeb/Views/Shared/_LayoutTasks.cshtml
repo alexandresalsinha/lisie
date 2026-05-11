@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/siteTasks.css" rel="stylesheet" />
+    <script src="~/Scripts/Tasks/knockout-3.0.0.js"></script>
+    <script src="~/Scripts/Tasks/script.js" ></script>
+    <script src="~/Scripts/Tasks/underscore-1.4.4.js"></script>
+    <script src="~/Scripts/Tasks/AutoGrowMin.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*   <link href="~/Content/Site.css" rel="stylesheet" />*@
+    <script src="~/Scripts/Tasks/Work.js"></script>
+    <script src="~/Scripts/Tasks/Social.js"></script>
+    <script src="~/Scripts/Tasks/Personal.js"></script>
+    0
+    @*Progress Bar*@
+    <link href="~/Content/ProgressBar/tiny-green/progressbar.css" rel="stylesheet" />
+    <script src="~/Scripts/Tasks/progressbar.js"></script>
+
+
+    <script src="~/Scripts/jquery.timepicker.js"></script>
+
+
+    <link rel='stylesheet' type='text/css' href='~/weekcalendar/jquery.weekcalendar.css' />
+    <link rel='stylesheet' type='text/css' href='~/weekcalendar/weekCalendar.css' />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <style>
+        fieldset {
+            padding: 0;
+            border: 0;
+            margin-top: 25px;
+        }
+
+        h1 {
+            font-size: 1.2em;
+            margin: .6em 0;
+        }
+
+        .ui-dialog .ui-state-error {
+            padding: .3em;
+        }
+
+        .validateTips {
+            border: 1px solid transparent;
+            padding: 0.3em;
+        }
+    </style>
+
+    <!--Tag-It-->
+    <!-- The base CSS and tagit.ui-zendesk.css theme are scoped to the Tag-it widget, so they shouldn't affect anything else in your site, unlike with jQuery UI themes. -->
+    <link href="~/Content/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+    <!-- If you want the jQuery UI "flick" theme, you can use this instead, but it's not scoped to just Tag-it like tagit.ui-zendesk is: -->
+    <!--   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css"> -->
+    <!-- jQuery and jQuery UI are required dependencies. -->
+    <!-- Although we use jQuery 1.4 here, it's tested with the latest too (1.8.3 as of writing this.) -->
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>*@
+
+    <!-- The real deal -->
+    <script src="~/Scripts/tag-it.js" type="text/javascript" charset="utf-8"></script>
+</head>
+@{
+    string _bodyStyleIfHistory = (Context.Request.Url.AbsolutePath.Contains("HistoryTasks") ? @"style=""margin: 50px !important; padding-top: 0px !important;""" : string.Empty);
+}
+<body @Html.Raw(_bodyStyleIfHistory)>
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+
+    <script src="~/weekcalendar/jquery.weekcalendar.js"></script>
+    <script src="~/weekcalendar/weeklyCalendar.js"></script>
+</body>
+</html>

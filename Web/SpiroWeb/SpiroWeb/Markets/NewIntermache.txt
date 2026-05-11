@@ -1,0 +1,271 @@
+﻿//using CsQuery;
+//using SpiroWeb.Objects;
+//using System;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using System.Web;
+//using System.Web.Script.Serialization;
+//using LisieStores.Extensibility;
+//using System.Net;
+//using SpiroWeb.Controllers;
+//using System.Net.Http;
+//using ClassLibrary1;
+//using SpiroWeb.Helpers;
+//using System.Web.UI.WebControls;
+
+//namespace SpiroWeb.Markets
+//{
+//    //[MarketAttr(4, "Intermarché", "https://lojaonline.intermarche.pt/62-arco-do-cego", "#000000")]
+//    [MarketAttr(6, "NewIntermache", "https://www.loja-online.intermarche.pt", "#000000", "https://www.loja-online.intermarche.pt/search/")]
+//    public class NewIntermache : Market, IMarketFetcher
+//    {
+//        string IMarketFetcher.GetProductViewableUrl(string onlineProductId, string url)
+//        {
+//            if (!string.IsNullOrEmpty(onlineProductId))
+//            {
+//                return this.StoreUrl + "/" + onlineProductId;
+//            }
+//            if (!string.IsNullOrEmpty(url))
+//            {
+//                return this.StoreUrl + url;
+//            }
+//            return string.Empty;
+//        }
+
+//        async public Task<bool> AddProductsToOnlineStoreCart(List<ProductAddToOnlineStore> products, string userId, string storeUsername, string storePassword)
+//        {
+//            //foreach (var _product in products)
+//            //{
+//            //    if (_product.Url.IndexOf("Auchan_Amadora?") == -1)
+//            //        _product.Url += "/Auchan_Amadora?sid=14a1f7c0-f5bd-4b08-8bf0-f95f908d41dc_1";
+//            //}
+//            var cli = new WebClient();
+//            cli.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+//            var _nodeRequest = new NodeRequest
+//            {
+//                username = storeUsername,
+//                password = storePassword,
+//                products = products
+//            };
+//            var json = new JavaScriptSerializer().Serialize(_nodeRequest);
+//            try
+//            {
+//                string response = cli.UploadString("https://puppeteer-lisie.herokuapp.com/addProductsToIntermarche/" + userId, json);
+//            }
+//            catch (Exception ex)
+//            {
+
+//                return false;
+//            }
+
+//            return true;
+//        }
+
+//        //https://www.loja-online.intermarche.pt/product/ean/2892040000000
+//        public async Task<LisieStores.Extensibility.ProductSearchResult> GetProductMetadataByBarcode(string barcode)
+//        {
+//            var _url = "/product/ean/" + barcode;
+//            return await GetMetadata(_url);
+//        }
+
+//        async public Task<LisieStores.Extensibility.ProductSearchResult> GetProductMetadataById(string onlineProductId)
+//        {
+//            string url = "/" + onlineProductId;
+//            return await GetMetadata(url);
+//        }
+
+//        async Task<LisieStores.Extensibility.ProductSearchResult> IMarketFetcher.GetProductMetadata(string url)
+//        {
+//            return await GetMetadata(url);
+//        }
+
+//        async Task<List<LisieStores.Extensibility.ProductSearchResult>> IMarketFetcher.GetSearchResults(string searchQuery)
+//        {
+//            string _searchQuery = string.IsNullOrEmpty(searchQuery) ? "" : searchQuery;
+//            //Heroku server 1
+//            //string _SearchResultsHtml = await FetchUrl("https://puppeteer-lisie.herokuapp.com/getIntermarcheSearchResults?search=" + searchQuery);
+//            //Heroku server 2
+//            //string _SearchResultsHtml = await FetchUrl("https://lisie.herokuapp.com/getIntermarcheSearchResults?search=" + searchQuery);
+//            //Localhost server
+//            //string _SearchResultsHtml = await FetchUrl("http://localhost:3000/getIntermarcheSearchResults?search=" + searchQuery);
+
+
+//            var cli = new WebClient();
+//            cli.Encoding = System.Text.Encoding.UTF8;
+//            cli.Headers[HttpRequestHeader.Cookie] = "itm_device_id=6493f98c-7250-4224-92f6-83ea81c6c4f7;itm_pdv=%7B%22ref%22%3A%2205047%22%2C%22isEcommerce%22%3Atrue%7D;itm_usid=6493f98c-7250-4224-92f6-83ea81c6c4f7\"";
+
+//            string _SearchResultsHtml = cli.DownloadString("https://www.loja-online.intermarche.pt/search/" + searchQuery);
+
+//            JavaScriptSerializer js = new JavaScriptSerializer();
+//            List<LisieStores.Extensibility.ProductSearchResult> _productSearchResultList = new List<LisieStores.Extensibility.ProductSearchResult>();
+
+//            CQ _Dom = _SearchResultsHtml;
+//            CQ _produtos = _Dom[".product"];
+
+//            List<IDomObject> _productsList = _produtos.ToList();
+
+//            foreach (IDomObject _productResult in _productsList)
+//            {
+//                Console.WriteLine(_productResult.InnerHTML);
+
+//                CQ _productResultCQ = _productResult.OuterHTML;
+
+//                var _productOnlineId = "";
+//                string _productUrl = _productResultCQ[".product__info"].First().Attr("href");
+//                string _productBarcode = _productUrl.Substring(_productUrl.LastIndexOf("/") + 1);
+//                string _productName = _productResultCQ[".product__name"].Text();
+//                string _productBrand = _productResultCQ[".product__brand"].First().Text().Replace("\n", "").Trim();
+//                _productBrand = _productBrand.Substring(0, _productBrand.LastIndexOf(" -")).Trim();
+//                var _productImageUrl = _productResultCQ[".product__image"].ElementAt(1).Attributes["src"];
+//                var _productWeightHtml = _productResultCQ[".product__texts"].First().Html();
+//                var _productWeight = _productWeightHtml.Substring(_productWeightHtml.LastIndexOf("</div>")).Replace("</div>", string.Empty);
+
+//                var _productPricesText = _productResultCQ[".product__footer__pricesWrapper"].Text();
+//                var _productPricesTextSpliteed = _productPricesText.Split('€');
+//                var _productPriceWithDiscountValue = _productResultCQ[".value.ct-tile--price-value"].First().Attr("content");
+
+//                var _productPrice = string.Empty;
+//                var _productPriceWeight = string.Empty;
+//                var _productUnitRatio = string.Empty;
+//                if (_productPricesTextSpliteed.Length < 4)
+//                {
+//                    _productPrice = _productPricesTextSpliteed[0].Replace(" ", "").Trim();
+//                    _productPriceWeight = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
+//                    _productUnitRatio = _productPricesTextSpliteed[2].Replace("/", "").Trim();
+//                }
+//                else
+//                {
+//                    _productPrice = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
+//                    _productPriceWeight = _productPricesTextSpliteed[2].Replace(" ", "").Trim();
+//                    _productUnitRatio = _productPricesTextSpliteed[3].Replace("/", "").Trim();
+//                }
+
+//                _productUnitRatio = _productUnitRatio.Replace("/", "");
+//                _productSearchResultList.Add(new LisieStores.Extensibility.ProductSearchResult
+//                {
+//                    Barcode = _productBarcode,
+//                    Name = _productName,
+//                    Brand = _productBrand,
+//                    Price = _productPrice,
+//                    PriceWithoutDiscount = _productPriceWithDiscountValue != null ? _productPriceWithDiscountValue + "€" : string.Empty,
+//                    PriceWeight = _productPriceWeight,
+//                    StoreId = this.StoreId,
+//                    StoreName = this.StoreName,
+//                    StoreColor = this.StoreColor,
+//                    Url = _productUrl,
+//                    ViewableUrl = "https://www.loja-online.intermarche.pt" + _productUrl,
+//                    Weight = _productWeight,
+//                    ImageUrl = _productImageUrl,
+//                    PriceLiteral = 0,
+//                    PriceWeightLiteral = 0,
+//                    Category = "",
+//                    FullCategory = "",
+//                    Unit = _productUnitRatio,
+//                    OnlineProductId = _productOnlineId
+//                });
+//            }
+//            return _productSearchResultList;
+//        }
+
+//        //https://www.loja-online.intermarche.pt/product/iogurte-natural/5604260287284
+//        async Task<LisieStores.Extensibility.ProductSearchResult> GetMetadata(string url)
+//        {
+//            try
+//            {
+//                var _product = new LisieStores.Extensibility.ProductSearchResult();
+//                _product.StoreColor = this.StoreColor;
+//                _product.StoreId = this.StoreId;
+//                _product.StoreName = this.StoreName;
+
+//                var cli = new WebClient();
+//                cli.Encoding = System.Text.Encoding.UTF8;
+//                cli.Headers[HttpRequestHeader.Cookie] = "itm_device_id=6493f98c-7250-4224-92f6-83ea81c6c4f7;itm_pdv=%7B%22ref%22%3A%2205047%22%2C%22isEcommerce%22%3Atrue%7D;itm_usid=6493f98c-7250-4224-92f6-83ea81c6c4f7\"";
+
+//                string _html = cli.DownloadString("https://www.loja-online.intermarche.pt" + url);
+
+//                CQ _Dom = _html;
+//                CQ _produtos = _Dom[".productDetail__detail"];
+//                string _htmlSrc = _produtos.Html();
+
+//                //image
+//                var _imageFindIndex = _html.IndexOf("\"image\":{");
+//                var _imageFindIndexLast = _html.IndexOf("\"src\":\"", _imageFindIndex) + ("\"src\":\"").Length;
+//                var _imageFindLast = _html.IndexOf("\"", _imageFindIndexLast);
+//                var _image = _html.Substring(_imageFindIndexLast, _imageFindLast - _imageFindIndexLast);
+
+//                //barcode
+//                var _barcodeFindIndex = _html.IndexOf("\"ean\":\"") + ("\"ean\":\"").Length;
+//                var _barcodeFindLastIndex = _html.IndexOf("\",", _barcodeFindIndex);
+//                var _barcode = _html.Substring(_barcodeFindIndex, _barcodeFindLastIndex - _barcodeFindIndex);
+
+//                //prices
+//                var _productAllHtml = _produtos[".productDetail__prices"].First().Html();
+//                var _productAllText = _produtos[".productDetail__prices"].First().Text();
+//                var _productPricesTextSpliteed = _productAllText.Split('€');
+//                var _price = string.Empty;
+//                var _priceWeight = string.Empty;
+//                var _unit = string.Empty;
+//                if (_productPricesTextSpliteed.Length < 4)
+//                {
+//                    _price = _productPricesTextSpliteed[0].Replace(" ", "").Trim();
+//                    _priceWeight = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
+//                    _unit = _productPricesTextSpliteed[2].Replace("/", "").Trim();
+//                }
+//                else
+//                {
+//                    _price = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
+//                    _priceWeight = _productPricesTextSpliteed[2].Replace(" ", "").Trim();
+//                    _unit = _productPricesTextSpliteed[3].Replace("/", "").Trim();
+//                }
+
+//                //OnlineProductId
+//                var _onlineProductIdFindIndex = _html.IndexOf("nfProductId\\\":") + ("nfProductId\\\":").Length;
+//                var _onlineProductIdFindLastIndex = _html.IndexOf("}", _onlineProductIdFindIndex);
+//                var _onlineProductId = _html.Substring(_onlineProductIdFindIndex, _onlineProductIdFindLastIndex - _onlineProductIdFindIndex);
+
+//                var _name = _produtos[".productDetail__main_title"].First().Text().Replace("\n", "").Trim();
+//                var _brand = _produtos[".productDetail__brand"].First().Text().Replace("\n", "").Trim();
+//                var _weight = _produtos[".productDetail__packaging"].First().Text().Replace("\n", "").Trim();
+
+
+//                //category
+//                var _categoryHtml = _Dom[".productDetail__pdpBreadcrumb__item"].First();
+//                var _category = _categoryHtml.Text();
+
+
+//                //Fix categories
+
+//                _product = new LisieStores.Extensibility.ProductSearchResult
+//                {
+//                    Barcode = _barcode,
+//                    Name = _name,
+//                    Brand = _brand,
+//                    Price = _price,
+//                    PriceWeight = _priceWeight,
+//                    StoreId = this.StoreId,
+//                    StoreName = this.StoreName,
+//                    StoreColor = this.StoreColor,
+//                    Url = url,
+//                    ViewableUrl = "https://www.loja-online.intermarche.pt" + url,
+//                    Weight = _weight,
+//                    ImageUrl = _image,
+//                    PriceLiteral = 0,
+//                    PriceWeightLiteral = 0,
+//                    Category = "",
+//                    FullCategory = "",
+//                    Unit = _unit,
+//                    OnlineProductId = _onlineProductId
+//                };
+
+//                return _product;
+//            }
+//            catch (Exception)
+//            {
+//                return null;
+//            }
+//        }
+//    }
+//}

@@ -1,0 +1,646 @@
+﻿@model SpiroWeb.Models.ProductPriceUpdatesModel
+
+@{
+    ViewBag.Title = "Details";
+
+    var imgSrc = string.Empty;
+    if (Model.Product.Picture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Product.Picture);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    //var _jumboPrice = Model.Product.StoreProducts.Where(c => c.StoreId == 1).FirstOrDefault();
+    //var _continentePrice = Model.Product.StoreProducts.Where(c => c.StoreId == 2).FirstOrDefault();
+    //var _pingoDoce = Model.Product.StoreProducts.Where(c => c.StoreId == 3).FirstOrDefault();
+
+    //string _jumboPriceLiteral = (_jumboPrice != null) ? _jumboPrice.Price.ToString() + "€" : string.Empty;
+    //string _continentePriceLiteral = (_continentePrice != null) ? _continentePrice.Price.ToString() + "€" : string.Empty;
+    //string _pingoDocePriceLiteral = (_pingoDoce != null) ? _pingoDoce.Price.ToString() + "€" : string.Empty;
+
+    //string _jumboPriceUrl = (_jumboPrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(Model.Product.Id) : string.Empty;
+    //string _continentePriceUrl = (_continentePrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(Model.Product.Id) : string.Empty;
+    //string _pingoDocePriceUrl = (_pingoDoce != null) ? SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(Model.Product.Id) : string.Empty;
+
+}
+
+<h2>Relatórios de Preços</h2>
+
+<br>
+<br>
+
+<p>Início: <input type="text" id="datepicker_start"></p>
+<p>Fim: <input type="text" id="datepicker_end"></p>
+<p><button onclick="getWithDates()">Procurar</button></p>
+
+
+<br>
+<br>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.Picture)*@
+        </dt>
+
+        <dd>
+            <img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@Model.Product.Id" />
+            @*<img src="@imgSrc" />*@
+        </dd>
+
+        <dt>
+            Código de barras
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Barcode)
+        </dd>
+
+        <dt>
+            Nome
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Name)
+        </dd>
+        <dt>
+            Marca
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Brand)
+        </dd>
+        <dt>
+            Peso
+            @*@Html.DisplayNameFor(model => Model.Product.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Weight)
+        </dd>
+
+        <dt>
+            Peso / Preço
+            @*@Html.DisplayNameFor(model => Model.Product.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.VariableWeightPrice)
+        </dd>
+
+
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.CategoryString)*@
+            Categoria
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.CategoryString)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.InsertDate)*@
+            Criado por
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.CreatedByUserId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.InsertDate)*@
+            Criado em
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.InsertDate)
+        </dd>
+
+    </dl>
+</div>
+<div style="width:100%;text-align:center">
+    <a  onclick="enlargeDiminish()">Aumentar/Diminuir tamanho dos gráficos</a>
+</div>
+
+<p>
+    @{
+        using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+        {
+            foreach (var storeProduct in Model.Product.StoreProducts.OrderBy(C => C.Id))
+            {
+                var _store = db.Stores.Where(c => c.Id == storeProduct.StoreId).FirstOrDefault();
+                <div class="row charts">
+                    <h2>@_store.Name</h2>
+                    <div class="chart" style=" width: 100%; max-height: 500px; height:200vh; " id="chartdiv_@Html.Raw(_store.Id)"></div>
+                </div>
+
+
+
+            <p>
+                @{
+                    <br />
+                    <a onclick="showHideDataTable('dataTable_@Html.Raw(storeProduct.StoreId)')">Mostrar/Esconder data de gráfico</a>
+
+                    <div id="dataTable_@Html.Raw(storeProduct.StoreId)" style="display:none">
+                        <table class="table table-responsive">
+                            <tr>
+                                @*<th style="text-align: center;">
+                                        Criado por [UserId]
+                                    </th>*@
+                                <th style="text-align: center;">
+                                    Mercado
+                                </th>
+                                <th style="text-align: center;">
+                                    Novo Preço
+                                </th>
+                                <th style="text-align: center;">
+                                    Criado em
+                                </th>
+                                @* <th></th>*@
+                            </tr>
+
+                            @foreach (var _priceUpdate in Model.PriceUpdates.Where(c => c.StoreId.Equals(_store.Id)).OrderByDescending(c => c.CreateDate))
+                            {
+                                <tr>
+                                    @*<td style="text-align: center; vertical-align: middle;">
+                                            @_priceUpdate.CreatedByUserId
+                                        </td>*@
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        @_store.Name
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        @_priceUpdate.NewPrice
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        @_priceUpdate.CreateDate.ToString("dd-MM-yyyy hh:mm")
+                                    </td>
+                                </tr>
+
+                            }
+                        </table>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+
+                }
+            </p>
+        }
+        <div class="row charts">
+            <h2>All</h2>
+            <div class="chart" style=" width: 100%; max-height: 500px; height:200vh; " id="chart_all"></div>
+        </div>
+
+
+
+    }
+
+    }
+    </p>
+
+
+    @helper GetJumboUrl(string oldUrl, int productId)
+    {
+        string url = SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(productId);
+        //string url = "";thankss
+        if (url != string.Empty)
+        {
+            @: @url
+        }
+        else
+        {
+            @: @oldUrl
+        }
+    }
+
+    @helper GetContinenteUrl(string oldUrl, int productId)
+    {
+        string url = SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(productId);
+        //string url = "";
+        if (url != string.Empty)
+        {
+            @: @url
+        }
+        else
+        {
+            @: @oldUrl
+        }
+    }
+
+    @helper GetPingoDoceUrl(string oldUrl, int productId)
+    {
+        string url = SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(productId);
+        //string url = "";
+        if (url != string.Empty)
+        {
+            @: @url
+        }
+        else
+        {
+            @: @oldUrl
+        }
+    }
+
+
+    <script src="~/Scripts/core.js"></script>
+    <script src="~/Scripts/charts.js"></script>
+    @*<script src="//www.amcharts.com/lib/4/lang/pt_PT.js"></script>*@
+    <script src="~/Scripts/themes/animated.js"></script>
+    <script src="~/Scripts/themes/dark.js"></script>
+    <script>
+        function showHideDataTable(id) {
+            var _element = document.getElementById(id);
+            if (_element.style.display === "none") {
+                _element.style.display = "block";
+
+            } else {
+                _element.style.display = "none";
+
+            }
+        }
+        var _enlarged = false;
+        function enlargeDiminish() {
+            if (!_enlarged) {
+                document.getElementsByClassName('body-content')[0].style.maxWidth = '90%'
+                _enlarged = true;
+            } else {
+                document.getElementsByClassName('body-content')[0].removeAttribute('style');
+                _enlarged = false;
+            }
+        }
+    </script>
+    <script>
+        var _startDate;
+        var _endDate;
+        $(function () {
+            $("#datepicker_start").datepicker({
+                dateFormat: "m/d/yy",
+                onSelect: function () {
+                    _startDate = this.value;
+                    //window.open(document.URL + '?date=' + this.value);
+                }
+            });
+            $("#datepicker_end").datepicker({
+                dateFormat: "m/d/yy",
+                onSelect: function () {
+                    _endDate = this.value;
+
+                    //window.open(document.URL + '?date=' + this.value);
+                }
+            });
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const _dateStart = urlParams.get('dateStart')
+            const _dateEnd = urlParams.get('dateEnd');
+            if (_dateStart && _dateEnd) {
+                $("#datepicker_start").datepicker('setDate', new Date(_dateStart));
+                $("#datepicker_end").datepicker('setDate', new Date(_dateEnd));
+                _startDate = _dateStart;
+                _endDate = _dateEnd;
+            }
+        });
+
+        function getWithDates() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            //const _id = urlParams.get('id')
+            //console.log(_userId);
+            //console.log(_endDate);
+            window.open('?dateStart=' + encodeURIComponent(_startDate) + '&dateEnd=' + encodeURIComponent(_endDate), "_self");
+        }
+    </script>
+    <script>
+        function showHideDataTable(id) {
+            var _element = document.getElementById(id);
+            if (_element.style.display === "none") {
+                _element.style.display = "block";
+
+            } else {
+                _element.style.display = "none";
+
+            }
+        }
+    </script>
+
+    @{
+        using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+        {
+            foreach (var storeProduct in Model.Product.StoreProducts.OrderBy(C => C.Id))
+            {
+                var _store = db.Stores.Where(c => c.Id == storeProduct.StoreId).FirstOrDefault();
+
+                <script>
+
+    @switch (_store.Id)
+    {
+        case 1:
+            @Html.Raw("am4core.useTheme(am4themes_myYellowTheme);");
+            break;
+        case 2:
+            @Html.Raw("am4core.useTheme(am4themes_myRedTheme);");
+            break;
+        case 3:
+            @Html.Raw("am4core.useTheme(am4themes_myGreenTheme);");
+            break;
+        case 4:
+            @Html.Raw("am4core.useTheme(am4themes_myBlackTheme);");
+            break;
+        case 5:
+            @Html.Raw("am4core.useTheme(am4themes_myBlueTheme);");
+            break;
+        default:
+            break;
+    }
+
+        var unit = "@(Request.QueryString["interval"] == null || Request.QueryString["interval"].Equals("lastweek") ? "minute" : "hour")";
+        var chart = am4core.create("chartdiv_@Html.Raw(_store.Id)", am4charts.XYChart);
+        chart.paddingRight = 20;
+        //chart.language.locale = am4lang_pt_PT;
+
+        var data_@Html.Raw(_store.Id) = [];
+
+        @foreach (var _priceUpdate in Model.PriceUpdates.Where(c => c.StoreId.Equals(_store.Id)))
+        {
+            //@Html.Raw(String.Concat("        data_" + Html.Raw(_store.Id) + ".push({ date: new Date('", _priceUpdate.CreateDate, "'), value: ", _priceUpdate.NewPrice.ToString().Replace(',','.'), " });\n"));
+            @Html.Raw(String.Concat("        data_" + Html.Raw(_store.Id) + ".push({ date: new Date('", _priceUpdate.CreateDate.ToString("M/d/yyyy HH:mm:ss"), "'), value: '", _priceUpdate.NewPrice.ToString().Replace(',', '.'), "' });\n"));
+        }
+
+        chart.data = data_@Html.Raw(_store.Id);
+        chart.dateFormatter.inputDateFormat = "dd/MM/yyyy HH:mm:ss";
+        chart.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+
+        var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+        dateAxis.renderer.grid.template.location = 0;
+        dateAxis.baseInterval = { count: 1, timeUnit: unit };
+        dateAxis.tooltipDateFormat = "dd/MM/yyyy HH:mm:ss";
+
+dateAxis.dateFormatter = new am4core.DateFormatter();
+dateAxis.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.tooltip.disabled = false;
+        valueAxis.renderer.minWidth = 35;
+
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.dateX = "date";
+        series.dataFields.valueY = "value";
+        series.tooltipText = "[bold]{valueY}[/]";
+        series.tooltip.pointerOrientation = "vertical";
+        series.tooltip.background.fillOpacity = 0.6;
+
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.snapToSeries = series;
+        chart.cursor.xAxis = dateAxis;
+
+        //var scrollbarX = new am4charts.XYChartScrollbar();
+        //scrollbarX.series.push(series);
+        //chart.scrollbarX = scrollbarX;
+        //am4core.unuseTheme(am4themes_myGreenTheme);
+        //am4core.useTheme(am4themes_myRedTheme);
+
+        function am4themes_myRedTheme(target) {
+            if (target instanceof am4core.ColorSet) {
+                target.list = [
+                    am4core.color("#ff002a")
+                ];
+            }
+        }
+
+        function am4themes_myYellowTheme(target) {
+            if (target instanceof am4core.ColorSet) {
+                target.list = [
+                    am4core.color("#E7DA4F")
+                ];
+            }
+        }
+
+        function am4themes_myGreenTheme(target) {
+            if (target instanceof am4core.ColorSet) {
+                target.list = [
+                    am4core.color("#4fe778")
+                ];
+            }
+        }
+
+
+ function am4themes_myBlueTheme(target) {
+            if (target instanceof am4core.ColorSet) {
+                target.list = [
+                    am4core.color("#189AB4")
+                ];
+            }
+        }
+
+
+ function am4themes_myBlackTheme(target) {
+            if (target instanceof am4core.ColorSet) {
+                target.list = [
+                    am4core.color("#000000")
+                ];
+            }
+        }
+
+        function on_off(value) {
+            return value == 1 ? 'On' : 'Off'
+        }
+                </script>
+            }
+        }
+    }
+
+    @{
+        using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+        {
+            <script>
+        var unit = "@(Request.QueryString["interval"] == null || Request.QueryString["interval"].Equals("lastweek") ? "minute" : "hour")";
+        var chart = am4core.create("chart_all", am4charts.XYChart);
+        chart.paddingRight = 20;
+
+        var data = [];
+
+        @{
+            List<DateTime> _datesDistinct = Model.PriceUpdates
+  .Select(d => new DateTime(d.CreateDate.Year, d.CreateDate.Month, d.CreateDate.Day))
+  .Distinct()
+  .ToList();
+
+            foreach (var _date in _datesDistinct)
+            {
+                var _dateResults = Model.PriceUpdates.Where(c => c.CreateDate.Year == _date.Year && c.CreateDate.Month == _date.Month && c.CreateDate.Day == _date.Day).ToList();
+                string _jsonString = "data.push({date: new Date('" + _date.ToString("M/d/yyyy hh:mm:ss") + "'),";
+                foreach (var storeProduct in Model.Product.StoreProducts.OrderBy(C => C.Id))
+                {
+                    var _exists = _dateResults.Where(c => c.StoreId == storeProduct.StoreId).LastOrDefault();
+                    if (_exists != null)
+                    {
+
+                        _jsonString += "value" + storeProduct.StoreId + ":'" + _exists.NewPrice.ToString().Replace(',', '.') + "',";
+                    }
+                }
+                _jsonString = _jsonString.Remove(_jsonString.Length - 1);
+                _jsonString += "});\n";
+                @Html.Raw(_jsonString);
+            }
+                        }
+                        @*@foreach (var _priceUpdate in Model.PriceUpdates.Where(c=>c.StoreId.Equals(_store.Id)))
+        {
+                            //@Html.Raw(String.Concat("        data_" + Html.Raw(_store.Id) + ".push({ date: new Date('", _priceUpdate.CreateDate, "'), value: ", _priceUpdate.NewPrice.ToString().Replace(',','.'), " });\n"));
+                            @Html.Raw(String.Concat("        data_" + Html.Raw(_store.Id) + ".push({ date: new Date('", _priceUpdate.CreateDate.ToString("M/d/yyyy HH:mm:ss"), "'), value: '", _priceUpdate.NewPrice.ToString().Replace(',', '.'), "' });\n"));
+                        }*@
+
+                        chart.data = data;
+                        chart.dateFormatter.inputDateFormat = "dd/MM/yyyy HH:mm:ss";
+            chart.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+            chart.colors.list = [];
+            @foreach (var storeProduct in Model.Product.StoreProducts.OrderBy(C => C.Id))
+            {
+                switch (storeProduct.StoreId)
+                {
+                    case 1:
+            @Html.Raw("chart.colors.list.push(am4core.color(\"#E7DA4F\"));");
+            break;
+        case 2:
+                        @Html.Raw("chart.colors.list.push(am4core.color(\"#ff002a\"));");
+break;
+        case 3:
+                        @Html.Raw("chart.colors.list.push(am4core.color(\"#4fe778\"));");
+break;
+        case 4:
+                        @Html.Raw("chart.colors.list.push(am4core.color(\"#000000\"));");
+break;
+        case 5:
+                        @Html.Raw("chart.colors.list.push(am4core.color(\"#189AB4\"));");
+break;
+        default:
+            break;
+                }
+            }
+
+                        chart.colors.list = [
+                            am4core.color("#E7DA4F"),
+                            am4core.color("#ff002a"),
+                            am4core.color("#4fe778"),
+                            am4core.color("#000000"),
+                            am4core.color("#189AB4"),
+                            am4core.color("#F9F871"),
+
+                        ];
+                        var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+                        dateAxis.renderer.grid.template.location = 0;
+                        dateAxis.baseInterval = { count: 1, timeUnit: unit };
+                        dateAxis.tooltipDateFormat = "dd/MM/yyyy HH:mm:ss";
+
+                        dateAxis.dateFormatter = new am4core.DateFormatter();
+                        dateAxis.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+
+                        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                        valueAxis.tooltip.disabled = false;
+                        valueAxis.renderer.minWidth = 35;
+
+                        var series = chart.series.push(new am4charts.LineSeries());
+                        series.dataFields.dateX = "date";
+                        series.dataFields.valueY = "value1";
+                        series.tooltipText = "[bold]{valueY}[/]";
+                        series.tooltip.pointerOrientation = "vertical";
+                        series.tooltip.background.fillOpacity = 0.6;
+
+                        var series2 = chart.series.push(new am4charts.LineSeries());
+                        series2.dataFields.dateX = "date";
+                        series2.dataFields.valueY = "value2";
+                        series2.tooltipText = "[bold]{valueY}[/]";
+                        series2.tooltip.pointerOrientation = "vertical";
+                        series2.tooltip.background.fillOpacity = 0.6;
+
+                        var series3 = chart.series.push(new am4charts.LineSeries());
+                        series3.dataFields.dateX = "date";
+                        series3.dataFields.valueY = "value3";
+                        series3.tooltipText = "[bold]{valueY}[/]";
+                        series3.tooltip.pointerOrientation = "vertical";
+                        series3.tooltip.background.fillOpacity = 0.6;
+
+
+                        var series4 = chart.series.push(new am4charts.LineSeries());
+                        series4.dataFields.dateX = "date";
+                        series4.dataFields.valueY = "value4";
+                        series4.tooltipText = "[bold]{valueY}[/]";
+                        series4.tooltip.pointerOrientation = "vertical";
+                        series4.tooltip.background.fillOpacity = 0.6;
+
+                        var series5 = chart.series.push(new am4charts.LineSeries());
+                        series5.dataFields.dateX = "date";
+                        series5.dataFields.valueY = "value5";
+                        series5.tooltipText = "[bold]{valueY}[/]";
+                        series5.tooltip.pointerOrientation = "vertical";
+                        series5.tooltip.background.fillOpacity = 0.6;
+
+                        chart.cursor = new am4charts.XYCursor();
+                        chart.cursor.snapToSeries = series;
+                        chart.cursor.xAxis = dateAxis;
+
+                        //var scrollbarX = new am4charts.XYChartScrollbar();
+                        //scrollbarX.series.push(series);
+                        //chart.scrollbarX = scrollbarX;
+                        //am4core.unuseTheme(am4themes_myGreenTheme);
+                        //am4core.useTheme(am4themes_myRedTheme);
+
+                        function am4themes_myRedTheme(target) {
+                            if (target instanceof am4core.ColorSet) {
+                            target.list = [
+                                am4core.color("#ff002a")
+                            ];
+                        }
+                    }
+
+                    function am4themes_myYellowTheme(target) {
+                        if (target instanceof am4core.ColorSet) {
+                        target.list = [
+                            am4core.color("#E7DA4F")
+                        ];
+                    }
+                }
+
+                function am4themes_myGreenTheme(target) {
+                    if (target instanceof am4core.ColorSet) {
+                        target.list = [
+                            am4core.color("#4fe778")
+                        ];
+                    }
+                }
+
+
+                function am4themes_myBlueTheme(target) {
+                    if (target instanceof am4core.ColorSet) {
+                        target.list = [
+                            am4core.color("#189AB4")
+                        ];
+                    }
+                }
+
+
+                function am4themes_myBlackTheme(target) {
+                    if (target instanceof am4core.ColorSet) {
+                        target.list = [
+                            am4core.color("#000000")
+                        ];
+                    }
+                }
+
+                function on_off(value) {
+                    return value == 1 ? 'On' : 'Off'
+                }
+            </script>
+        }
+    }
+
+
+    @section scripts {
+        <script src="~/Scripts/datepicker-pt.js"></script>
+    }
+

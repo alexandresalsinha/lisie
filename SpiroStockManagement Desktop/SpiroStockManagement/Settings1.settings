@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpiroStockManagement" GeneratedClassName="Settings1">
+  <Profiles />
+  <Settings>
+    <Setting Name="OperationChoosen" Type="System.String" Scope="User">
+      <Value Profile="(Default)">teste</Value>
+    </Setting>
+    <Setting Name="OperationChoosenAutomatic" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ChekboxAddToStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)">true</Value>
+    </Setting>
+    <Setting Name="ChekboxRemoveFromStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="CheckboxAddToShoopingCart" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="CheckboxRemoveFromShoopingCart" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="BuyRecipeIngredientsAutoCompleteProductQuantity" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

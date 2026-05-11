@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ClassLibrary1.UserProductsList>
+
+@{
+    ViewBag.Title = "Lista de compras partilhada";
+}
+
+@*<p style="margin-top: 50px">
+    @{
+        if (ViewBag.ProductsInQueueCount != 0)
+        {
+            <a href="#" onclick="GetProductsQueueIndex()">Products In Queue ( @ViewBag.ProductsInQueueCount )</a>
+        }
+        else
+        {
+            <a href="#" id="productsInQueueCount" onclick="GetProductsQueueIndex()" style="pointer-events: none;">Products Queue ( @ViewBag.ProductsInQueueCount )</a>
+        }
+    }
+    <input id="dummyBarcode" type="text" />
+    <input id="addDummyProductToQueue" type="button" onclick="AddDummyProductToQueue()" value="Add Dummy Product to Queue" class="button-primary" />
+</p>*@
+
+@{
+
+    SpiroWeb.Models.ProductsAutoCompleteModel _ProductsAutoCompleteModel = new SpiroWeb.Models.ProductsAutoCompleteModel { Id = 1, Name = "teste" };
+}
+
+
+
+
+<br />
+<br />
+
+@*@Html.Partial("_shoppingCartList", Model)*@
+<div id="mainContainer" style="width:100%;">
+    @Html.Partial("_shoppingCartList_GridResponsive_SharedList", Model)
+</div>
+
+<div id="dialog-confirm" style="display:none">Are you Shure you want to remove this product from your Shopping Cart?</div>
+
+<div id="Logger" style="width:100%; display:none">
+    <span id="spanLogger"></span>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/Custom/Helpers.js"></script>
+    <script src="~/Scripts/Custom/ShoppingCart.js"></script>
+    <script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+    @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script src="~/SignalR.Sample/SignalR.ShoppingCart.js"></script>*@
+}
+@*</body>*@

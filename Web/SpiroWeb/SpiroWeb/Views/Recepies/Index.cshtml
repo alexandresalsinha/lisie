@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ClassLibrary1.Recepies>
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuisine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimePreparing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeCooking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeReady)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commentary)
+            </th>
+            
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        var imgSrc = string.Empty;
+        if (item.Picture != null)
+        {
+            var base64 = Convert.ToBase64String(item.Picture);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Recepies", new { id = item.Id })"><img style="width:140px" src="@imgSrc" /></a>
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Recepies", new { id = item.Id })"> @Html.DisplayFor(modelItem => item.Name)</a>
+</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cuisine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimePreparing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeCooking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeReady)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commentary)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

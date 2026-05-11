@@ -1,0 +1,6212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Recepies>
+  <Recipe>
+    <Id>1</Id>
+    <Name>Bolo Mármore</Name>
+    <Description>Bolo meio branco e meio de chocolate</Description>
+    <Photo>1.jpg</Photo>
+    <Cuisine />
+    <Category>Bolos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>4</Rating>
+    <TimePreparing>0.1</TimePreparing>
+    <TimeCooking>0.05</TimeCooking>
+    <TimeReady>0.05</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chocolate Amargo</Name>
+        <Amount>110</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha pata bolos</Name>
+        <Amount>580</Amount>
+        <Units>g</Units>
+        <Information>4 1/2 cups</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>5</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>1</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount>225</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar branco</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information>2 1/2 cups </Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>4</Amount>
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Iogurte Natural</Name>
+        <Amount>360</Amount>
+        <Units>ml</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>160</Amount>
+        <Units>ml</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Bicabornato de Sódio</Name>
+        <Amount>1</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fermento em Pó</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Se a farinha que se usar não tiver já fermento</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Café</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information>1 tablespoon brewed coffee or espresso</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Derreter o chocolate em banho maria com o café</Value>
+      </Step>
+      <Step>
+        <Value>Em uma tigela peneire juntos a farinha, o fermento, o bicarbonato de sódio, sal e canela em pó.</Value>
+      </Step>
+      <Step>
+        <Value>Bater a mateiga até estar cremosa</Value>
+      </Step>
+      <Step>
+        <Value>Pré-aqueça o forno a 175 graus C</Value>
+      </Step>
+      <Step>
+        <Value>Juntar o açucar aos poucos e o iogurte natural e os ovos 1 a 1</Value>
+      </Step>
+      <Step>
+        <Value>Juntar aos poucos a farinha e o leite</Value>
+      </Step>
+      <Step>
+        <Value>Por numa forma com margarina e farinha nas suas paredes</Value>
+      </Step>
+      <Step>
+        <Value>Levar ao forno durante 45-60 min</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>2</Id>
+    <Name>Tarte de Morango</Name>
+    <Description>Deliciosa tarte de morango com molho com framboesa e limão</Description>
+    <Photo>2.jpg</Photo>
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>5</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>130</Amount>
+        <Units>g</Units>
+        <Information>Crosta</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>35</Amount>
+        <Units>g</Units>
+        <Information>Crosta</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount>114</Amount>
+        <Units>g</Units>
+        <Information>Crosta</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1/8</Amount>
+        <Units>colher chá</Units>
+        <Information>Crosta</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Framboesa</Name>
+        <Amount>340</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>60</Amount>
+        <Units>ml</Units>
+        <Information>Recheio. Agua fria</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gelatina Neutra</Name>
+        <Amount>7</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar Branco</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Geleia de Framboesa</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>900</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Limão</Name>
+        <Amount>1 + 1/2</Amount>
+        <Units>colher de chá</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mandioca</Name>
+        <Amount>3</Amount>
+        <Units>colheres de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Passar as framboesas e coar o sumo</Value>
+      </Step>
+      <Step>
+        <Value>Por a gelatina na água. Deixar 5 minutos a repousar e levar ao microondas por ujns segundos</Value>
+      </Step>
+      <Step>
+        <Value>Juntar o puré de framboesa com o açucar e a geleia numa panela. Mexa durante 10 minutos e junte a gelatina disolvida</Value>
+      </Step>
+      <Step>
+        <Value>Retirar do lume e juntar o sumo de limão</Value>
+      </Step>
+      <Step>
+        <Value>Por numa tigela e levar ao frigorifico ou ao congelador e deixar geleficar durante 45 a 60 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Cortar os morangos em quartos</Value>
+      </Step>
+      <Step>
+        <Value>Passar e mergulhar os morango no molho e por na massa.</Value>
+      </Step>
+      <Step>
+        <Value>Ir ao frigorífico 3 horas até ficar firme</Value>
+      </Step>
+      <Step>
+        <Value>Para a Massa:</Value>
+      </Step>
+      <Step>
+        <Value>Juntar a farinha o sal e o açucar</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar e misturar a manteiga</Value>
+      </Step>
+      <Step>
+        <Value>Por na tarteira e fazer furos com o garfo</Value>
+      </Step>
+      <Step>
+        <Value>Antes de ir ao forno, levar ao frigorífico por 15 minutos de maneira á massa não encolher quando for ao forno</Value>
+      </Step>
+      <Step>
+        <Value>Forno a 220º durante 13-15 minutos. Até a massa ficar dourada</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>3</Id>
+    <Name>Cogumelos Salteados</Name>
+    <Description>Cogumelos salteados com vinagre balsâmico e ervas aromáticas</Description>
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>4</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Cogumelos</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Bacon</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre Balsâmico</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Limpar, lavar e laminar os cogumelos</Value>
+      </Step>
+      <Step>
+        <Value>Por os alhos a alourar no azeite.</Value>
+      </Step>
+      <Step>
+        <Value>Juntar o bacon e depois os cogumelos</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o vinagre e por fim as ervas aromaticas picadas</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>3.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>4</Id>
+    <Name>Panquecas Doces</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information>2 copos de chá</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>280</Amount>
+        <Units>g</Units>
+        <Information>1/5 copos de chá</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>3</Amount>
+        <Units>unidades</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar Branco</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Misturar tudo</Value>
+      </Step>
+      <Step>
+        <Value>E fritar</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>5</Id>
+    <Name>Scones</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield>16 unidades de 25g</Yield>
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount>30</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>100</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>1</Amount>
+        <Units>unidade</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fermento para bolos</Name>
+        <Amount>2</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1</Amount>
+        <Units>pitada</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Pré-aquecer o forno a 200º</Value>
+      </Step>
+      <Step>
+        <Value>Misturar todos os ingredientes</Value>
+      </Step>
+      <Step>
+        <Value>Fazer bolinhas e levar ao forno</Value>
+      </Step>
+      <Step>
+        <Value>Bimby: 15 segundos vel 6</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>6</Id>
+    <Name>Eggy in a Basket</Name>
+    <Description />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Pão de Forma Branco</Name>
+        <Amount>1</Amount>
+        <Units>Unidade</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>1</Amount>
+        <Units>Unidade</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>6.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>7</Id>
+    <Name>Queijadas de Nata</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>1</Amount>
+        <Units>l</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information>antes era 500</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>8</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Pre aquecer o forno a 200 graus</Value>
+      </Step>
+      <Step>
+        <Value>Levar o leite ao lume com o pau de canela e a margarina e deixar ferver</Value>
+      </Step>
+      <Step>
+        <Value>Misturar a farinha com o açucar e os ovos e mever bem ate ficar homogerneo</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar cuidadosamente o leite quente no preparado de ovos mexendo para nao talhar</Value>
+      </Step>
+      <Step>
+        <Value>Untar forminhas e encher</Value>
+      </Step>
+      <Step>
+        <Value>Levar ao forno cerca de 20 a 25 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Polvilhar com canela</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>8</Id>
+    <Name>Caldo Verde</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sopas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Couve Galega</Name>
+        <Amount>400</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount>2</Amount>
+        <Units>dl</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chouriço</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>1</Amount>
+        <Units>l</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Numa panela com os 2l de água, coloque as batatas, a cebola, os dentes de alho e metade do azeite.Tempere com sal.</Value>
+      </Step>
+      <Step>
+        <Value>Deixe cozer durante 30 minutos para ficar tudo bem cozido.</Value>
+      </Step>
+      <Step>
+        <Value>Depois de tudo cozido passe com a varinha mágica.</Value>
+      </Step>
+      <Step>
+        <Value>Junte a couve cortada. Deixe a couve cozer 15 minutos.</Value>
+      </Step>
+      <Step>
+        <Value> corte o chouriço em rodelas.  junte o restante azeite e o chouriço.</Value>
+      </Step>
+      <Step>
+        <Value>Deixar levantar fervura</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>9</Id>
+    <Name>Borrego á minha maneira</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Borrego</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cenoura</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Polpa de Tomate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Massa de Pimentão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Galinha</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Tinto</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>10</Id>
+    <Name>Bolo Fresco de Morango</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bolos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>6</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha com Fermento</Name>
+        <Amount>60</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fécula de Batata</Name>
+        <Amount>120</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fermento em Pó</Name>
+        <Amount>1</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount />
+        <Units />
+        <Information>Untar</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information>Recheio de Natas</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>850</Amount>
+        <Units>g</Units>
+        <Information>Recheio</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information>Recheio de Morango</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Recheio : Bater Natas com 50g de açucar</Value>
+      </Step>
+      <Step>
+        <Value>Recheio : 600g de morangos triturados com 200g de açucar</Value>
+      </Step>
+      <Step>
+        <Value>Recheio : Ir 4 minutos a 90º ( bimby velocidade 2 )</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>11</Id>
+    <Name>Salada de Grão e Bacalhau</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>12</Id>
+    <Name>Compota de Morango (Bimby)</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Colacar no copo os morangos o açucar e o limão e triturar - 10seg/Vel 5</Value>
+      </Step>
+      <Step>
+        <Value>30m/Varoma/Vel 1 . Trocar o copo de medida pelo cesto.</Value>
+      </Step>
+      <Step>
+        <Value>Ver se está tipo estrada o doce. se nao tiver por mais tempo em varoma.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>12.JPG</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>13</Id>
+    <Name>Iogurte de Côcô e Chocolate Branco</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>14</Id>
+    <Name>Waffles</Name>
+    <Description />
+    <Cuisine />
+    <Category>Lanche</Category>
+    <Servings>0</Servings>
+    <Yield>9 unidades</Yield>
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information>ou 2 xícaras de chá</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>275</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Óleo</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1</Amount>
+        <Units>pitada</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fermento em pó</Name>
+        <Amount>4</Amount>
+        <Units>colheres de chá</Units>
+        <Information>se se usar farinha sem fermento</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Bater os ovos até estar fofinho</Value>
+      </Step>
+      <Step>
+        <Value>Juntar o resto dos ingredientes e bater até estar macio</Value>
+      </Step>
+      <Step>
+        <Value>Levar á sandwicheira com as formas de waffle</Value>
+      </Step>
+    </Directions>
+    <Tags>Munchies</Tags>
+    <Photo>14.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>15</Id>
+    <Name>Ovos Cozidos</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Numa panela por agua fria de maneira aos ovos ficarem submersos</Value>
+      </Step>
+      <Step>
+        <Value>Por os ovos com a agua fria o sal e o vinagre e deixar ferver</Value>
+      </Step>
+      <Step>
+        <Value>Manter a agua a ferver durante 11 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Retirar os Ovos</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>16</Id>
+    <Name>Hash Browns</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Ralar a cebola e a batata</Value>
+      </Step>
+      <Step>
+        <Value>Esremer a Água</Value>
+      </Step>
+      <Step>
+        <Value>Frita fazendo uma camada colada</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>17</Id>
+    <Name>Bruscheta</Name>
+    <Description />
+    <Cuisine>Italiana</Cuisine>
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>18</Id>
+    <Name>Brás de Alheira e Espinafres</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Alheira de Mirandela</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Espinafres</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>grande</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>5</Amount>
+        <Units>uni</Units>
+        <Information>palitos ou 1 pacote de batata palha</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>7</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeitonas</Name>
+        <Amount />
+        <Units />
+        <Information>opcional</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>18.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>19</Id>
+    <Name>Sangria de Vinho Rosé com Frutos Silvestres</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Hortelã</Name>
+        <Amount>15</Amount>
+        <Units>folhas</Units>
+        <Information>grandes</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pességo em Lata</Name>
+        <Amount>1</Amount>
+        <Units>lata</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Rosé</Name>
+        <Amount>1.5</Amount>
+        <Units>l</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gasosa</Name>
+        <Amount>1.5</Amount>
+        <Units>l</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Frutos Silvestres Congelados</Name>
+        <Amount>450</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>20</Id>
+    <Name>Caipirinha</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cachaça</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limas</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gelo</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>21</Id>
+    <Name>Arroz de Polvo</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Polvo</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Arroz Agulha</Name>
+        <Amount>300</Amount>
+        <Units>gr</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount>0.5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Verde</Name>
+        <Amount>0.5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount>2</Amount>
+        <Units>dl</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Agua</Name>
+        <Amount>0.5</Amount>
+        <Units>lt</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Camarao</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Panela de pressão o polvo 1 cebola com casca. deixar o apito apitar, e depois 20 minutos no minimo</Value>
+      </Step>
+      <Step>
+        <Value>Aumentar o polvo so no final.</Value>
+      </Step>
+      <Step>
+        <Value>Fazer um refugado com a cebola, o alho, os pimentos, o tomate e o louro</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o Vinho e deixar reduzir um pouco</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o polvo cortado aos bocados</Value>
+      </Step>
+      <Step>
+        <Value>Deixar refugar um pouco</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o arroz e o dobro da quantidade de arroz da agua da cozedura do polvo(caldo de polvo)</Value>
+      </Step>
+      <Step>
+        <Value>Deixar o arroz cozer e ir rectificando de sal e pimenta</Value>
+      </Step>
+      <Step>
+        <Value>No final adicionar coentros ou salsa</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>21.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>22</Id>
+    <Name>Arroz de Pato</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+    <Photo>22.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>24</Id>
+    <Name>Chessecake de Morango</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>5</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Bolacha de Aveia</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information>Massa</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount>60</Amount>
+        <Units>g</Units>
+        <Information>entre 60 e 75, mais provavel 60 ( com bolacha maria e que se poem mais porque e menos gordorosa )</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount>380</Amount>
+        <Units>g</Units>
+        <Information>380</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Queijo Philadelphia</Name>
+        <Amount>380</Amount>
+        <Units>g</Units>
+        <Information>180 de mascarpone e 180 de philadelhpia</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>60</Amount>
+        <Units>g</Units>
+        <Information>60g acho que é melhor</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gelatina Neutra</Name>
+        <Amount>5</Amount>
+        <Units>folhas</Units>
+        <Information>ou 5 colheres de chá de gelatina em pó ( para a proxima experimentar 4.5)</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Doce de Morango</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount />
+        <Units />
+        <Information>Massa</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Recheio : Coloque no copo o queijo, as natas e o açúcar 6 min/90º/vel 2</Value>
+      </Step>
+      <Step>
+        <Value>Recheio : De seguida com a bimby a trabalhar na velocidade 3, coloque a gelatina e passe à velocidade 4 durante 2 min</Value>
+      </Step>
+      <Step>
+        <Value>Recheio : Deite na forma onde está a base em bolacha e deixe repousar cerca de 8 a 10 horas para que fique consistente.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>24.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>25</Id>
+    <Name>Molho de Mirtilo</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Mirtilo</Name>
+        <Amount>2</Amount>
+        <Units>xícara de chá</Units>
+        <Information>Frescos ou Congelados</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>0.25</Amount>
+        <Units>xícara de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Laranja</Name>
+        <Amount>1</Amount>
+        <Units>xícara de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar branco</Name>
+        <Amount>0.75</Amount>
+        <Units>xícara de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>0.25</Amount>
+        <Units>xícara de chá</Units>
+        <Information>Fria</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha Maizena</Name>
+        <Amount>3</Amount>
+        <Units>colheres de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Extracto de Baunilha</Name>
+        <Amount>0.5</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>0.125</Amount>
+        <Units>colher de chá</Units>
+        <Information>1/8 colher de chá</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Numa frigideira por os mirtilos, o açucar o sumo de laranja e 0.25 de água, em médio lume.</Value>
+      </Step>
+      <Step>
+        <Value>Numa tigela á parte misturar a maizena com 0.25 de agua fria</Value>
+      </Step>
+      <Step>
+        <Value>Juntar ao resto e misturar calmamente. Até colar á parte de trás de uma colher.</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o extracto de baunilha e a canela.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>25.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>26</Id>
+    <Name>Brigadeiro</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>27</Id>
+    <Name>Donuts</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>28</Id>
+    <Name>Bolo de iogurte</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>29</Id>
+    <Name>Banana frita com açucar e canela</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>30</Id>
+    <Name>Baba de camelo</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Leite Condensado Cozido</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>8</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pinhões</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pepitas de Chocolate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1</Amount>
+        <Units>pitada</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Limão</Name>
+        <Amount>1</Amount>
+        <Units>gota</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Bater as claras em catelo com uma gota de limão e uma pitada de sal</Value>
+      </Step>
+      <Step>
+        <Value>Bater o leite condensado com as gemas dos ovos</Value>
+      </Step>
+      <Step>
+        <Value>Envolver os dois preparados</Value>
+      </Step>
+      <Step>
+        <Value>Decorar com pinhões e pepitas de Chocolate</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>30.JPG</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>31</Id>
+    <Name>Tarte de Maçã</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>32</Id>
+    <Name>Caril de Lulas</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>33</Id>
+    <Name>Bacalhau à Lagareiro</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+    <Photo>33.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>34</Id>
+    <Name>Bacalhau Assado no Forno</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Bacalhau</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>5</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount>2</Amount>
+        <Units>folhas</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Cortar as Batatas e as Cebolas ás rodelas</Value>
+      </Step>
+      <Step>
+        <Value>Cozer as Batatas e o Bacalhau</Value>
+      </Step>
+      <Step>
+        <Value>Por num Pirex as rodelas de Cebola a fazer uma cama</Value>
+      </Step>
+      <Step>
+        <Value>Por as Postas de Bacalhau por cima e as Batatas á volta</Value>
+      </Step>
+      <Step>
+        <Value>Ir ao Forno a 200 graus por 25 min</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>35</Id>
+    <Name>Batatas assadas à Provençal</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>36</Id>
+    <Name>Bife Wellington</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>37</Id>
+    <Name>Pappardelle com atum e Pesto</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>38</Id>
+    <Name>Penne, Batatas, Rucola e Pesto</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>39</Id>
+    <Name>Polvo à Lagareiro</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>40</Id>
+    <Name>Arroz de Alecrim</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+    <Photo>40.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>41</Id>
+    <Name>Salada de Polvo</Name>
+    <Description />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>42</Id>
+    <Name>Almôndegas Mexicanas</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+    <Photo>42.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>43</Id>
+    <Name>Bacalhau com natas</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>44</Id>
+    <Name>Salada de Frango</Name>
+    <Description />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>45</Id>
+    <Name>Ovos verdes</Name>
+    <Description />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>46</Id>
+    <Name>Batata Sauté</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>48</Id>
+    <Name>Bacalhau á Gomes de Sá</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+    <Photo>48.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>49</Id>
+    <Name>Panados de Frango</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>50</Id>
+    <Name>Pain perdu with caramelised peaches and a raspberry sauce</Name>
+    <Description />
+    <Photo>50.jpg</Photo>
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>51</Id>
+    <Name>Ganache de Chocolate</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>52</Id>
+    <Name>Amêijoas á Bulhão Pato</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Amêijoas</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>52.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>53</Id>
+    <Name>Carne de Porco á Alentejana</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Carne de Porco</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Amêijoas</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Massa de Pimentão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cravinho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cominho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>54</Id>
+    <Name>Caril de Frango</Name>
+    <Description />
+    <Cuisine>Indiana</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Frango</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Galinha</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caril</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericao</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite de Coco</Name>
+        <Amount />
+        <Units />
+        <Information>ou Iogurte Natural</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Polpa de Tomate</Name>
+        <Amount />
+        <Units />
+        <Information>ou Tomate</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags>Indiana</Tags>
+  </Recipe>
+  <Recipe>
+    <Id>55</Id>
+    <Name>Costeletas de Porco com Pimentos Agri-Doce</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>4</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Costeletas de Porco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola Vermelha</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre Balsâmico</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>55.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>56</Id>
+    <Name>Bolo de Camadas com Ananás e Chantilly</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bolos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Camadas de bolo Pré Feitas do tipo Esponja</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ananás Enlatado</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chantilly</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Massapão</Name>
+        <Amount />
+        <Units />
+        <Information>Cobertura</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>59</Id>
+    <Name>Bacalhau á Brás</Name>
+    <Description />
+    <Photo>59.jpg</Photo>
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>4</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Bacalhau</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>6.0</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata Palha</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>60</Id>
+    <Name>Caldeirada de Peixe</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>61</Id>
+    <Name>Arroz de Tamboril</Name>
+    <Description />
+    <Photo>61.jpg</Photo>
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>4</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Tamboril</Name>
+        <Amount>800</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Verde</Name>
+        <Amount>0.5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount>0.5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount>2</Amount>
+        <Units>folhas</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Peixe</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount>2</Amount>
+        <Units>dl</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount>0.5</Amount>
+        <Units>copo</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Amêijoas</Name>
+        <Amount>400</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Camarão</Name>
+        <Amount>12</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Arroz Agulha</Name>
+        <Amount>380</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>1</Amount>
+        <Units>lt</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Refogar a cebola, depois os alhos, depois os pimentos e deixar o tempo necessário</Value>
+      </Step>
+      <Step>
+        <Value>Depois adicionar os tomates e deixar refogar mais 5 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Por o tamboril, e por sal e pimenta</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o caldo de peixe e o vinho</Value>
+      </Step>
+      <Step>
+        <Value>Deixar ferver, e depois por no minimo mais 5 / 10 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Por o arroz, e por 4 vezes mais de água</Value>
+      </Step>
+      <Step>
+        <Value>Rectificar de sal e por os Coentros</Value>
+      </Step>
+      <Step>
+        <Value>Deixar ferver por no minimo e deixar cozinhar 10 minutos</Value>
+      </Step>
+      <Step>
+        <Value>Por os camarões e as ameijôas e deixar cozinhar mais 7 minutos</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>62</Id>
+    <Name>Mozzarella Panada</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>63</Id>
+    <Name>Pica Pau</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>64</Id>
+    <Name>Chilli</Name>
+    <Description />
+    <Photo>64.jpg</Photo>
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Carne de Vaca</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Paprika</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cominho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Carne</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>400</Amount>
+        <Units>g</Units>
+        <Information>Picado</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount />
+        <Units />
+        <Information>Seco</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Polpa de Tomate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Feijão Vermelho</Name>
+        <Amount>410</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chilli Pepper</Name>
+        <Amount />
+        <Units />
+        <Information>ou 1 Chilli</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>65</Id>
+    <Name>Panquecas Mandarim</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>66</Id>
+    <Name>Costeletas de Porco com Cerveja e Polpa de Tomate
+</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>67</Id>
+    <Name>Peito de Pato Assado Com molho de Ameixa</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Peitos de Pato</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomilho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Estrela de Anis</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>25</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Shalota</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ameixa Vermelha</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar demerara</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information>Açucar Castanho Natural</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Tinto</Name>
+        <Amount>50</Amount>
+        <Units>ml</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Carne</Name>
+        <Amount>300</Amount>
+        <Units>ml</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>67.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>68</Id>
+    <Name>Pêra Bêbada</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Peras</Name>
+        <Amount>6</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>1</Amount>
+        <Units>Pau</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho tinto</Name>
+        <Amount>1</Amount>
+        <Units>Garrafa</Units>
+        <Information>Seco</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cravo</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por na panela as peras, açucar, canela, cravos e vinho a cobrir as peras</Value>
+      </Step>
+      <Step>
+        <Value>Deixar ferver . E cozinhar até as peras até estarem macias ( testar com palito )</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>69</Id>
+    <Name>Coelho á Caçador</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Coelho</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Tinto</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Massa de Pimentão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Polpa de Tomate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Galinha</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Piri-Piri</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por o Coelho em Vinhas de Alho ( vinho, alho, sal, louro) de um dia para o outro</Value>
+      </Step>
+      <Step>
+        <Value>Fazer o refugado com alho, cebola, tomate e pimentos</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o coelho e as vinhas de alho</Value>
+      </Step>
+      <Step>
+        <Value>Deixar cozinhar até ficar tenrinho</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>70</Id>
+    <Name>Roupa Suja de Bacalhau</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>71</Id>
+    <Name>Caldeirada de Safio</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>72</Id>
+    <Name>Caldeira de Lulas</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Lulas</Name>
+        <Amount>1500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Verde</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount>0.5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Peixe</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Agua</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Piri-Piri</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>750</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>73</Id>
+    <Name>Strogonoff de Frango</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>74</Id>
+    <Name>Pato á Pequim</Name>
+    <Description />
+    <Cuisine>Chinesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>75</Id>
+    <Name>Cebolada de Frango Com Cerveja</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>76</Id>
+    <Name>Gambas à la guillo</Name>
+    <Description />
+    <Cuisine />
+    <Category>Entradas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Gambas</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal </Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Piri-Piri</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>77</Id>
+    <Name>Feijioada á Transmontana</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>78</Id>
+    <Name>Caril de Camarão com Manga</Name>
+    <Description />
+    <Cuisine>Indiana</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Camarão</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite de Coco</Name>
+        <Amount>400</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>3</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount>30</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caril</Name>
+        <Amount>2.5</Amount>
+        <Units>colher de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomate</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manga</Name>
+        <Amount>100</Amount>
+        <Units>g</Units>
+        <Information>para triturar</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manga</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information>cortadas em cubos para decorar</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>79</Id>
+    <Name>Enguias Fritas</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>80</Id>
+    <Name>Puré de Batata</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information>680g</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>1</Amount>
+        <Units>xícara de chá</Units>
+        <Information>4 ou 5 colheres de sopa conforme</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information>2/3 ciolheres de sopa</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Noz Moscada</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas Gordas</Name>
+        <Amount>4</Amount>
+        <Units>colher de sopa</Units>
+        <Information>4 colheres de sopa</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Cozer as batatas até estarem tenras mas firmes (ferver a agua por as batatas e cozer durante mais ou menos 15 minutos)</Value>
+      </Step>
+      <Step>
+        <Value>Derreter a manteiga com o leite.</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar a batat e passar com a varinha magica</Value>
+      </Step>
+      <Step>
+        <Value>Por sal pimenta e noz moscada</Value>
+      </Step>
+      <Step>
+        <Value>Ir adicionando leite até ficar na consistencia desejada</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>80.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>81</Id>
+    <Name>Maçapão</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bolos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Amêndoa Pelada</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Clara de Ovo</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Pulverizar o açucar</Value>
+      </Step>
+      <Step>
+        <Value>Juntar as amêndoas e triturar</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar a clara de ovo e incorporar</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>82</Id>
+    <Name>Chantilli</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount>400</Amount>
+        <Units>ml</Units>
+        <Information>Bem Frescas</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>3</Amount>
+        <Units>colheres de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Misturar e bater bem</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>83</Id>
+    <Name>Perna de Perú Assada no Forno</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Perna de Perú</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>3</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>10</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Massa de Pimentão</Name>
+        <Amount />
+        <Units />
+        <Information>Se não houver usar Pimentão Doce</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Carne</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information>Ou de Galinha</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ervas de Provence</Name>
+        <Amount />
+        <Units />
+        <Information>ou Alecrim ou Rosmaninho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Laranja</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Dar golpes nas pernas de peru e barrar com a Massa de pimentão, adicionar o Sal e a Pimenta e as Ervas de Provence</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>84</Id>
+    <Name>Brownies de Chocolate com Framboesas</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bolos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>3</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Fermento em Pó</Name>
+        <Amount>1</Amount>
+        <Units>colher de café</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chocolate em Pó</Name>
+        <Amount>25</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Framboesa</Name>
+        <Amount>15</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chocolate</Name>
+        <Amount>70</Amount>
+        <Units>g</Units>
+        <Information>Decoração</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Framboesa</Name>
+        <Amount>5</Amount>
+        <Units>uni</Units>
+        <Information>Decoração</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Bater a manteiga com o açucar até deixar de haver granulado</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar os ovos 1 a 1</Value>
+      </Step>
+      <Step>
+        <Value>Peneirar a farinha como chocolate e o fermento e envolver no preparado de manteiga</Value>
+      </Step>
+      <Step>
+        <Value>Untar moldes e preencher cada um com a massa até 2/4 de seguida por 3 framboesas no topo.</Value>
+      </Step>
+      <Step>
+        <Value>Ir ao forno a 190º durante 25 min</Value>
+      </Step>
+      <Step>
+        <Value>Para a decoração por o chocolate em barra em banho maria e mergulhar o topo de cada brwnie no chocolate.</Value>
+      </Step>
+      <Step>
+        <Value>Por uma framboesa no topo de cada brownie</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>85</Id>
+    <Name>Morangoska</Name>
+    <Description />
+    <Photo>85.JPG</Photo>
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Vodka</Name>
+        <Amount>50</Amount>
+        <Units>ml</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information>1 deles para decoração</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar Mascavado</Name>
+        <Amount>3</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gelo</Name>
+        <Amount>8</Amount>
+        <Units>uni</Units>
+        <Information>Bem Picado</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>86</Id>
+    <Name>Macarrão à Carbonara</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Macarrão</Name>
+        <Amount>400</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Bacon</Name>
+        <Amount>260</Amount>
+        <Units>g</Units>
+        <Information>2 caixas</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cogumelos</Name>
+        <Amount>600</Amount>
+        <Units>g</Units>
+        <Information>2 caixas de frescos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount />
+        <Units />
+        <Information>bechamel ?</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas Light</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Oregãos</Name>
+        <Amount />
+        <Units />
+        <Information>Frescos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount>0.25</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mozzarela</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água da cozedura da Massa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Noz Moscada</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>87</Id>
+    <Name>Gelado de Iogurte com Morango</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>70</Amount>
+        <Units>g</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>100</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>180</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Claras de Ovo</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information>bem frias com 35% de gordura</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Iogurte Natural</Name>
+        <Amount>300</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Anis</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Para o molho : colocar os morangos e o açucar no copo e triturar 5seg/Vel 7</Value>
+      </Step>
+      <Step>
+        <Value>Para o molho : 4min/90 º /Vel 2 , retirara e deixar arrefecer</Value>
+      </Step>
+      <Step>
+        <Value>Por o açucar e a agua no copo e 8 min/ Varoma / Vel 1, retirar e deixar arrefecer, ( e por o anis para dar sabor á agua ? )</Value>
+      </Step>
+      <Step>
+        <Value>Colocar a borboleta, colocar as natas e 2 min/Vel 3 e 1/2 </Value>
+      </Step>
+      <Step>
+        <Value>Adicionar o iogurte e 20seg/vel 3 e ir adicionando a calda de agua atraves do bocal</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar as claras e 5 seg/vel 3</Value>
+      </Step>
+      <Step>
+        <Value>Numa forma ir pondo o creme e o molho de morango alternadamente de maneira a fazer um efeito marmoreado</Value>
+      </Step>
+      <Step>
+        <Value>Levar ao congelador durante 5 horas</Value>
+      </Step>
+      <Step>
+        <Value>Antes de servir deixar derreter durante 15 minutos</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>88</Id>
+    <Name>Redução de Vinagre Bâlsamico</Name>
+    <Description />
+    <Cuisine />
+    <Category>Molhos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Vinagre Balsâmico</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por ao lume uma boa quantidade de vinagre bâlsamico</Value>
+      </Step>
+      <Step>
+        <Value>Deixar um tempo a ferver</Value>
+      </Step>
+      <Step>
+        <Value>E depois por o lume de maneira de só ficar a bobulhar</Value>
+      </Step>
+      <Step>
+        <Value>Deixar reduzir até ficar um molho com consistencia</Value>
+      </Step>
+      <Step>
+        <Value>Guardar no frigorifico numa garrafa de molho</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>88.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>89</Id>
+    <Name>Galinha Frita</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Galinha</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>Cortada aos pedaços pequenos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>muito ? talvez 2</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information>Por no frango e deixar o frango absorver o sal</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Paprika</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Piri-Piri</Name>
+        <Amount>3</Amount>
+        <Units>colher chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola em Pó</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>ou cortado muito picado</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho em Pó</Name>
+        <Amount>0.5</Amount>
+        <Units>colher de sopa</Units>
+        <Information>ou cortado muito picado</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information>talvez so 1</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>1</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pão Ralado</Name>
+        <Amount>3</Amount>
+        <Units>copo de chá</Units>
+        <Information>bem fino</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>esmagado</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por o Ovo e o leito numa tigela</Value>
+      </Step>
+      <Step>
+        <Value>Por a farinha, pimenta, paprika, piri-piri, cebola, alho e pão ralado noutra tigela e misturar bem</Value>
+      </Step>
+      <Step>
+        <Value>Molhar os pedaços de galinha, primeiro na farinha e pão ralado, depois no leite e ovos e finalmente na farinha novamente.</Value>
+      </Step>
+      <Step>
+        <Value>Fritaer em óleo de maneira a que os pedaços fiquem submersos até estarem comuma cor dourada. Tirar e po numa tabuleiro com papel de cozinha</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>89.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>90</Id>
+    <Name>Pesto de Manjericão</Name>
+    <Description />
+    <Cuisine />
+    <Category>Molhos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount>0.5</Amount>
+        <Units>copo de chá</Units>
+        <Information>secalhar mais um pouco</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pinhões</Name>
+        <Amount>0.3</Amount>
+        <Units>copo de chá</Units>
+        <Information>ou 1/4</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information>ou 3</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Juntar tudo e triturar bem</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>90.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>91</Id>
+    <Name>Salada de Espinafres com Morangos</Name>
+    <Description />
+    <Cuisine />
+    <Category>Saladas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Espinafres</Name>
+        <Amount>250</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Morangos</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information>Cortados as fatias</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount>0.5</Amount>
+        <Units>copo de chá</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre de Vinho Branco</Name>
+        <Amount>0.25</Amount>
+        <Units>copo de chá</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sementes de Sésamo</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sementes de Papoila</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>0.5</Amount>
+        <Units>copo de chá</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Paprika</Name>
+        <Amount>0.25</Amount>
+        <Units>colher de chá</Units>
+        <Information>Molho</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Molho : Em papa</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Amêndoa Pelada</Name>
+        <Amount>0.25</Amount>
+        <Units>copo de chá</Units>
+        <Information>Molho : Cortado pequeno</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>91.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>92</Id>
+    <Name>Polvo á Lagareiro</Name>
+    <Description />
+    <Cuisine>Portuguesa</Cuisine>
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Polvo</Name>
+        <Amount>800</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>Ciom casca</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alhos</Name>
+        <Amount>5</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount>2</Amount>
+        <Units>folhas</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Coentros</Name>
+        <Amount />
+        <Units />
+        <Information>Ou Salsa</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount />
+        <Units />
+        <Information>Para Assar</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Peixe</Name>
+        <Amount />
+        <Units />
+        <Information>Talvez?? Experimentar</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information>A Cobrir o Polvo</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>93</Id>
+    <Name>Travesseiro de Noiva</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Claras de Ovo</Name>
+        <Amount>10</Amount>
+        <Units>uni</Units>
+        <Information>Base</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>150</Amount>
+        <Units>g</Units>
+        <Information>Proxima tentar 100g (7 colheres de sopa)</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Agua</Name>
+        <Amount>2</Amount>
+        <Units>dl</Units>
+        <Information>Base</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>Doce de Ovos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information>Tentar 150g ou - (10 colheres de sopa)</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gemas de Ovo</Name>
+        <Amount>10</Amount>
+        <Units>uni</Units>
+        <Information>Doce de Ovos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela em Pó</Name>
+        <Amount />
+        <Units />
+        <Information>Decoração</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Bater as claras em Castelo. Quando estiverem duras, ir aumentando o açucar até ficar em castelo</Value>
+      </Step>
+      <Step>
+        <Value>Levar ao forno a 160º durante 20 / 30 m</Value>
+      </Step>
+      <Step>
+        <Value>Doce de Ovos : Levar a agúa o açucar e o pau de canela ao lume.  E deixar até estar em ponto fio ( quando se passa com a colher de pau tem que fazer uma estrada)</Value>
+      </Step>
+      <Step>
+        <Value>Doce de Ovos: Tirar do lume e por as gemas de ovos aos poucos em fio enquando se bate bem.</Value>
+      </Step>
+      <Step>
+        <Value>Doce de Ovos: Por ao lume deixar ferver e tirar.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>94</Id>
+    <Name>Chimichurri</Name>
+    <Description>Bom para carnes grelhadas e no churrasco</Description>
+    <Photo>94.jpg</Photo>
+    <Cuisine />
+    <Category>Molhos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information>Ou Oregãos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Oregãos</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre de Vinho Tinto</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cominho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Piri-Piri</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Lima</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimento Vermelho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chilis</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>95</Id>
+    <Name>Iogurte Natural</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>1000</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite em Po</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Iogurte Natural</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por tudo na bimby e programar 4min/90º/vel 4</Value>
+      </Step>
+      <Step>
+        <Value>Tapar bem e deixar fermentar 24 horas</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>96</Id>
+    <Name>Limonada</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>750</Amount>
+        <Units>ml</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>75</Amount>
+        <Units>ml</Units>
+        <Information>1/3 cup</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gengibre</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>Fresco. Ralado finamente</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Menta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>250</Amount>
+        <Units>ml</Units>
+        <Information>1 cup. 4 lemons</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Agua</Name>
+        <Amount>1.25</Amount>
+        <Units>l</Units>
+        <Information>Bem Fresca</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>250</Amount>
+        <Units>ml</Units>
+        <Information>1 cup</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gelo</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Arando</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sumo de Mirtilo Vermelho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Usar um pouco da água e por a ferver com o açucar</Value>
+      </Step>
+      <Step>
+        <Value>Juntar o Limão ao xarope de açucar com a agua fresca</Value>
+      </Step>
+      <Step>
+        <Value>Por menta, gengibre ou usar água mineral para ter bolhas.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>96.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>97</Id>
+    <Name>Salame</Name>
+    <Description />
+    <Photo />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>98</Id>
+    <Name>Arroz de Açafrão</Name>
+    <Description />
+    <Photo>98.jpg</Photo>
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Arroz Basmati</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açafrão das Índias</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomats Secos</Name>
+        <Amount />
+        <Units />
+        <Information>Por no final</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mozzarela</Name>
+        <Amount />
+        <Units />
+        <Information>Em cubos - Por no final</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebolinho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>99</Id>
+    <Name>Costeletas do Lombo Com Mel e Laranja</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Costeletas de Porco</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information>Lombo de preferencia</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mel</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information>de prefrencia de orange blossom</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Laranja</Name>
+        <Amount>150</Amount>
+        <Units>ml</Units>
+        <Information>inicial era 200 ( com limao tb e bom)</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Carne</Name>
+        <Amount>150</Amount>
+        <Units>ml</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha Maizena</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Molho de Soja</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>ou entao vinagre</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alecrim</Name>
+        <Amount />
+        <Units />
+        <Information>talvez fique bom</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>99.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>100</Id>
+    <Name>Arroz de Leite de Côco</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Arroz Basmati</Name>
+        <Amount>1</Amount>
+        <Units>medida</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite de Coco</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>usar como medida</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água a ferver</Name>
+        <Amount>1</Amount>
+        <Units>medida</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por o Leite de Coco ao Lume</Value>
+      </Step>
+      <Step>
+        <Value>Por uma medida da lata do Leite de Coco de Arroz basmati</Value>
+      </Step>
+      <Step>
+        <Value>Aumentar uma maedida de agua a ferver na panela</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar Sal</Value>
+      </Step>
+      <Step>
+        <Value>Deixar ferver e depois deixar no minimo a panela fechada durante 10 minutos</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>100.JPG</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>101</Id>
+    <Name>Petits Gateaux</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chocolate</Name>
+        <Amount>200</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>185</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gemas de Ovo</Name>
+        <Amount>3</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>75</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por o chocolate e a manteiga em banho maria</Value>
+      </Step>
+      <Step>
+        <Value>Adicionar as gemas com cuidado para nao coalhar</Value>
+      </Step>
+      <Step>
+        <Value>Noutra tigela bater os ovos com o açucar</Value>
+      </Step>
+      <Step>
+        <Value>E finalmente juntar os dois preparados</Value>
+      </Step>
+      <Step>
+        <Value>Untar a forma e levar ao forno 9 minutos em 180º</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>101.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>102</Id>
+    <Name>Compota de Limão com Anis</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>10</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information>O mesm peso do limão talvez menos</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Canela</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Anis</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por na bimby os limões descascados sem partes brancas e caroços</Value>
+      </Step>
+      <Step>
+        <Value>Por a mesma quantidade de açucar e triturar 15seg/vel 5</Value>
+      </Step>
+      <Step>
+        <Value>90º / 30m / vel 1 com o cesto na bimby</Value>
+      </Step>
+      <Step>
+        <Value>mais 10 minutos /varoma/vel1</Value>
+      </Step>
+      <Step>
+        <Value>Quando acabar por a estrela de anis e deixar 5 minutos na vel 1</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>102.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>103</Id>
+    <Name>Mousse de Chocolate</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chocolate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovos</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Menta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Natas</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Rum</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Licor de Cacau</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Café</Name>
+        <Amount />
+        <Units />
+        <Information>Expresso ou Forte</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>103.png</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>104</Id>
+    <Name>Soufllé de Chocolate</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chocolate</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Gemas de Ovo</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Claras de Ovo</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>104.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>105</Id>
+    <Name>Bacalhau Espiritual</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Bacalhau</Name>
+        <Amount>1</Amount>
+        <Units>kg</Units>
+        <Information>80g por pessoa</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cenoura</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>2</Amount>
+        <Units>dentes</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Bechamel</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mozzarela</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata Palha</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Refogar o alho e a cebola ate ficar macia,acrescentar as cenouras' deixar cozinhar aprox 5min</Value>
+      </Step>
+      <Step>
+        <Value>juntar o bacalhau desfiado, mexer.</Value>
+      </Step>
+      <Step>
+        <Value>Acrescentar as batatas e mexer,</Value>
+      </Step>
+      <Step>
+        <Value>em seguida acrescentar o bechamel, misturar td levemente e passar para uma travessa</Value>
+      </Step>
+      <Step>
+        <Value>cobrir c pão ralado e bechamell ou natas e levar ao forno a gratinar.</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>105.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>106</Id>
+    <Name>Chouriço Hash</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chouriço</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount />
+        <Units />
+        <Information>Cozer e depois saltear</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Chilis</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Paprika</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Oregãos</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manteiga</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount />
+        <Units />
+        <Information>ou Batata Doce</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount />
+        <Units />
+        <Information>Estrelado</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinagre Balsâmico</Name>
+        <Amount />
+        <Units />
+        <Information>?</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Oregãos</Name>
+        <Amount />
+        <Units />
+        <Information>?</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alecrim</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount />
+        <Units />
+        <Information>?</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Feijão Preto</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags>Pequeno Almoço</Tags>
+    <Photo>106.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>107</Id>
+    <Name>Puré de Couve Flor</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Couve Flor</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>1</Amount>
+        <Units>colher de sopa</Units>
+        <Information>2?</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Iogurte Grego</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Mostarda</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caril</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>3</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Noz Moscada</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Cozer em água ou a vapor a couve flor durante 15 minutos (ou cozer no leite)</Value>
+      </Step>
+      <Step>
+        <Value>Most</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>108</Id>
+    <Name>Peito de Pato</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Peito de Pato</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomilho</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Colorau</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Não por gordura o pato ja tem muito</Value>
+      </Step>
+      <Step>
+        <Value>Por a frigideira bem quente e por o pato com a pele para baixo</Value>
+      </Step>
+      <Step>
+        <Value>Deixar cozinhar até quase meio</Value>
+      </Step>
+      <Step>
+        <Value>Virar e dixar 3 minutos no maximo tambem</Value>
+      </Step>
+    </Directions>
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>109</Id>
+    <Name>Magret de Pato com Molho de Frutos Silvestres</Name>
+    <Description />
+    <Cuisine />
+    <Category>Principal</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList />
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>110</Id>
+    <Name>Sumo de Melancia</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Melancia</Name>
+        <Amount>1000</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>500</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>50</Amount>
+        <Units>g</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>111</Id>
+    <Name>Molho Branco</Name>
+    <Description>Também conhecido como Molho Béchamel </Description>
+    <Cuisine />
+    <Category>Molhos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Noz Moscada</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Legumes</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Louro</Name>
+        <Amount />
+        <Units />
+        <Information>Opcional</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>111.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>112</Id>
+    <Name>Gnocchi</Name>
+    <Description />
+    <Cuisine />
+    <Category>Acompanhamentos</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Batata</Name>
+        <Amount>2</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Ovo</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Cozer a batata e esmagar</Value>
+      </Step>
+      <Step>
+        <Value>Retirar juntar ao ovo e farinha</Value>
+      </Step>
+      <Step>
+        <Value>Cortar aos bocados tipo massa de pizza</Value>
+      </Step>
+      <Step>
+        <Value>Por agua a ferver com sal Por la os gnochi durante 3 a 5 minutos até virem ao de cima</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>112.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>113</Id>
+    <Name>Chocolate Quente</Name>
+    <Description />
+    <Cuisine />
+    <Category>Bebidas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Chocolate</Name>
+        <Amount>1</Amount>
+        <Units>copo de chá</Units>
+        <Information>pode ser chocolate em pó</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar em pó</Name>
+        <Amount>2</Amount>
+        <Units>copo de chá</Units>
+        <Information>pode ser normal. talvez por menos chocolate</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Leite em Po</Name>
+        <Amount>2.5</Amount>
+        <Units>copo de chá</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água a ferver</Name>
+        <Amount>4</Amount>
+        <Units>copo de chá</Units>
+        <Information>pode ser 6 .ou bem quente</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Farinha Maizena</Name>
+        <Amount>2</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount>1</Amount>
+        <Units>colher chá</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+    <Photo>113.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>114</Id>
+    <Name>Fettuccine de Frango Com Pesto, Bacon e Amendoas Torradas (por mim)</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Fettuccine</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Frango</Name>
+        <Amount />
+        <Units />
+        <Information>usar o caldo da cozedura do frango</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Bacon</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limao</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pinhões</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Noz Moscada</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Amêndoas</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Salsa</Name>
+        <Amount />
+        <Units />
+        <Information>ou oregãos?</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions />
+    <Tags />
+  </Recipe>
+  <Recipe>
+    <Id>115</Id>
+    <Name>Pipocas Doces</Name>
+    <Description />
+    <Cuisine />
+    <Category>Sobremesas</Category>
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0</TimePreparing>
+    <TimeCooking>0</TimeCooking>
+    <TimeReady>0</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Óleo</Name>
+        <Amount>3</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Água</Name>
+        <Amount>4</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Açucar</Name>
+        <Amount>4</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Milho</Name>
+        <Amount>4</Amount>
+        <Units>colher de sopa</Units>
+        <Information />
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Por tudo numa panela com tampa</Value>
+      </Step>
+      <Step>
+        <Value>Deixar em lume alto mas não em demadia até começar a rebentar</Value>
+      </Step>
+      <Step>
+        <Value>Quando a frequencia começar a diminuir, desligar o lume e tentar saltealas</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>115.jpg</Photo>
+  </Recipe>
+  <Recipe>
+    <Id>116</Id>
+    <Name>Frango á Maricas</Name>
+    <Description />
+    <Cuisine />
+    <Category />
+    <Servings>0</Servings>
+    <Yield />
+    <Rating>0</Rating>
+    <TimePreparing>0.2</TimePreparing>
+    <TimeCooking>1.3</TimeCooking>
+    <TimeReady>1.5</TimeReady>
+    <Commentary />
+    <IsBlackListed>false</IsBlackListed>
+    <IngredientList>
+      <RecipeIngredient>
+        <Name>Galinha</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Limão</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cebola</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alho</Name>
+        <Amount>1</Amount>
+        <Units>uni</Units>
+        <Information>uma cabeça inteira</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Cenoura</Name>
+        <Amount>4</Amount>
+        <Units>uni</Units>
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Tomilho</Name>
+        <Amount />
+        <Units />
+        <Information>um ramo inteiro</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Funcho</Name>
+        <Amount />
+        <Units />
+        <Information>tirar a parte de cima e cortar ás fatias</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Sal</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Pimenta</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Margarina</Name>
+        <Amount />
+        <Units />
+        <Information>Um pouco para adicionar no final</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Azeite</Name>
+        <Amount />
+        <Units />
+        <Information />
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Manjericão</Name>
+        <Amount />
+        <Units />
+        <Information>Optional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Alecrim</Name>
+        <Amount />
+        <Units />
+        <Information>Optional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Vinho Branco</Name>
+        <Amount>1</Amount>
+        <Units>copo</Units>
+        <Information>Optional</Information>
+      </RecipeIngredient>
+      <RecipeIngredient>
+        <Name>Caldo de Galinha</Name>
+        <Amount>1</Amount>
+        <Units>copo de chá</Units>
+        <Information>Optional</Information>
+      </RecipeIngredient>
+    </IngredientList>
+    <Directions>
+      <Step>
+        <Value>Pré-Aquecer o forno a 220ºC</Value>
+      </Step>
+      <Step>
+        <Value>Por dentro do oríficio da galinha, a cabeça inteira dos alhos cortado ao meio, sal, pimenta, tomilho, e o limao cortado numa metade</Value>
+      </Step>
+      <Step>
+        <Value>Cortar a cebola e as cenouras aos bocados médios e por no tabuleiro do forno com azeite</Value>
+      </Step>
+      <Step>
+        <Value>barrar a manteiga na parte de fora da galinha e por o sal e a pimenta na parte de fora</Value>
+      </Step>
+      <Step>
+        <Value>Levar a galinha e os vegetais ao forno por 1h / 1h30m</Value>
+      </Step>
+    </Directions>
+    <Tags />
+    <Photo>116.jpeg</Photo>
+  </Recipe>
+</Recepies>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SpiroWeb.Objects.ProductSearchResult>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Search Results</h2>
+
+<div>
+    <input id="productQueueSearchTextAgain" type="text" />
+    <input id="button_SearchAgain" type="button" onclick="GetProductsQueueSearchResultsAgain()" value="Search Again" />
+</div>
+
+<div style="width:100%" class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <img style="width:140px" src="@item.ImageUrl" />
+            <p>@item.Name</p>
+            <p>@item.Brand</p>
+            <p>@item.Weight</p>
+            <p><b>@item.Price</b></p>
+            <button class="ladda-button" data-color="green" data-style="expand-right" onclick="GetSelectedProductData('@item.Url')">
+                <span class="ladda-label">This is the one!</span>
+                <span class="ladda-spinner"></span>
+            </button>
+        </div>
+    }
+</div>

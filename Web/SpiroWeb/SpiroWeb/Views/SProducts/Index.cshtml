@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SpiroWeb.Models.UserProductListCompleteTempModel>
+
+@{
+    ViewBag.Title = "Index";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "SProducts", new { page = 1, orderBy = "Id"})">
+                Id
+            </a>
+        </th>
+        <th style="text-align: center;">
+            ProductId
+        </th>
+        <th style="text-align: center;">
+            Name
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        <th style="text-align: center;">
+            Store
+        </th>
+        <th style="text-align: center;">
+            Store Online Product Id
+        </th>
+        <th style="text-align: center;">
+            Created By
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "SProducts", new { page = 1, orderBy = "createDate"})">
+                Create Date
+            </a>
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "SProducts", new { page = 1, orderBy = "updatedate" })">
+                Update Date
+            </a>
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "SProducts", new { page = 1, orderBy = "needsupdate" })">
+                Needs Update
+            </a>
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfProducts)
+    {
+        var imgSrc = string.Empty;
+
+    <tr>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Id
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">@item.ProductId</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">@item.Name</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Brand
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Weight
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@item.Url" target="_blank">@item.StoreName</a>
+            
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.StoreOnlineProductId
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.CreatedByUserId
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @*@item.CreateDate.ToString("dd-MM-yyyy")*@
+            @item.CreateDate.ToString()
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @*@item.CreateDate.ToString("dd-MM-yyyy")*@
+            @item.UpdateDate.ToString()
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.NeedsUpdate
+        </td>
+    </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, orderBy = sortByQueryString, searchQuery = searchQueryString }))

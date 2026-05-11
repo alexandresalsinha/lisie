@@ -1,0 +1,29 @@
+﻿<div id="WorkTasksContainer" class="workTasksDiv">
+    <h2>Work</h2>
+    <h3>Points: <span id="WorkPoints"> @ViewBag.Work</span></h3>
+    <form data-bind="submit: addTask" style="width: 275px; float: left;">
+        Add task:
+        <input id="test" data-bind="value: newTaskText" placeholder="What needs to be done?" />
+        <button class="glyphicon glyphicon-pencil" type="submit" title="Quick Add"></button>
+    </form>
+
+    <button id="create-task" class="glyphicon glyphicon-plus" style="padding: 3px;"></button>
+    <ul data-bind="template: { name: 'item-template', foreach: $root.subitemsOf(null) }" style="margin-top: 30px;"></ul>
+</div>
+
+
+
+<script type="text/html" id="item-template">
+    <div>
+        <input type="checkbox" data-bind="checked: isDone, click: $root.isDoneTask" />
+        <input class="inputTaskText" data-bind="value: label, disable: isDone, style: { borderColor: isRepeatable() ? '#7E86E0' : 'none', backgroundColor : importance() == '3' ? '#7E86E0' : 'none'  }, title: label" style="margin: 5px;" />
+        <a href="#" class="glyphicon glyphicon-remove" data-bind="click: $root.removeTask" title="Delete Task"></a>
+        <a href="#" class="glyphicon glyphicon-pencil" data-bind="click: $root.addSubTask" title="Quick Add Task"></a>
+        <a href="#" class="glyphicon glyphicon-plus" data-bind="click: $root.showDialogAddSubTask" title="Add Task Dialog"></a>
+        <a href="#" class="glyphicon glyphicon-tasks" data-bind="click: $root.archiveTask" title="Archive Task and It´s SubTasks"></a>
+        <a href="#" class="glyphicon glyphicon-calendar" data-bind="click: $root.showDialogScheduleTask" title="Schedule Task"></a>
+        <!-- ko if: $root.hasSubitems($data) -->
+        <ul data-bind="template: { name: 'item-template', foreach: $root.subitemsOf($data) }"></ul>
+        <!-- /ko -->
+    </div>
+</script>

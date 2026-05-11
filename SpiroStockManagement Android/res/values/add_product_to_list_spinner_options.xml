@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	 <string-array name="AddProductToList_AddtoListOptions">
+        <item>Don´t add to Inventory or Cart</item>
+        <item>Add to Inventory</item>
+        <item>Add to Cart</item>
+    </string-array>    
+</resources>

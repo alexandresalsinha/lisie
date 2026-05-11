@@ -1,0 +1,558 @@
+﻿@model IEnumerable<SpiroWeb.Objects.ProductSearchMatchResult>
+
+@{
+    ViewBag.Title = "Products Matcher";
+
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+
+    //LisieStores.Extensibility.ProductSearchResult _selectedProductResult = Session["selectedProduct"] as LisieStores.Extensibility.ProductSearchResult;
+    LisieStores.Extensibility.ProductSearchResult _selectedProductResult = ViewBag.SelectedProduct as LisieStores.Extensibility.ProductSearchResult;
+
+    List<ClassLibrary1.StoreProducts> _storeProducts = null;
+
+    List<LisieStores.Extensibility.Market> Markets = SpiroWeb.Helpers.Extensibility.GetStoreFetchers();
+
+    Markets = Markets.OrderBy(c => c.StoreId).ToList();
+
+    using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+    {
+        int _productId = int.Parse(_selectedProductResult.OnlineProductId);
+        _storeProducts = db.StoreProducts.Include("Stores").Where(c => c.ProductId == _productId).ToList();
+    }
+    //var _storeProducts = Model.StoreProducts.Where(c => c.StoreId == 1).FirstOrDefault();
+
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        height: 100%;
+        width: 100%;
+        font-size: 0;
+    }
+
+    #left, #middle, #right {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        vertical-align: top;
+        font-size: 12px;
+        color: white;
+    }
+
+    #left {
+        width: 25%;
+        background: green;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #middle {
+        width: 50%;
+        background: red;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #right {
+        width: 25%;
+        background: black;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #product {
+        position: fixed;
+        top: 0;
+    }
+
+    .anchor {
+        color: lime;
+        font-weight: bold;
+    }
+
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+</style>
+
+<script>
+    window.onload = function runOnLoad() {
+        document.querySelector("body > div.container.body-content").style.setProperty("max-width", "100%")
+    };
+    let d = document;
+
+
+    function scrollTopValue(domElement) { //DEBUG
+        return 'scrollTopValue:', domElement.scrollTop;
+    }
+    function offsetTopValue(domElement) { //DEBUG
+        return 'offsetTopValue:', domElement.offsetTop;
+    }
+
+    var requestAnimFrame = (function () {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+    })();
+
+    function scrollToo(to, duration = 1500) { //FIXME this always starts from '0', instead of the clicked element offsetTop -> This is because the position is calculated for the
+        debugger
+        to = document.getElementById(to);
+        if (isDomElement(to)) {
+            to = to.offsetTop;
+        }
+
+        function move(amount) {
+            document.documentElement.scrollTop = amount - 300;
+            document.body.parentNode.scrollTop = amount - 300;
+            document.body.scrollTop = amount - 300;
+        }
+
+        function position() {
+            return document.documentElement.offsetTop || document.body.parentNode.offsetTop || document.body.offsetTop;
+        }
+
+        var start = position(),
+            change = to - start + 200,
+            currentTime = 0,
+            increment = 20;
+        console.log('start:', start); //DEBUG
+        console.log('to:', to); //DEBUG
+        console.log('change:', change); //DEBUG
+
+        var animateScroll = function () {
+            // increment the time
+            currentTime += increment;
+            // find the value with the quadratic in-out easing function
+            var val = Math.easeInOutQuad(currentTime, start, change, duration);
+            // move the document.body
+            move(val);
+            // do the animation unless its over
+            if (currentTime < duration) {
+                requestAnimFrame(animateScroll);
+            }
+            else {
+                //if (callback && typeof (callback) === 'function') {
+                //    // the animation is done so lets callback
+                //    callback();
+                //}
+            }
+        };
+
+        animateScroll();
+    }
+
+
+    //-------------------- Unimportant js functions --------------------
+    // easing functions https://goo.gl/5HLl8
+    //t = current time
+    //b = start value
+    //c = change in value
+    //d = duration
+    Math.easeInOutQuad = function (t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) {
+            return c / 2 * t * t + b
+        }
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    };
+
+    Math.easeInCubic = function (t, b, c, d) {
+        var tc = (t /= d) * t * t;
+        return b + c * (tc);
+    };
+
+    Math.inOutQuintic = function (t, b, c, d) {
+        var ts = (t /= d) * t,
+            tc = ts * t;
+        return b + c * (6 * tc * ts + -15 * ts * ts + 10 * tc);
+    };
+
+    function isDomElement(obj) {
+        return obj instanceof Element;
+    }
+
+    function isMouseEvent(obj) {
+        return obj instanceof MouseEvent;
+    }
+
+    function findScrollingElement(element) { //FIXME Test this too
+        do {
+            if (element.clientHeight < element.scrollHeight || element.clientWidth < element.scrollWidth) {
+                return element;
+            }
+        } while (element = element.parentNode);
+    }
+
+    //function showStore(id) {
+    //    var jumbo = document.getElementById('jumboSearchResults');
+    //    var continente = document.getElementById('continenteSearchResults');
+    //    var pingodoce = document.getElementById('pingoDoceResults');
+    //    var intermarche = document.getElementById('intermarcheResults');
+    //    var minipreco = document.getElementById('miniPrecoResults');
+    //    switch (id) {
+    //        case 1:
+    //            jumbo.style.display = "block";
+    //            continente.style.display = "none";
+    //            pingodoce.style.display = "none";
+    //            intermarche.style.display = "none";
+    //            minipreco.style.display = "none";
+    //            break;
+    //        case 2:
+    //            jumbo.style.display = "none";
+    //            continente.style.display = "block";
+    //            pingodoce.style.display = "none";
+    //            intermarche.style.display = "none";
+    //            minipreco.style.display = "none";
+    //            break;
+    //        case 3:
+    //            jumbo.style.display = "none";
+    //            continente.style.display = "none";
+    //            pingodoce.style.display = "block";
+    //            intermarche.style.display = "none";
+    //            minipreco.style.display = "none";
+    //            break;
+    //        case 4:
+    //            jumbo.style.display = "none";
+    //            continente.style.display = "none";
+    //            pingodoce.style.display = "none";
+    //            intermarche.style.display = "block";
+    //            minipreco.style.display = "none";
+    //            break;
+    //        case 5:
+    //            jumbo.style.display = "none";
+    //            continente.style.display = "none";
+    //            pingodoce.style.display = "none";
+    //            intermarche.style.display = "none";
+    //            minipreco.style.display = "block";
+    //            break;
+    //        default:
+    //    }
+    //}
+
+    //window.onscroll = function () { myFunction() };
+
+    //var navbar = document.getElementById("product_div");
+    //var sticky = navbar.offsetTop;
+
+    //function myFunction() {
+    //    debugger
+    //    if (window.pageYOffset >= sticky) {
+    //        navbar.classList.add("sticky")
+    //    } else {
+    //        navbar.classList.remove("sticky");
+    //    }
+    //}
+</script>
+<div style="width:100%; margin-top:25px;margin-bottom:50px">
+    @using (Html.BeginForm("Index", "ProductsMatcher", FormMethod.Post, new { id = "searchQueryValue" }))
+    {
+        @Html.TextBox("searchQuery", "", new { @style = "width:100%" })
+        @Html.Hidden("searchQuery", searchQueryString)
+        <div style="width:100%; text-align:center;margin-top:10px; margin-bottom:25px">
+            <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="$('#searchQueryValue').submit()">
+                <span class="ladda-label">Search</span>
+                <span class="ladda-spinner"></span>
+            </button>
+            @*<input type="submit" value="Search" />*@
+        </div>
+
+    }
+</div>
+
+
+@*Product*@
+<br />
+<div id="product_div" style="float:left; width:30% ;position: fixed; top: 200px;">
+    @*<h4>Products</h4>
+        <hr />*@
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Picture)*@
+        </dt>
+
+        <dd>
+            <img style="width:100%" src="@_selectedProductResult.ImageUrl" />
+        </dd>
+
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.Name)
+        </dd>
+
+        <dt>
+            Brand
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.Brand)
+        </dd>
+
+        <dt>
+            Weight
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.Weight)
+        </dd>
+
+        <dt>
+            Price
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.Price)
+
+            @foreach (var _market in Markets)
+            {
+                var _currentStoreProduct = _storeProducts.Where(c => c.StoreId == _market.StoreId).FirstOrDefault();
+                if (_currentStoreProduct != null)
+                {
+                    <a target="_blank" href="@(_market.StoreUrl + _currentStoreProduct.Url)">@_market.StoreName - @Math.Round(_currentStoreProduct.Price.Value, 2)</a>
+                    <a href="#" onclick="scrollToo(@_market.StoreId)"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Go to"></span></a><br />
+                }
+                else
+                {
+                    <a href="#" onclick="scrollToo(@_market.StoreId)">@_market.StoreName</a>
+                    <a href="#" onclick="scrollToo(@_market.StoreId)"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Go to"></span></a><br />
+                }
+            }
+        </dd>
+
+        <dt>
+            Weight / Price
+            @*@Html.DisplayNameFor(model => model.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.PriceWeight)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CategoryString)*@
+            Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => _selectedProductResult.Category)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CategoryString)
+            Matching Text
+        </dt>*@
+
+        @*<dd>
+            @GetProductsMatchingText()
+        </dd>*@
+    </dl>
+</div>
+<br />
+
+
+
+@*Markets search grid*@
+@{
+    var currentIndex = 0;
+}
+@foreach (var market in Markets)
+{
+    //Image Together +Tx % +Tx Together %
+    <div style="float:left;width:30%"><p></p></div>
+    <div style="float:left; width:70%">
+        <div id="container">
+            <a style="width:100%" id="@market.StoreId" href="#@market.StoreId" onclick="showStore(@market.StoreId)"> <div id="middle" style="background:@market.StoreColor">@market.StoreName</div></a>
+        </div>
+
+        <table id="(@market.StoreId)_SearchResults" class="table table-responsive">
+            <tr>
+                <th style="text-align: center;">
+
+                </th>
+                <th style="text-align: center;">
+
+                </th>
+                <th style="text-align: center;">
+                    Sort Weight
+                </th>
+                <th style="text-align: center;">
+                    Name
+                </th>
+                <th style="text-align: center;">
+                    Brand
+                </th>
+                <th style="text-align: center;">
+                    Weight
+                </th>
+                <th style="text-align: center;">
+                    Price
+                </th>
+                <th style="text-align: center;">
+                    Weight / Price
+                </th>
+                <th> Text A1 %</th>
+                <th> Text Total Tx</th>
+                <th> Text A2 % </th>
+                <th> Text A3 (Together) % </th>
+                <th> Tx ALL AVG %</th>
+                <th> Tx ALL PLUS</th>
+                <th> Text Together Tx</th>
+                <th> ImageA1 %</th>
+                <th> ImageA2 %</th>
+                <th> Images Together +</th>
+                <th> ImageA1 + Text(x12) %</th>
+                <th> <b>Image Together + Tx % + Tx Together %</b></th>
+                <th> Last 2 avg</th>
+                <th> Tx % + Tx Together % + Image + Text % + Images Together </th>
+                <th> ImageA1 + Text(x12) ++ Last 2 Avg ++ Before , AVG </th>
+            </tr>
+
+            @foreach (var item in Model.Where(c => c.StoreId == market.StoreId).Take(4))
+            {
+                var imgSrc = string.Empty;
+                if (item.ImageUrl != null)
+                {
+                    imgSrc = item.ImageUrl;
+                }
+
+            <tr>
+                <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                    <a href="@Url.Action("Match", "ProductsMatcherWeb", new { productId =_selectedProductResult.OnlineProductId, storeProductUrl = item.Url , storeId= item.StoreId})"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Match"></span></a>
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Picture)*@
+                    @*<a href="@Url.Action("Select", "ProductsMatcher", new { currentIndex })"><img style="width:140px" src="@imgSrc" /></a>*@
+                    <a href="@item.ViewableUrl"><img style="width:140px" src="@imgSrc" /></a>
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.SortedWeight
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.Name
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.Brand
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.Weight
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.Price€
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.PriceWeight
+                </td>
+                <td> @Math.Round(item.EqualsPercentage, 2).ToString() </td>
+                <td> @item.EqualsPercentageText</td>
+                <td>@Math.Round(item.TextEqualsPercentage, 2).ToString()</td>
+                <td>@Math.Round(item.TextTogetherEqualsPercentage, 2).ToString()</td>
+                <td>@Math.Round(((item.TextTogetherEqualsPercentage + item.TextEqualsPercentage) / 2), 2).ToString()</td>
+                <td>@Math.Round(item.TxAllTogetherPlus, 2)</td>
+                <td>@item.TextTogetherEqualsPercentageText</td>
+                <td>
+                    @item.ImageEqualsPercentage %
+                </td>
+                <td>
+                    @Math.Round(item.ImageEqualsPercentage2) %
+                </td>
+                <td>
+                    @Math.Round(item.ImagesTogetherPercentage) %
+                </td>
+                <td>@Math.Round(item.ImageTextEqualsPercentage, 2).ToString()</td>
+                <td>@Math.Round(item.ImageTogetherTextEqualsPercentage, 2).ToString()</td>
+
+                <td>@Math.Round(((item.ImageTextEqualsPercentage + item.ImageTogetherTextEqualsPercentage * 2) / 2), 2).ToString()</td>
+
+                @*@{
+            var _avgText = (item.TextTogetherEqualsPercentage + item.TextEqualsPercentage) / 2;
+            var _avgImg = item.ImagesTogetherPercentage / 2;
+            _avgImg *= 2;
+            //_avgImg = _avgImg + 1000;
+            var _avgTextPlusImg = (item.ImageTextEqualsPercentage * 100) / 650;
+            //var _avgTextPlusImg = item.ImageTextEqualsPercentage;
+            var _finalWeight = (_avgImg + _avgText + _avgTextPlusImg) / 3;
+        }*@
+                @*<td>@Math.Round(_finalWeight, 2).ToString()</td>*@
+                <td>@Math.Round(item.FinalWeight, 2).ToString()</td>
+                <td>@Math.Round(item.FinalWeight2, 2).ToString()</td>
+            </tr>
+            }
+        </table>
+    </div>
+
+
+    currentIndex++;
+}
+
+
+
+@helper GetMarketName(int storeId)
+{
+    List<LisieStores.Extensibility.Market> _markets = SpiroWeb.Helpers.Extensibility.GetStoreFetchers();
+
+    var _market = _markets.Where(c => c.StoreId == storeId).FirstOrDefault();
+    if (_market != null)
+    {
+        @: @_market.StoreName
+    }
+    else
+    {
+        @: @string.Empty
+    }
+}
+
+@helper GetMarketUrl(int storeId)
+{
+    List<LisieStores.Extensibility.Market> _markets = SpiroWeb.Helpers.Extensibility.GetStoreFetchers();
+
+    var _market = _markets.Where(c => c.StoreId == storeId).FirstOrDefault();
+    if (_market != null)
+    {
+        @: @_market.StoreUrl
+    }
+    else
+    {
+        @: @string.Empty
+    }
+}
+
+@helper GetMarketColor(int storeId)
+{
+    List<LisieStores.Extensibility.Market> _markets = SpiroWeb.Helpers.Extensibility.GetStoreFetchers();
+
+    var _market = _markets.Where(c => c.StoreId == storeId).FirstOrDefault();
+    if (_market != null)
+    {
+        @: @_market.StoreColor
+    }
+    else
+    {
+        @: @string.Empty
+    }
+}
+
+@helper GetProductsMatchingText()
+{
+    LisieStores.Extensibility.ProductSearchResult _selectedProductResult = ViewBag.SelectedProduct as LisieStores.Extensibility.ProductSearchResult;
+    //string _strippedNameOriginal = _selectedProductResult.Name.ToLower().Replace("  ", " ").Trim(' ').Replace(_selectedProductResult.Brand.ToLower(), "").Replace("  ", " ").Trim(' ').Replace(_selectedProductResult.Weight.ToLower(), "").Replace("  ", " ").Trim(' ');
+
+
+    string _strippedNameOriginal = _selectedProductResult.Name.ToLower().Replace("  ", " ").Trim(' ');
+    _strippedNameOriginal = (!string.IsNullOrEmpty(_selectedProductResult.Brand)) ? _strippedNameOriginal.Replace(_selectedProductResult.Brand.ToLower(), "").Replace("  ", " ").Trim(' ') : string.Empty;
+    _strippedNameOriginal = (!string.IsNullOrEmpty(_selectedProductResult.Weight)) ? _strippedNameOriginal.Replace(_selectedProductResult.Weight.ToLower(), "").Replace("  ", " ").Trim(' ') : string.Empty;
+
+    string stringTogetherOriginal = _strippedNameOriginal + " " + _selectedProductResult.Brand.ToLower() + " " + _selectedProductResult.Weight.ToLower();
+    stringTogetherOriginal = stringTogetherOriginal.Trim(' ');
+
+    @: @stringTogetherOriginal
+}

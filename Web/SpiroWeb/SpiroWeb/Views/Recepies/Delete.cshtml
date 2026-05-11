@@ -1,0 +1,120 @@
+﻿@model ClassLibrary1.Recepies
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Recepies</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Cuisine)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Cuisine)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Yield)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Yield)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TimePreparing)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TimePreparing)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeCooking)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TimeCooking)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeReady)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TimeReady)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Commentary)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Commentary)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Picture)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Picture)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

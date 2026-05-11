@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "My Task Manager";
+    Layout = "~/Views/Shared/_LayoutTasks.cshtml";
+}
+
+<input type="hidden" id="IntellegencePointsPercentage" value="@ViewBag.IntellegencePointsPercentage" />
+<input type="hidden" id="PerseverancePointsPercentage" value="@ViewBag.PerseverancePointsPercentage" />
+<input type="hidden" id="StrengthPointsPercentage" value="@ViewBag.StrengthPointsPercentage" />
+<input type="hidden" id="VitalityPointsPercentage" value="@ViewBag.VitalityPointsPercentage" />
+<input type="hidden" id="CreativityPointsPercentage" value="@ViewBag.CreativityPointsPercentage" />
+<input type="hidden" id="CharismaPointsPercentage" value="@ViewBag.CharismaPointsPercentage" />
+
+<div id="PlayerStatusDiv">
+    <a href="/HistoryTasks/Index">History</a>
+    <a href="/Account/Logout">Logout</a>
+    <div style="width: 50%; float: left; margin-top: 30px; text-align: center">
+        <strong>Level:</strong> <span id="CurrentLevel">@ViewBag.Level</span><br />
+        <strong>Points:</strong> <span id="CurrentPoints">@ViewBag.Points</span>
+    </div>
+    <div style="width: 50%; overflow: hidden;">
+        <table>
+            <tr>
+                <td style="width: 120px;"><strong style="float: left">Intelligence</strong></td>
+                <td style="width: 50px; text-align: center;"><span id="CurrentIntellegencePoints" style="float: left">@ViewBag.Intellegence</span></td>
+                <td style="width: 100px">
+                    <div id="progressBar_Intellegence" class="tiny-green">
+                        <div></div>
+                    </div>
+                </td>
+                <td style="padding-left:5px">@(ViewBag.IntellegencePointsPlus)x </td>
+            </tr>
+            <tr>
+                <td><strong style="float: left">Perseverance</strong> </td>
+                <td><span id="CurrentPerseverancePoints" style="float: left">@ViewBag.Perseverance</span></td>
+                <td>
+                    <div id="progressBar_Perseverance" class="tiny-green">
+                        <div></div>
+                    </div>
+                </td>
+                <td style="padding-left:5px">@(ViewBag.PerseverancePointsPlus)x</td>
+            </tr>
+            <tr>
+                <td><strong style="float: left">Strength</strong></td>
+                <td><span id="CurrentStrengthPoints" style="float: left">@ViewBag.Strength</span></td>
+                <td>
+                    <div id="progressBar_Strenght" class="tiny-green">
+                        <div></div>
+                    </div>
+                </td>
+                <td style="padding-left:5px">@(ViewBag.StrengthPointsPlus)x</td>
+            </tr>
+            <tr>
+                <td><strong style="float: left">Vitality</strong></td>
+                <td><span id="CurrentVitalityPoints" style="float: left">@ViewBag.Vitality</span></td>
+                <td>
+                    <div id="progressBar_Vitality" class="tiny-green">
+                        <div></div>
+                    </div>
+                </td>
+                <td style="padding-left:5px">@(ViewBag.VitalityPointsPlus)x</td>
+            </tr>
+            <tr>
+                <td><strong style="float: left">Creativity</strong></td>
+                <td><span id="CurrentCreativityPoints" style="float: left">@ViewBag.Creativity</span></td>
+                <td>
+                    @*<div style="width: 100px; float: left; margin-top: 5px; margin-left: 20px">*@
+                    <div id="progressBar_Creativity" class="tiny-green">
+                        <div></div>
+                    </div>
+                    @*</div>*@
+                </td>
+                <td style="padding-left:5px">@(ViewBag.CreativityPointsPlus)x</td>
+            </tr>
+            <tr>
+                <td><strong style="float: left">Charisma</strong> </td>
+                <td><span id="CurrentCharismaPoints" style="float: left">@ViewBag.Charisma</span></td>
+                <td>
+                    <div id="progressBar_Charisma" class="tiny-green">
+                        <div></div>
+                    </div>
+                </td>
+                <td style="padding-left:5px">@(ViewBag.CharismaPointsPlus)x</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <input id="showHideTasks" onchange="showHideTasks()" type="checkbox" /><label>Hide Done Tasks</label>
+    </div>
+</div>
+<div id="accordion" style="margin-top:50px">
+    <h3>Weekly Calendar Tasks</h3>
+    <iframe id="WeekCalenderIframe" src="~/weekcalendar/weekcalendar.html" width="100%" height="1000px"></iframe>
+    @*<div id='calendar'></div>*@
+
+</div>
+
+@*<div id="calendar"></div>
+    <div id="event_edit_container">
+        <form>
+            <input type="hidden" />
+            <ul>
+                <li>
+                    <span>Date: </span><span class="date_holder"></span>
+                </li>
+                <li>
+                    <label for="start">Start Time: </label><select name="start"><option value="">Select Start Time</option></select>
+                </li>
+                <li>
+                    <label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select>
+                </li>
+                <li>
+                    <label for="title">Title: </label><input type="text" name="title" />
+                </li>
+                <li>
+                    <label for="body">Body: </label><textarea name="body"></textarea>
+                </li>
+            </ul>
+        </form>
+    </div>*@
+
+@Html.Partial("~/Views/TasksManager/_Work.cshtml")
+@Html.Partial("~/Views/TasksManager/_Social.cshtml")
+@Html.Partial("~/Views/TasksManager/_Personal.cshtml")
+
+<div id="dialog-form" title="Create New Task" style="display: none">
+    <form>
+        <fieldset>
+            <label for="name">Description</label><br />
+            <input type="text" name="name" id="task-description" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />
+            <label for="Attribute">Attributes</label><br />
+            <input id="mySingleFieldAttributes" type="hidden">
+            <ul id="AttributesFields"></ul>
+            <br />
+            <label for="Importance">Importance</label><br />
+            <select id='ImportanceDropDow' class='form-control input-sm select' style="width: 100%; margin-bottom: 10px; margin-top: 9px;">
+                <option value="1">Little</option>
+                <option value="2" selected>Medium</option>
+                <option value="3">Very</option>
+            </select><br />
+            <label for="Difficulty">Difficulty</label><br />
+            <select id='DifficultyDropDow' class='form-control input-sm select' style="width: 100%; margin-bottom: 10px; margin-top: 9px;">
+                <option value="1">Easy</option>
+                <option value="2" selected>Medium</option>
+                <option value="3">Hard</option>
+            </select><br />
+            <label for="Difficulty">Is Repeatable</label><br />
+            <input type="checkbox" id="isRepetable" />
+            <br />
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
+        </fieldset>
+    </form>
+</div>
+
+<div id="dialog-form-addToWeek" title="Schedule Task To Week Day" style="display: none">
+    <form>
+        <fieldset>
+            <label for="name">Task</label><br />
+            <input type="text" readonly name="name" id="dialog_taskDescription" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />
+            <label for="category">Category</label><br />
+            <input type="text" readonly name="category" id="dialog_taskCategory" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />
+            <label for="dayToSchedule">Day to Schedule</label><br />
+            <input type="text" name="dayToSchedule" id="dayToSchedule" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />
+            <label for="beginHour">Begin Hour</label><br />
+            <input type="text" class="timepicker" id="beginHour" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;" /><br />
+            @*<input type="text" name="beginHour" id="beginHour" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />*@
+            <label for="endHour">End Hour</label><br />
+            <input type="text" name="endHour" id="endHour" class="text ui-widget-content ui-corner-all" style="width: 100%; margin-bottom: 10px; margin-top: 9px;"><br />
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
+        </fieldset>
+    </form>
+</div>
+
+<div id="dialog-confirm" title="Delete Task and all it´s Sub-tasks?" style="display: none">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+

@@ -1,0 +1,164 @@
+﻿@model ClassLibrary1.Recepies
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    var imgSrc = string.Empty;
+    if (Model.Picture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Picture);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Recepies</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Picture)*@
+            </dt>
+
+            <dd>
+                <img src="@imgSrc" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cuisine)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cuisine)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Yield)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Yield)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimePreparing)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimePreparing)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeCooking)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeCooking)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeReady)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeReady)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Commentary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Commentary)
+            </dd>
+
+            <dt>
+                Ingredients
+            </dt>
+
+            <dd>
+                @foreach (var item in Model.RecipeIngredients)
+                {
+
+
+                    <p>@item.Ingredients.Name : @item.Amount @item.Units<a href="/Recepies/AssociateProduct?ingredientId=@item.IngredientId">Associar a produto</a> </p>
+                    <p>@GetIngredientProducts(item.IngredientId.Value)</p>
+
+                }
+                @Html.DisplayFor(model => model.Commentary)
+            </dd>
+
+            <dt>
+                Directions
+            </dt>
+            <dt>
+
+            </dt>
+
+            <dd>
+                @foreach (var direction in Model.RecipeDirections.OrderBy(c => c.StepNumber))
+                {
+                    <p>@direction.Direction</p>
+                }
+            </dd>
+
+            <dd>
+                <a href="/recepies/AddRecipeToUserShoppingCart?recipeId=@Model.Id">Adicionar á lista de compras</a>
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
+
+@helper GetIngredientProducts(int ingredientId)
+{
+    var _ingredientProducts = SpiroWeb.Managers.RecepiesManager.GetIngredientProducts(ingredientId, "");
+    foreach (var _ingredientProduct in _ingredientProducts)
+    {
+        <span> - <a href="/Products/Details/@_ingredientProduct.ProductId">@_ingredientProduct.ProductId</a> - </span><a href="/Recepies/AssociateProduct?ingredientId=@ingredientId">editar associação</a>
+        <a href="@Url.Action("RemoveProductAssociation", "Recepies", new { id = _ingredientProduct.Id })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+        <br />
+    }
+}

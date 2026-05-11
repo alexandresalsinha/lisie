@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\18.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dafab6ae358e6c801605d50ff1fa761e77200c1a">
+        <dex dex="C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\build\intermediates\pre-dexed\debug\classes-e28c96826af6f8e166929f28a2ff4137423dbf63.jar" />
+    </item>
+    <item
+        jar="C:\Users\ArdethMain\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-fd45800ad10991901bd4370ecfe169b5112be7f9.jar" />
+    </item>
+
+</items>

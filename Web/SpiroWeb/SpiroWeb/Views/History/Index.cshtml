@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SpiroWeb.Models.UserProductsListHistoryModel>
+
+
+@{
+    ViewBag.Title = "History";
+    var type = Request.QueryString["type"];
+    var month = Request.QueryString["month"];
+    var year = Request.QueryString["year"];
+}
+
+<table class="table" style="margin-top:50px; margin-bottom:50px; text-align:center">
+    <tr>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+
+        </th>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            Name
+        </th>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            Brand
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Weight
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Type
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Price
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Create Date
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+
+    @foreach (SpiroWeb.Models.UserProductsListHistoryModel item in Model)
+    {
+    <tr>
+        <td style="vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@item.ProductId" /></a>
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.ListName)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td style="vertical-align: middle;">
+            @if (item.InsertDate != DateTime.MinValue)
+            {
+                @Html.DisplayFor(modelItem => item.InsertDate)
+            }
+            else
+            {
+                <span>No date</span>
+            }
+        </td>
+        @*<td style="vertical-align: middle;">
+            <button onclick="markTaskAsDone(@item.Id)">Mark as done</button>
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a href="@Url.Action("New_TaskDelete", "TasksManager", new { id = item.Id })" onclick="return confirm('Are you sure, you want to delete it?')"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+        </td>*@
+    </tr>
+    }
+</table>
+@*<script>
+    function markTaskAsDone(taskId) {
+        debugger
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "/TasksManager/New_TaskDone?category=" + encodeURI("@category") + "&id=" + taskId, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                window.location.reload();
+            }
+        }
+        xhr.send();
+    }
+</script>*@

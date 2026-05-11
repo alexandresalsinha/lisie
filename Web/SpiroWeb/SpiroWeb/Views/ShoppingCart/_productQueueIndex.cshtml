@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ClassLibrary1.UserProductsQueue>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products In Queue</h2>
+
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.ActionLink("Associate Product", "Edit", new { id = item.BarCode })*@
+                <a href="#" onclick="GetProductsQueueSearchHtml('@item.BarCode')">Associate Product</a>
+            </td>
+            <td>
+                @item.BarCode
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-remove" onclick="DeleteProductInQueue('@item.BarCode', true)" style="cursor: pointer;"></span>
+            </td>
+        </tr>
+    }
+
+</table>

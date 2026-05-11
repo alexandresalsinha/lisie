@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ClassLibrary1.StoreProducts>
+
+@{
+    ViewBag.Title = "Index";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+    string notMine = (!string.IsNullOrEmpty(Request.QueryString["notMine"]) ? Request.QueryString["notMine"] : string.Empty);
+    string notMineAndIsTemp = (!string.IsNullOrEmpty(Request.QueryString["notMineAndIsTemp"]) ? Request.QueryString["notMineAndIsTemp"] : string.Empty);
+    string updateDateIsNull = (!string.IsNullOrEmpty(Request.QueryString["updateDateIsNull"]) ? Request.QueryString["updateDateIsNull"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+<br />
+<br />
+<a href="/storeProducts?notMine=true">Not mine</a><br />
+<a href="/storeProducts?notMineAndIsTemp=true">Not mine & Is Temporary</a><br />
+<a href="/storeProducts?updateDateIsNull=true">Update Date is null</a>
+<br />
+<br />
+<br />
+
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+
+        <th style="text-align: center;">
+            Id
+        </th>
+
+        <th style="text-align: center;">
+            ProductId
+        </th>
+        <th style="text-align: center;">
+            StoreId
+        </th>
+        <th style="text-align: center;">
+            Barcode
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "name", searchQuery = searchQueryString })">
+                @Html.DisplayNameFor(model => model.Name)
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        <th style="text-align: center;">
+            UserId
+        </th>
+        @*<th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>*@
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "InsertDate", searchQuery = searchQueryString })">
+                Create Date
+            </a>
+        </th>
+
+        <th style="text-align: center;">
+            Update Date
+        </th>
+        <th style="text-align: center;">
+            Is Temp
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfProducts)
+    {
+        string _updateDateText = item.UpdateDate != null ? item.UpdateDate.ToString("dd-MM-yyyy hh:mm") : string.Empty;
+    <tr>
+        <td>
+            <img style="width:140px" src="@item.ImageUrl" />
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Id
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.ProductId
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.StoreId
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Products.Barcode
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">@item.Name</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Brand
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Weight
+        </td>
+
+        @*<td style="text-align: center; vertical-align: middle;">
+
+            @item.Price€
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.VariableWeightPrice
+        </td>*@
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Users", new { id =  item.UserId })">@item.UserId</a>
+
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            @item.CreateDate.ToString("dd-MM-yyyy")
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            @_updateDateText
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @(item.IsTemp != null ? item.IsTemp : "NULL")
+        </td>
+
+    </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, orderBy = sortByQueryString, searchQuery = searchQueryString, notMine = notMine, notMineAndIsTemp = notMineAndIsTemp, updateDateIsNull = updateDateIsNull }))

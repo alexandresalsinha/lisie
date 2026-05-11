@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_delete_recipe_ingredient"
+          android:title="Apagar" />
+
+</menu><!-- From: file:/C:/Users/ArdethMain/Documents/GitHub/SpiroStockManagement/SpiroStockManagement%20Android/app/src/main/res/menu/activity_view_products_right_menu.xml -->

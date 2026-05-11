@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SpiroWeb.Controllers.ProductUpdatePriceFailsModel>
+@using SpiroWeb.Controllers
+@{
+    ViewBag.Title = "Index";
+
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string lastWeekQueryString = (!string.IsNullOrEmpty(Request.QueryString["lastWeek"]) ? Request.QueryString["lastWeek"] : string.Empty);
+    string lastMonthQueryString = (!string.IsNullOrEmpty(Request.QueryString["lastMonth"]) ? Request.QueryString["lastMonth"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+
+<p>
+    <a href="@Url.Action("ProductUpdatePriceFailsWorst", "Products", new { page = 1, lastWeek = true })">
+       Last week
+    </a>
+</p>
+<p>
+    <a href="@Url.Action("ProductUpdatePriceFailsWorst", "Products", new { page = 1, lastMonth = true })">
+        Last Month
+    </a>
+</p>
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+            ProductId
+        </th>
+        <th style="text-align: center;">
+            Fail Count
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Picture)*@
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">@item.ProductId</a>
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Count
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+           
+        </td>
+    </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("ProductUpdatePriceFailsWorst", new { page, lastWeek = lastWeekQueryString, lastMonth = lastMonthQueryString }))

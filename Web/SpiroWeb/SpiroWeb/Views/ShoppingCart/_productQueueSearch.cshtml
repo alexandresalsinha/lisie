@@ -1,0 +1,50 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Associate Product to Barcode : @Model</h2>*@
+
+<table class="table">
+    <tr>
+        <td>
+            Associate data to barcode : @Model
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            @*<div style="width:100%; text-align:center">
+               <button id="productQueueSearchButton" class="ladda-button" data-style="expand-right" onclick="GetProductsQueueSearchResults()">
+                    <span class="ladda-label">Search</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+
+            </div>*@
+            <input id="productQueueSearchText" type="text" style="width: 100%;">  
+            <div style="width:100%; text-align:center; margin-top:10px">
+                <button id="productQueueSearchButton" class="ladda-button" data-style="expand-right" onclick="GetProductsQueueSearchResults()">
+                    <span class="ladda-label">Search</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+
+            </div>
+            @*<input id="productQueueSearchButton" type="button" onclick="GetProductsQueueSearchResults()" value="Search!" />*@
+        </td>
+
+    </tr>
+    <tr>
+        <td style="text-align:center">
+            <div style="width:100%; text-align:center; margin-top:10px">
+                <button id="productQueueRemoveButton" data-color="red" class="ladda-button" data-style="expand-right" onclick="DeleteProductInQueue(@Model)">
+                    <span class="ladda-label">Cancel and Remove From Queue</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+
+            </div>
+            @*<input id="productQueueSearchButton" type="button"  value="Cancel and Remove From Queue" />*@
+        </td>
+    </tr>
+</table>
+<input type="hidden" id="selectedBarCodeHidden" Value='@Model' />

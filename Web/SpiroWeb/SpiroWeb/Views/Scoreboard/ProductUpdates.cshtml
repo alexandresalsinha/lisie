@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SpiroWeb.Models.ProductsUpdatesModel>
+
+@{
+    ViewBag.Title = "Products Price Updates";
+}
+
+<div style="padding:25px;display: inline-block;">
+    <h3 style="float:left">Updates count:</h3>
+    <h3 id="newProducStoreUpdates" style="float:left;padding-left:5px"></h3>
+    <h3 style="float:left;padding-left:40px">Started at:</h3>
+    <h3 style="color:green;float:left;padding-left:5px">@DateTime.Now.ToString()</h3>
+</div>
+<div style="padding:25px;display: inline-block;">
+    <h3 style="float:left">Fails count:</h3>
+    <h3 id="newProductStoreUpdatesFailed" style="float:left;padding-left:5px"></h3>
+</div>
+
+<table class="table table-responsive" id="ProductsUpdatesTable">
+    <tr>
+        <th style="text-align: center;">
+            Product Id
+        </th>
+        <th style="text-align: center;">
+            Store
+        </th>
+        <th style="text-align: center;">
+            Name
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Old Price
+        </th>
+        <th style="text-align: center;">
+            New Price
+        </th>
+        <th style="text-align: center;">
+            Price Update Date
+        </th>
+        <th style="text-align: center;">
+            Last Update Date
+        </th>
+        <th style="text-align: center;">
+            Needs Update
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            @*<td>
+                    <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="@imgSrc" /></a>
+                </td>*@
+            <td style="text-align: center; vertical-align: middle;">
+                <a href="/Products/@item.ProductId" target="_blank">
+                    @item.ProductId
+                </a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Store
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <a href="@item.StoreUrl" target="_blank">
+                    @item.Name
+                </a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Brand
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.OldPrice
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.NewPrice
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.PriceUpdateDate.ToString("dd-MM-yyyy hh:mm")
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UpdateDate.ToString("dd-MM-yyyy hh:mm")
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.NeedsUpdate.ToString()
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+@section scripts {
+    <script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script src="~/SignalR.Sample/SignalR.Interactions.js"></script>
+}

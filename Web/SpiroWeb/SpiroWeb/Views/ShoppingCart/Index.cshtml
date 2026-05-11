@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ClassLibrary1.UserProductsList>
+
+@{
+    ViewBag.Title = "Index";
+}
+@*<head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="/Scripts/Custom/Libraries/Ladda-master/dist/spin.min.js"></script>
+        <script src="/Scripts/Custom/Libraries/Ladda-master/dist/ladda.min.js"></script>
+
+        <link rel="stylesheet" href="/Scripts/Custom/Libraries/Ladda-master/dist/ladda.min.css"/>
+        <link href="/Scripts/Custom/Libraries/Ladda-master/dist/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>*@
+
+
+<p style="margin-top: 50px">
+@*<p style="margin-top: 50px; display:none">*@
+@*<p style="margin-top: 50px">*@
+    @{
+        if (ViewBag.ProductsInQueueCount != 0)
+        {
+            <a href="#" onclick="GetProductsQueueIndex()">Products In Queue ( @ViewBag.ProductsInQueueCount )</a>
+        }
+        else
+        {
+            <a href="#" id="productsInQueueCount" onclick="GetProductsQueueIndex()" style="pointer-events: none;">Products Queue ( @ViewBag.ProductsInQueueCount )</a>
+        }
+    }
+    <input id="dummyBarcode" type="text" />
+    <input id="addDummyProductToQueue" type="button" onclick="AddDummyProductToQueue()" value="Add Dummy Product to Queue" class="button-primary" />
+</p>
+
+@{
+
+    SpiroWeb.Models.ProductsAutoCompleteModel _ProductsAutoCompleteModel = new SpiroWeb.Models.ProductsAutoCompleteModel { Id = 1, Name = "teste" };
+}
+
+
+<div style="margin-top:50px">
+    @Html.Partial("_producsAutoComplete", new SpiroWeb.Models.ProductsAutoCompleteModel { Id = 1, Name = "Quick Add" })
+</div>
+
+<div style="width:100%; text-align:center">
+    @*<input id="searchForProductOnline" type="button" onclick="SearchForProductOnline()" value="Search Online" class="slide-down" />*@
+    @*<input id="searchForProductOnline" type="button" onclick="SearchForProductOnline()" value="Search Online" class="ladda-button" />*@
+    <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="SearchForProductOnline()">
+        <span class="ladda-label">Search Online</span>
+        <span class="ladda-spinner"></span>
+    </button>
+
+</div>
+
+
+<br />
+<br />
+
+@*@Html.Partial("_shoppingCartList", Model)*@
+<div id="mainContainer" style="width:100%;">
+    @Html.Partial("_shoppingCartList_GridResponsive", Model)
+</div>
+
+<div id="dialog-confirm" style="display:none">Are you Shure you want to remove this product from your Shopping Cart?</div>
+
+<div id="Logger" style="width:100%; display:none">
+    <span id="spanLogger"></span>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/Custom/Helpers.js"></script>
+    <script src="~/Scripts/Custom/ShoppingCart.js"></script>
+    <script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="../signalr/hubs"></script>
+    @*<script src="~/SignalR.Sample/SignalR.StockTicker.js"></script>*@
+    <script src="~/SignalR.Sample/SignalR.ShoppingCart.js"></script>
+    @*<script src="/Scripts/Custom/IndexProducts.js"></script>*@
+}
+@*</body>*@

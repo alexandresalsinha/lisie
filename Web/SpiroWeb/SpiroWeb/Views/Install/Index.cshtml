@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lisie.app</title>
+    <meta name="description" content="O elemento que faltava na tua família">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="@Request.Url">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lisie.app">
+    <meta property="og:description" content="O elemento que faltava na tua família">
+    <meta property="og:image" content="https://lisie.app/media/images/lisie_logo.png">
+    @*<meta http-equiv="refresh" content="0;url=@ViewBag.UrlRedirect" />*@
+</head>
+<body>
+
+    <script>
+        window.onload = function () {
+           var requestIsFromIos = /iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent);
+            var requestIsFromAndroid = /Android/i.test(navigator.userAgent);
+            console.log("requestIsFromIos", requestIsFromIos);
+            console.log("requestIsFromAndroid", requestIsFromAndroid);
+            //document.getElementById("ios").textContent = "is ios - " + requestIsFromIos;
+            //document.getElementById("android").textContent = "is android - " + requestIsFromAndroid;
+
+            var _storeUrl = "https://lisie.app";
+            if (requestIsFromAndroid) {
+                _storeUrl = "https://play.google.com/store/apps/details?id=com.lisie.org";
+            }
+            if (requestIsFromIos) {
+                _storeUrl = "https://apps.apple.com/pt/app/lisie/id1559628262";
+            }
+            setTimeout(() => {
+                window.location.href = _storeUrl;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

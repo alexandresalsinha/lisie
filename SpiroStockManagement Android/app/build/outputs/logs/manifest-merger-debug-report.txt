@@ -1,0 +1,79 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:1:1-63:12
+	xmlns:android
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:1:11-69
+	package
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:2:5-54
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:4:5-30
+	android:versionCode
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:3:5-28
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+uses-sdk
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:6:5-8:41
+MERGED from [com.android.support:gridlayout-v7:18.0.0] C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\18.0.0\AndroidManifest.xml:18:5-42
+	android:targetSdkVersion
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:8:9-38
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:7:9-34
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:10:22-78
+application
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:12:5-61:19
+MERGED from [com.android.support:gridlayout-v7:18.0.0] C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\18.0.0\AndroidManifest.xml:19:5-20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:14:9-41
+	android:icon
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:13:9-45
+	android:theme
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:15:9-40
+activity#com.example.spirostockmanagementandroid.MainActivity
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:16:9-24:20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:18:13-56
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:17:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:19:13-23:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:20:17-69
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:20:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:22:17-77
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:22:27-74
+activity#com.example.spirostockmanagementandroid.AddProduct
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:25:9-33:20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:27:13-63
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:26:13-39
+activity#com.example.spirostockmanagementandroid.AddProductToList
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:34:9-42:20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:36:13-71
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:35:13-45
+activity#com.example.spirostockmanagementandroid.AddProductNew
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:43:9-51:20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:45:13-67
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:44:13-42
+activity#com.example.spirostockmanagementandroid.ViewProductsList
+ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:52:9-60:20
+	android:label
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:54:13-70
+	android:name
+		ADDED from C:\Users\ArdethMain\Documents\GitHub\SpiroStockManagement\SpiroStockManagement Android\app\src\main\AndroidManifest.xml:53:13-45

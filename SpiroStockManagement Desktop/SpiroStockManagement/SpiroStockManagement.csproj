@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{442765E6-F765-4228-898B-D3916B4A5662}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpiroStockManagement</RootNamespace>
+    <AssemblyName>SpiroStockManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.GData.AccessControl, Version=1.9.0.0, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Google\Google Data API SDK\Redist\Google.GData.AccessControl.DLL</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client, Version=1.9.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Google\Google Data API SDK\Redist\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Documents, Version=1.9.0.0, Culture=neutral, PublicKeyToken=e4daaad656f19bb9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Google\Google Data API SDK\Redist\Google.GData.Documents.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Google\Google Data API SDK\Redist\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>I:\Creative Projects\Spiro Management\HtmlAgilityPack.1.4.0\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Users\alexandre.salsinha\Documents\GitHub\Gumail\EmailReader\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StarRatingControl, Version=1.0.4360.30772, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\StarRatingControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddRecipeIngredientsToList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRecipeIngredientsToList.Designer.cs">
+      <DependentUpon>AddRecipeIngredientsToList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddToOnlineStore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddToOnlineStore.Designer.cs">
+      <DependentUpon>AddToOnlineStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AutoCompleteMine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCompleteMine.designer.cs">
+      <DependentUpon>AutoCompleteMine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuyList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BuyList.Designer.cs">
+      <DependentUpon>BuyList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridViewIconTextCell.cs" />
+    <Compile Include="DataGridViewIconTextColumn.cs" />
+    <Compile Include="DataGridViewWithReorder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewWithReorder.Designer.cs">
+      <DependentUpon>DataGridViewWithReorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DPAPI.cs" />
+    <Compile Include="Encrypt.cs" />
+    <Compile Include="EXComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EXListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FirebaseItem.cs" />
+    <Compile Include="GlobalProcedures.cs" />
+    <Compile Include="GlobalVariables.cs" />
+    <Compile Include="Ingredients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ingredients.Designer.cs">
+      <DependentUpon>Ingredients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputDevice.cs" />
+    <Compile Include="InsertItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertItem.Designer.cs">
+      <DependentUpon>InsertItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ItemInfoAndChangeQuantity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemInfoAndChangeQuantity.Designer.cs">
+      <DependentUpon>ItemInfoAndChangeQuantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewPrinter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListViewRecipe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListViewRecipe.Designer.cs">
+      <DependentUpon>ListViewRecipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintListView.Designer.cs">
+      <DependentUpon>PrintListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductDataSet.cs">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProductDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recepies.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Recepies.Designer.cs">
+      <DependentUpon>Recepies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Recipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recipe.Designer.cs">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RecipeIngredientsAndStepsSeeLarge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecipeIngredientsAndStepsSeeLarge.Designer.cs">
+      <DependentUpon>RecipeIngredientsAndStepsSeeLarge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchItem.Designer.cs">
+      <DependentUpon>SearchItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings1.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SyncingWithGoogle.cs" />
+    <Compile Include="Syncing.cs" />
+    <Compile Include="tests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tests.Designer.cs">
+      <DependentUpon>tests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewListInText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewListInText.Designer.cs">
+      <DependentUpon>ViewListInText.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddRecipeIngredientsToList.resx">
+      <DependentUpon>AddRecipeIngredientsToList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddToOnlineStore.resx">
+      <DependentUpon>AddToOnlineStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCompleteMine.resx">
+      <DependentUpon>AutoCompleteMine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuyList.resx">
+      <DependentUpon>BuyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ingredients.resx">
+      <DependentUpon>Ingredients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertItem.resx">
+      <DependentUpon>InsertItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemInfoAndChangeQuantity.resx">
+      <DependentUpon>ItemInfoAndChangeQuantity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListViewRecipe.resx">
+      <DependentUpon>ListViewRecipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintListView.resx">
+      <DependentUpon>PrintListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Recepies.resx">
+      <DependentUpon>Recepies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recipe.resx">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecipeIngredientsAndStepsSeeLarge.resx">
+      <DependentUpon>RecipeIngredientsAndStepsSeeLarge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchItem.resx">
+      <DependentUpon>SearchItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tests.resx">
+      <DependentUpon>tests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewListInText.resx">
+      <DependentUpon>ViewListInText.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="ProductDataSet.xsc">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ProductDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ProductDataSet.xss">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Settings1.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FirebaseHelper\FirebaseHelper\FirebaseHelper\FirebaseHelper.csproj">
+      <Project>{c93afb86-4d0a-40ec-9a76-461c4c1b0ce5}</Project>
+      <Name>FirebaseHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpiroStockManagmentDatabaseClass\SpiroStockManagmentDatabaseClass.csproj">
+      <Project>{0A9B89C0-B939-4547-AF54-7DC0E9982C93}</Project>
+      <Name>SpiroStockManagmentDatabaseClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

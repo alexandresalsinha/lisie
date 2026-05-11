@@ -1,0 +1,38 @@
+﻿@model ClassLibrary1.Lyrics
+@{
+    Layout = null;
+
+    string backgroundColor = (ViewBag.DarkMode != null && (bool)ViewBag.DarkMode) ? "black" : "white";
+    string textColor = (ViewBag.DarkMode != null && (bool)ViewBag.DarkMode) ? "white" : "black";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Artist - @Model.Track Lyrics</title>
+    <style>
+        *{
+            font-size: 30pt;
+            font-family: Arial;
+        }
+
+        body {
+            background-color: @backgroundColor;
+            color: @textColor;
+        }
+
+        .row {
+            height: 100%;
+            column-count: 4;
+        }
+    </style>
+
+</head>
+<body>
+    <div class='row'>
+        @Html.Raw(Model.LyricsText)
+    </div>
+</body>
+</html>

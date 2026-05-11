@@ -1,0 +1,85 @@
+﻿@model SpiroWeb.Objects.ProductSearchResult 
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Confirm Product Data</h2>
+
+<div>
+    <h4>UserProductsList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Picture
+        </dt>
+        <dd>
+            <img src='@Model.ImageUrl' width="280px" height="220px"/>
+        </dd>
+        <dt>
+           Name
+        </dt>
+
+        <dd>
+            @Model.Name
+        </dd>
+        <dt>
+            Brand
+        </dt>
+
+        <dd>
+            @Model.Brand
+        </dd>
+
+        <dt>
+            Package Weight
+        </dt>
+
+        <dd>
+           @Model.Weight
+        </dd>
+
+        <dt>
+            Category
+        </dt>
+
+        <dd>
+            @Model.Category
+        </dd>
+
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @Model.Price
+        </dd>
+
+        <dt>
+           Variable Price Weight
+        </dt>
+
+        <dd>
+           @Model.PriceWeight
+        </dd>
+    </dl>
+</div>
+<p>
+    <div style="width:100%; text-align:center; margin-top:10px">
+        <button id="Button_productQueueSaveProductAndAddToShoppingCart" class="ladda-button" data-style="expand-right" onclick="SubmitNewProductAndToShoppingCart('@Model.Url', '@Model.Store')">
+            <span class="ladda-label">Save Product and Add To Shopping Cart</span>
+            <span class="ladda-spinner"></span>
+        </button>
+
+    </div>
+    <div style="width:100%; text-align:center; margin-top:10px">
+        <button id="Button_productQueueSaveProduct" class="ladda-button" data-style="expand-right" onclick="SubmitNewProduct('@Model.Url','@Model.Store')">
+            <span class="ladda-label">Just Save Product</span>
+            <span class="ladda-spinner"></span>
+        </button>
+
+    </div>
+
+    @*<input type="button" value="Save Product and Add To Shopping Cart" onclick="SubmitNewProductAndToShoppingCart('@Model.Url')" />*@
+    @*<input type="button" value="Just Save Product" onclick="SubmitNewProduct('@Model.Url')" />*@
+</p>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="287px" height="102px" viewBox="0 0 287 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>71A2C4F7-B57B-44C0-A77D-C703DD75E012</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-153.7%" y="-151.0%" width="408.3%" height="402.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="40" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.949019608   0 0 0 0 0.639215686   0 0 0 0 0.470588235  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M-1.33250656e-13,23.7760167 L-1.33250656e-13,11.3448241 C-1.33250656e-13,8.17687793 2.56875335,5.60858202 5.73624211,5.60858202 C8.90464568,5.60858202 11.4729416,8.17687793 11.4729416,11.3448241 L11.4729416,23.7760167 C11.4729416,29.4802408 16.1137129,34.121012 21.8174797,34.121012 C27.5217039,34.121012 32.1624751,29.4802408 32.1624751,23.7760167 L32.1624751,22.5849494 C32.1624751,19.4174607 34.7312285,16.8487074 37.8991746,16.8487074 C41.0666634,16.8487074 43.6354167,19.4174607 43.6354167,22.5849494 L43.6354167,23.7760167 C43.6354167,35.8065276 33.8475334,45.5939535 21.8174797,45.5939535 C9.78742594,45.5939535 -1.33250656e-13,35.8065276 -1.33250656e-13,23.7760167 Z" id="path-2"></path>
+        <linearGradient x1="2.15188768%" y1="50.0006192%" x2="100.000123%" y2="50.0006192%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#231F1F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo-/-Symbol+Sign-Logo/Logo">
+            <g id="Logo/Symbol" filter="url(#filter-1)" transform="translate(-0.000000, 0.000000)">
+                <g id="Group-11">
+                    <path d="M64.5799944,101.674238 L35.2200043,101.674238 C15.7686506,101.674238 0.000274439472,85.9058615 0.000274439472,66.4545077 L0.000274439472,35.2196386 C0.000274439472,15.7687422 15.7686506,-9.14798183e-05 35.2200043,-9.14798183e-05 L64.5799944,-9.14798183e-05 C84.0308906,-9.14798183e-05 99.7997242,15.7687422 99.7997242,35.2196386 L99.7997242,66.4545077 C99.7997242,85.9058615 84.0308906,101.674238 64.5799944,101.674238" id="Bg" fill="#EE5259"></path>
+                    <g id="Logo/UI-Symbol-Logo/Icon" transform="translate(28.040212, 28.040029)">
+                        <g id="Group">
+                            <path d="M34.1286506,9.59074464 C33.0450721,8.50762353 32.5025968,7.1797939 32.5025968,5.60771315 C32.5025968,4.03654719 33.0450721,2.70826016 34.1286506,1.62513905 C35.2117717,0.54247535 36.5396013,6.50003217e-15 38.1112246,6.50003217e-15 C39.6828479,6.50003217e-15 41.0106775,0.54247535 42.094256,1.62513905 C43.1769196,2.70826016 43.719395,4.03654719 43.719395,5.60771315 C43.719395,7.1797939 43.1769196,8.50762353 42.094256,9.59074464 C41.0106775,10.6743231 39.6828479,11.2167985 38.1112246,11.2167985 C36.5396013,11.2167985 35.2117717,10.6743231 34.1286506,9.59074464" id="Fill-4" fill="#FFFFFF"></path>
+                            <mask id="mask-3" fill="white">
+                                <use xlink:href="#path-2"></use>
+                            </mask>
+                            <use id="Fill-6" fill="#FFFFFF" xlink:href="#path-2"></use>
+                            <path d="M32.0684326,25.3471363 C31.3196703,30.3204366 27.0301817,34.1493245 21.8510519,34.1493245 C17.9567561,34.1493245 14.5605679,31.9839972 12.7963797,28.7959255 C9.92391345,31.8792528 1.8238331,33.0780958 3.4219855,35.4702931 C10.757752,46.4533601 19.5965318,45.3514857 22.6579039,45.5939072 C23.2017514,45.5742391 23.7391953,45.5349027 24.2720653,45.4754409 C30.1665672,43.9655664 31.6842174,31.0820061 32.0684326,25.3471363 Z" id="Fill-8" fill-opacity="0.15" fill="url(#linearGradient-4)" fill-rule="nonzero" mask="url(#mask-3)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <text id="Lisie.app" font-family="Montserrat-Medium, Montserrat Medium" font-size="36" font-weight="normal" fill="#FFFFFF">
+                <tspan x="121" y="64">Lisie.app</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

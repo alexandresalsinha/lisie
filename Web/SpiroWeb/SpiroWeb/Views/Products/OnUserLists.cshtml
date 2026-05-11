@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SpiroWeb.Controllers.OnUserListsModel>
+
+@{
+    ViewBag.Title = "Index";
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+<h2>Index</h2>
+
+<p>
+</p>
+
+
+<table class="table">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Barcode
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "name", searchQuery = searchQueryString })">
+                Name
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Category
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        @*<th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>*@
+        <th style="text-align: center;">
+            Created by User
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "InsertDate", searchQuery = searchQueryString })">
+                Create Date
+            </a>
+        </th>
+        <th style="text-align: center;">
+            Is Temp
+        </th>
+        <th style="text-align: center;">
+            Fail Count Month
+        </th>
+        <th style="text-align: center;">
+            Fail Count Week
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Products", new { id = item.UserProduct.ProductId })"><img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@item.UserProduct.ProductId" /></a>
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserProduct.Products.Barcode
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <a href="@Url.Action("Details", "Products", new { id = item.UserProduct.ProductId })">@item.UserProduct.Products.Name</a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserProduct.Products.Brand
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserProduct.Products.CategoryString
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserProduct.Products.Weight
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <a href="@Url.Action("Details", "Users", new { id = item.UserProduct.Products.CreatedByUserId })">@item.UserProduct.Products.CreatedByUserId</a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserProduct.Products.InsertDate.Value.ToString("dd-MM-yyyy")
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @(item.UserProduct.Products.IsTemp.HasValue ? item.UserProduct.Products.IsTemp.Value.ToString() : "NULL")
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.LastMonthFailCount
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.LastWeekFailCount
+            </td>
+            <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                <a href="@Url.Action("Edit", "Products", new { id = item.UserProduct.Products.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Edit"></span></a>
+                <a href="@Url.Action("Delete", "Products", new { id = item.UserProduct.Products.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("OnUserLists", new { page, orderBy = sortByQueryString, searchQuery = searchQueryString }))

@@ -1,0 +1,237 @@
+﻿@model ClassLibrary1.Products
+
+@{
+    ViewBag.Title = "Details";
+
+    var imgSrc = string.Empty;
+    if (Model.Picture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Picture);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    var _jumboPrice = Model.StoreProducts.Where(c => c.StoreId == 1).FirstOrDefault();
+    var _continentePrice = Model.StoreProducts.Where(c => c.StoreId == 2).FirstOrDefault();
+    var _pingoDoce = Model.StoreProducts.Where(c => c.StoreId == 3).FirstOrDefault();
+
+    string _jumboPriceLiteral = (_jumboPrice != null) ? _jumboPrice.Price.ToString() + "€" : string.Empty;
+    string _continentePriceLiteral = (_continentePrice != null) ? _continentePrice.Price.ToString() + "€" : string.Empty;
+    string _pingoDocePriceLiteral = (_pingoDoce != null) ? _pingoDoce.Price.ToString() + "€" : string.Empty;
+
+    string _jumboPriceUrl = (_jumboPrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(Model.Id) : string.Empty;
+    string _continentePriceUrl = (_continentePrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(Model.Id) : string.Empty;
+    string _pingoDocePriceUrl = (_pingoDoce != null) ? SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(Model.Id) : string.Empty;
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Picture)*@
+        </dt>
+
+        <dd>
+            <img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@Model.Id" />
+            @*<img src="@imgSrc" />*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+        <dt>
+            Weight
+            @*@Html.DisplayNameFor(model => model.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+        <dt>
+            Prices
+        </dt>
+
+        <dd>
+            @{
+                using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+                {
+                    foreach (var storeProduct in Model.StoreProducts)
+                    {
+                        var _store = db.Stores.Where(c => c.Id == storeProduct.StoreId).FirstOrDefault();
+                        var _url = storeProduct.Url;
+                        string _needsUpdateStyle = storeProduct.NeedsUpdate.HasValue && storeProduct.NeedsUpdate.Value ? @"style=color:red" : string.Empty;
+                        <a href="@_url">
+                            <p @_needsUpdateStyle>
+                                @_store.Name - @Math.Round(double.Parse(storeProduct.Price.ToString()), 2) €
+                                <span style="font-size:8pt">
+
+                                    @{
+                                        var _priceRatio = storeProduct.PriceRatio.HasValue ? Math.Round(double.Parse(storeProduct.PriceRatio.ToString()), 2).ToString() : string.Empty;
+
+                                        var _updateDateStr = storeProduct.UpdateDate.HasValue ? storeProduct.UpdateDate.Value.ToString("dd-MM-yyyy HH:mm") : string.Empty;
+                                    }
+                                    - @_priceRatio€\@storeProduct.Unit
+                                    <b> Last updated at: @_updateDateStr</b>
+                                </span>
+                            </p>
+                        </a>
+                        <table style="margin-left:20px; border-collapse: collapse;">
+                            <tr>
+                                <th></th>
+                                <th style="border: 1px solid #dddddd;">Id</th>
+                                <th style="border: 1px solid #dddddd;">Name</th>
+                                <th style="border: 1px solid #dddddd;">Brand</th>
+                                <th style="border: 1px solid #dddddd;">Weight</th>
+                                <th style="border: 1px solid #dddddd;">Added by user</th>
+                                <th style="border: 1px solid #dddddd;">Added date</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><img style="width:140px" src="@storeProduct.ImageUrl" /></td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.Id</td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.Name</td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.Brand</td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.Weight</td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.UserId</td>
+                                <td style="border: 1px solid #dddddd;">@storeProduct.CreateDate.Value.ToString("dd-MM-yyyy HH:mm")</td>
+                                <td style="text-align: center; vertical-align: middle; display: table-cell;">
+
+                                    @if (Model.StoreProducts.First() != storeProduct)
+                                    {
+                                        <a onclick="confirmDelete(@storeProduct.Id)"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+                                    }
+
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                }
+            }
+            @*<a href="@_jumboPriceUrl"><p style="color:#4cff00"> @_jumboPriceLiteral</p></a>
+            <a href="@_continentePriceUrl"><p style="color:#ff0000"> @_continentePriceLiteral</p></a>
+            <a href="@_pingoDocePriceUrl"> <p style="color:#000000"> @_jumboPriceLiteral</p></a>*@
+        </dd>
+
+        <dt>
+            Weight / Price
+            @*@Html.DisplayNameFor(model => model.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VariableWeightPrice)
+        </dd>
+
+
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CategoryString)*@
+            Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryString)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.InsertDate)*@
+            Create By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUserId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.InsertDate)*@
+            Create Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertDate)
+        </dd>
+        @*@Html.ActionLink("Update Product Metadata", "UpdateMetadata", new { id = Model.Id })*@
+    </dl>
+</div>
+<p>
+    <a href="/api/Products/GetUpdated?id=@Model.Id">Update Prices</a>
+    <br />
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Delete", "Products", new { id = Model.Id })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+</p>
+
+
+@helper GetJumboUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+
+@helper GetContinenteUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+
+@helper GetPingoDoceUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+<script>
+    function confirmDelete(id) {
+        debugger
+        if (confirm("Press a button!") == true) {
+            var _deleteUrl = '/StoreProducts/Delete/' + id;
+            window.open(_deleteUrl, '_blank');
+        } else {
+            text = "You canceled!";
+        }
+    }
+</script>

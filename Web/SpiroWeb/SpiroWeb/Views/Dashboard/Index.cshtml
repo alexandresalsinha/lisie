@@ -1,0 +1,67 @@
+﻿@model SpiroWeb.Models.ProductPriceUpdatesModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div>
+    <hr />
+</div>
+
+<div style="width:100%;text-align:center">
+    <h2>Produtos</h2>
+    <a href="/Products?page=1&orderBy=InsertDate" target="_blank">Listagem de produtos</a>
+    <br />
+    <a href="/StoreProducts" target="_blank">Listagem de mercados de produtos</a>
+    <br />
+    <a href="/Products/OnUserLists" target="_blank">Produtos nas listas dos utilizadores</a>
+    <br />
+    <a href="/Products/SearchForProductsWithBarcodeMismatch" target="_blank">Produtos com incompatibilidade de códigos de barras</a>
+    <br />
+    <br />
+
+    <h2>Preços</h2>
+
+    <a href="/Products/DayBestPriceProducts" target="_blank">Melhores promoções</a>
+    <br />
+    <a href="/UserProductsLists/TotalSavings" target="_blank">Poupança entre mercados</a>
+    <br />
+    <a href="/UserProductsLists/TotalSavingsReports?userId=9ff8224f-17cf-49fb-b555-05779a13eb40" target="_blank">Poupança entre mercados gráficos</a>
+    <br />
+    <a href="/Scoreboard/ProductUpdates" target="_blank">Atualizações de preços</a>
+    <br />
+    <a href="/Productsupdating" target="_blank">Servidores de atualização de preços</a>
+    <br />
+    <a href="/Products/ProductUpdatePriceFailsWorst" target="_blank">Produtos com mais falhas de atualização de preços</a>
+    <br />
+    <br />
+
+    <h2>Utilizadores</h2>
+    <a href="/Users" target="_blank">Listagem</a>
+    <br />
+    <a href="/Interactions/users" target="_blank">Interações dos utilizadores</a>
+    <br />
+    <br />
+
+    <h2>Listas dos utilizadores</h2>
+    <a href="/UserProductsLists/All" target="_blank">Listagem de produtos</a>
+    <br />
+    <br />
+
+    <h2>Relatórios</h2>
+    <a href="/Interactions/totals" target="_blank">Totais diários</a>
+    <br />
+    <a href="/Scoreboard/totals" target="_blank">Placar</a>
+
+    <h2>Marketing</h2>
+    <a href="/Marketing" target="_blank">Campanhas</a>
+</div>
+
+
+
+@section scripts {
+    <script src="~/Scripts/datepicker-pt.js"></script>
+}
+

@@ -1,0 +1,166 @@
+﻿@model SpiroWeb.Controllers.SearchMarketModel
+
+@{ 
+    ClassLibrary1.Stores _store = new ClassLibrary1.Stores();
+    using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+    {
+        _store = db.Stores.Where(c => c.Id == Model.StoreId).FirstOrDefault();
+
+    }
+
+    string searchQuery = (!string.IsNullOrEmpty(Request.QueryString["search"]) ? Request.QueryString["search"] : Model.Search);
+
+}
+<h2>Details</h2>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Picture)*@
+        </dt>
+
+        <dd>
+            <img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@Model.Product.Id" />
+            @*<img src="@imgSrc" />*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.Product.Barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => Model.Product.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Brand)
+        </dd>
+        <dt>
+            Weight
+            @*@Html.DisplayNameFor(model => Model.Product.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.Weight)
+        </dd>
+
+
+
+        <dt>
+            Weight / Price
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.VariableWeightPrice)
+        </dd>
+
+
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.CategoryString)*@
+            Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.CategoryString)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.InsertDate)*@
+            Create By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.CreatedByUserId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => Model.Product.InsertDate)*@
+            Create Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Product.InsertDate)
+        </dd>
+        <dt>
+            Is Temp
+        </dt>
+
+        <dd>
+            @(!Model.Product.IsTemp.HasValue ? "NULL" : Model.Product.IsTemp.Value.ToString() )
+            @{
+                if (!Model.Product.IsTemp.HasValue || !Model.Product.IsTemp.Value)
+                {
+
+                }
+                else
+                {
+                    <a onclick="confirmProductReviewGood(@Model.Product.Id)"><span class="glyphicon glyphicon-check" style="font-size: 1.4em;" title="Review positiveto products"></span></a>
+                }
+            }
+        </dd>
+
+        <dt>
+            Search Results of @_store.Name
+        </dt>
+
+        <dd>
+            <input type="text" id="search" value="@searchQuery" />
+            <input type="button" value="search"  onclick="searchMarketResults()"/>
+            <div style="width:100%; margin : 1.5em -8.5px" class="row">
+                @foreach (var _searchResult in Model.SearchResults)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div style="height:280px; text-align:center;">
+                            <a href="@(_store.Url + _searchResult.Url)">@_searchResult.Name</a>
+                            <br />
+                            <img style="width:140px" src="@_searchResult.ImageUrl" />
+                            <br />
+
+                            @_searchResult.Barcode
+                            <br />
+
+                            @_searchResult.Brand
+                            <br />
+
+                            @_searchResult.Weight
+                            <br />
+
+                            @_searchResult.Price
+                            <br />
+                            <a  href="/products/ConfirmMarket?productId=@Model.Product.Id&storeId=@Model.StoreId&url=@_searchResult.Url&onlineProductId=@_searchResult.OnlineProductId"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Set this one"></span></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </dd>
+    </dl>
+</div>
+<script>
+    function searchMarketResults() {
+        var _search = document.getElementById("search");
+
+        var _searchValue = document.getElementById("search").value;
+        debugger
+
+        window.location.href = "SearchMarket?id=@Model.Product.Id&storeId=@Model.StoreId&search=" + _searchValue;
+    }
+    function confirmSetMarket() {
+
+    }
+</script>
+
+

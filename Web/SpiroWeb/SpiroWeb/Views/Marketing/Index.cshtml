@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ClassLibrary1.Marketing>
+
+@{
+    ViewBag.Title = "Marketing";
+}
+
+<br />
+<br />
+<p>Count: @Model.Count()</p>
+
+<table class="table table-responsive">
+    <tr>
+       <th style="text-align: center;">
+            Id
+        </th>
+
+        <th style="text-align: center;">
+            Campaign
+        </th>
+        <th style="text-align: center;">
+            Create Date
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Id
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Campaign
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.CreateDate.ToString("dd-MM-yyyy  hh:mm")
+            </td>
+        </tr>
+    }
+</table>

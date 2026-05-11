@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ClassLibrary1.Interactions>
+
+
+<h2 style="margin-top:50px">Interactions</h2>
+
+<table class="table" style="margin-top:50px; margin-bottom:50px">
+    <tr>
+        <th>
+            User Id
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Extra)
+        </th>
+        <th>
+            Create Date
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+        </tr>
+    }
+
+</table>

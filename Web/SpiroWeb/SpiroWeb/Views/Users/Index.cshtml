@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ClassLibrary1.AspNetUsers>
+
+@{
+    ViewBag.Title = "Users";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+@*<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "button - primary" })
+</p>*@
+<div style="width:100%; margin-top:25px;margin-bottom:50px">
+  @using (Html.BeginForm("Index", "Products", FormMethod.Post, new { id = "searchQueryValue" }))
+  {
+      @Html.TextBox("searchQuery", "", new { @style = "width:100%" })
+      @Html.Hidden("page", "1")
+      @Html.Hidden("orderBy", sortByQueryString)
+      @Html.Hidden("searchQuery", searchQueryString)
+      <div style="width:100%; text-align:center;margin-top:10px; margin-bottom:25px">
+          <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="$('#searchQueryValue').submit()">
+              <span class="ladda-label">Search</span>
+              <span class="ladda-spinner"></span>
+          </button>
+          @*<input type="submit" value="Search" />*@
+      </div>
+      
+  }
+</div>
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+            Id
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Users", new { orderBy = "email" })">
+                Email
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfUsers)
+    {
+
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td style="text-align: center; vertical-align: middle;"> 
+            @item.Email
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a href="@Url.Action("Delete", "Users", new { id = item.Id})"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+        </td>
+    </tr>
+    }
+
+</table>
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, orderBy = sortByQueryString, searchQiery = searchQueryString }))*@

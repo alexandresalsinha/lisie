@@ -1,0 +1,12 @@
+﻿@model SpiroWeb.Models.ProductsAutoCompleteModel
+@{
+    Layout = null;
+}
+
+<div class="form-group">
+    <div>
+        @Html.TextBoxFor(Model => Model.Name, new { style = "width:100%;height:35px;font-size:12pt",  @class = "autocomplete-with-hidden", data_url = Url.Action("GetListForAutocomplete", "Products"), id="searchProductAutocompleteTextbox" })
+        @Html.HiddenFor(Model => Model.Id)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+</div>

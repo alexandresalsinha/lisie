@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ClassLibrary1.UserProductsList>
+
+
+@{
+    double globalTotalPrice = 0;
+}
+
+
+<div style="width:100%; margin : 1.5em -8.5px" class="row">
+    @foreach (var item in Model)
+    {
+        var imgSrc = string.Empty;
+        double totalPrice = (double)(item.Products.Price * Convert.ToInt32(item.Quantity));
+        globalTotalPrice += totalPrice;
+
+        string _totalPriceString = string.Format("{0:N2}€", totalPrice);
+
+        //totalPrice.ToString("%.2f");
+        if (item.Products.Picture != null)
+        {
+            var base64 = Convert.ToBase64String(item.Products.Picture);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+        @*<div class="col-md-3" style="border:2px solid black; height:280px; text-align:center;">*@
+        <div class="col-lg-3 col-md-4 col-sm-6" data-productlistid="@item.Id">
+            @*<div style="border:1px solid black; height:280px; text-align:center;">*@
+            <div style="height:280px; text-align:center;">
+
+                @*<a href="@Url.Action("Details", "ShoppingCart", new { id = item.Id })">@item.Products.Name</a>*@
+
+                @*<a href=" @GetJumboUrl(Url.Action("Details", "ShoppingCart", new { id = item.Id }), item.Products.Id)">@item.Products.Name</a>*@
+                <a href="~/Products/PriceReports/@item.ProductId">@item.Products.Name</a>
+                <br />
+                    <img style="width:140px" src="@imgSrc" />
+                <br />
+
+                @Html.DisplayFor(modelItem => item.Products.CategoryString)
+                <br />
+                <div style="vertical-align: middle;margin: 20px;">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                    <div style="display: inline-block;vertical-align: inherit;">
+                        <span class="glyphicon glyphicon-chevron-up" aria-hidden="false" style="display: block; cursor:pointer" onclick="AddQuantityToShoppingListItem(@item.Id)"></span>
+                        @*<span class="glyphicon glyphicon-chevron-down" aria-hidden="false" style="display: block; cursor:pointer" onclick="SubtractQuantityToShoppingListItem(@item.Id)"></span>*@
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="false" style="display: block; cursor:pointer" onclick="SubtractQuantityToShoppingListItem(@item.Id, @item.Quantity)"></span>
+                    </div>
+                    @_totalPriceString
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div style="width:100%; text-align:right; font-size:14pt">
+    <p><b> Total :</b> @string.Format("{0:N2}€", globalTotalPrice)</p>
+</div>
+
+@helper GetJumboUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}

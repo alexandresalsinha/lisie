@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SpiroWeb.Models.UserProductListCompleteModel2>
+
+@{
+    ViewBag.Title = "Index";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+<p>
+    Count of products - @ViewBag.TotalProducts
+</p>
+
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Barcode
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "name" })">
+                @Html.DisplayNameFor(model => model.Name)
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        @*<th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>*@
+        <th style="text-align: center;">
+            Created by User
+        </th>
+        <th style="text-align: center;">
+            Is Temp
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfProducts)
+    {
+
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Picture)*@
+            <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@item.Id" /></a>
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Barcode
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.Id })">@item.Name</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Brand
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Weight
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Users", new { id = item.CreatedByUserId })">@item.CreatedByUserId</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @(item.IsTemp != null ? item.IsTemp : "NULL")
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a href="@Url.Action("Edit", "Products", new { id = item.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Edit"></span></a>
+            <a href="@Url.Action("Delete", "Products", new { id = item.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+        </td>
+    </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("SearchForProductsWithBarcodeMismatch", new { page, orderBy = sortByQueryString}))

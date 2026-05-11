@@ -1,0 +1,133 @@
+﻿@model IEnumerable<ClassLibrary1.TaskManagerTasks>
+
+
+@{
+    ViewBag.Title = "My Tasks";
+    var category = Request.QueryString["category"];
+    if (String.IsNullOrEmpty(category))
+    {
+        Response.Redirect("/TasksManager/NewTasksViewer?category=hoje&seeOnlyUndone=true");
+    }
+}
+
+<div style="text-align: center; padding-top: 50px;">
+    <span style="margin-right: 10px;">New Task:</span>
+    <input id="newTaskText" type="text" style="width: 80%;">
+    <button style="margin-left: 10px;" onclick="AddNewTask()">Add</button>
+</div>
+
+<table class="table" style="margin-top:50px; margin-bottom:50px; text-align:center">
+    <tr>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            Id
+        </th>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            Category
+        </th>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            Task
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Done
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            CreateDate
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.Task)
+            </td>
+            <td style="vertical-align: middle;">
+                @if (item.Done.HasValue)
+                {
+                    @Html.DisplayFor(modelItem => item.Done.Value)
+                }
+                else
+                {
+                    <span>No Value</span>
+                }
+            </td>
+            <td style="vertical-align: middle;">
+                @if (item.CreateDate != DateTime.MinValue)
+                {
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                }
+                else
+                {
+                    <span>No date</span>
+                }
+            </td>
+            <td style="vertical-align: middle;">
+                <button onclick="markTaskAsDone(@item.Id)">Mark as done</button>
+            </td>
+            <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                <a href="#" onclick="deleteTask(@item.Id)"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    function AddNewTask() {
+        debugger
+        var inputText = $('#newTaskText').val();
+        if (inputText != undefined && inputText != '') {
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", "/TasksManager/New_AddTaskToCategory?category=" + encodeURI("@category") + "&task=" + encodeURI(inputText), true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                    window.location.reload();
+                }
+            }
+            xhr.send();
+        }
+
+    }
+
+    function markTaskAsDone(taskId) {
+        debugger
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "/TasksManager/New_TaskDone?category=" + encodeURI("@category") + "&id=" + taskId, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                window.location.reload();
+            }
+        }
+        xhr.send();
+    }
+
+    function deleteTask(taskId) {
+        var r = confirm("'re you sure, you want to delete it?");
+        if (r == true) {
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", "/TasksManager/New_TaskDelete?id=" + taskId, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                    window.location.reload();
+                }
+            }
+            xhr.send();
+        }
+    }
+</script>

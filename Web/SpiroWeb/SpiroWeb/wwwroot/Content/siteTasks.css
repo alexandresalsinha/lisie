@@ -1,0 +1,176 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+    padding-top: 200px;
+    width: 2500px;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+
+.rcorners2 {
+    border-radius: 25px;
+    /*border: 2px solid #8AC007;*/
+    border: 2px solid #7E86E0;
+    padding: 20px;
+    width: 50%;
+    /*overflow:scroll;*/
+    /*width: 200px;
+    height: 150px;*/
+}
+
+
+
+
+
+#WorkTasksContainer {
+    border-radius: 25px;
+    border: 2px solid #7E86E0;
+    padding: 20px;
+    width: 33%;
+    float: left;
+    /*width: 90%;*/
+    margin: 10px;
+    /*margin-top: 200px;*/
+    /*vertical-align:top;*/
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    #WorkTasksContainer {
+        width: 95%;
+    }
+
+    #SocialTasksContainer {
+        width: 95%;
+    }
+
+    #PersonalTasksContainer {
+        width: 95%;
+    }
+
+    input {
+        width: 85% !important;
+    }
+
+        input[type="checkbox"] {
+            width: auto !important;
+        }
+}
+
+
+#WorkTasksTodayContainer {
+    border-radius: 25px;
+    /*border: 2px solid #8AC007;*/
+    border: 2px solid #7E86E0;
+    padding: 20px;
+    width: 33%;
+    /*float: left;*/
+    margin: 10px;
+    margin-top: 50px;
+    /*overflow:scroll;*/
+    /*width: 200px;
+    height: 150px;*/
+}
+
+#SocialTasksContainer {
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    /*border: 2px solid #7E86E0;*/
+    padding: 20px;
+    width: 33%;
+    float: left;
+    margin: 10px;
+    /*margin-top: 200px;
+    vertical-align:top;*/
+    /*overflow:scroll;*/
+    /*width: 200px;
+    height: 150px;*/
+    /*height:auto;
+    position:relative;*/
+}
+
+#PersonalTasksContainer {
+    border-radius: 25px;
+    border: 2px solid #ff6a00;
+    /*border: 2px solid #7E86E0;*/
+    padding: 20px;
+    width: 31%;
+    float: left;
+    margin: 10px;
+    /*vertical-align:top;*/
+    /*margin-top: 180px;*/
+    /*overflow:scroll;*/
+    /*width: 200px;
+    height: 150px;*/
+    /*height:auto;
+    position:relative;*/
+}
+
+#PlayerStatusDiv {
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 30px;
+    position: fixed;
+    top: 0px;
+    z-index: 1000;
+    background-color: antiquewhite;
+}

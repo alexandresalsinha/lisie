@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Lisie</title>
+    <link rel="shortcut icon" href="/Lisie/simple/favicon.ico">
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+    <!-- Mobile Specific Metas  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    @*<link rel="stylesheet" href="/Scripts/Custom/Libraries/Skeleton-2.0.4/css/normalize.css">
+
+        <link rel="stylesheet" href="/Scripts/Custom/Libraries/Skeleton-2.0.4/css/skeleton.css">*@
+    @*<link href="~/Content/pace/pace-theme-center-radar.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/ladda/ladda.min.css" rel="stylesheet" />
+    @*<link href="~/Content/ladda/ladda-themeless.min.css" rel="stylesheet" />*@
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/datepicker-pt.js"></script>
+    <link href="~/Content/tabs.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="height:0%; background: linear-gradient(46.96deg,#ee5156 0%,#ff7469 41.9%,#f2a378 100%); border: none !important;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color:white;" href="/">Lisie</a>
+                @*@Html.ActionLink("Lisie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white;" })*@
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.ActionLink("Products", "Index", "Products", new { @style = "color:white;" })</li>*@
+                        <li><a style="color:white;" href="/ShoppingCart/Index">Products</a></li>
+                        <li><a style="color:white;" href="/ShoppingCart/Index">Shopping Cart</a></li>
+                        <li>@*@Html.ActionLink("Shopping Cart", "Index", "ShoppingCart", new { @style = "color:white;" })*@</li>
+                        <li>@*@Html.ActionLink("Inventory List", "Contact", "Home")*@</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Lisie</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+
+    <script src="~/Scripts/Custom/ProductsAutoComplete.js"></script>
+    <script src="~/Scripts/Custom/Libraries/spin.js"></script>
+    <script src="~/Scripts/Custom/Libraries/ladda.js"></script>
+
+    <script src="~/Scripts/Custom/tabs.js"></script>
+    <script src="~/Scripts/Custom/Helpers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+
+    @*<script src="~/Scripts/pace/pace.js"></script>*@
+
+
+</body>
+</html>

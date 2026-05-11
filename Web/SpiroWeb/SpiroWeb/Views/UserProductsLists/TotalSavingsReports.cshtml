@@ -1,0 +1,400 @@
+﻿@model IEnumerable<ClassLibrary1.UserTotalSavings>
+
+@{
+    ViewBag.Title = "User Total Savings";
+
+    var _stores = new List<ClassLibrary1.Stores>();
+    List<Tuple<string, List<ClassLibrary1.UserTotalSavings>>> _data = new List<Tuple<string, List<ClassLibrary1.UserTotalSavings>>>();
+    using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+    {
+        _stores = db.Stores.ToList();
+
+        var _groupedBy = Model.GroupBy(c => c.StoreIds).ToList();
+
+        foreach (var item in _groupedBy)
+        {
+            Tuple<string, List<ClassLibrary1.UserTotalSavings>> _item = new Tuple<string, List<ClassLibrary1.UserTotalSavings>>(item.Key, Model.Where(c => c.StoreIds == item.Key).OrderBy(c => c.CreateDate).ToList());
+            _data.Add(_item);
+            //item.Key
+        }
+        //var _groupByDistinct = _groupedBy.DistinctB("StoreIds");
+        var _test = "asdas";
+    }
+
+}
+
+@*<div style="padding:25px;display: inline-block;">
+        <h3 style="float:left">Updates count:</h3>
+        <h3 id="newProducPricesUpdates" style="float:left;padding-left:5px"></h3>
+        <h3 style="float:left;padding-left:40px">Started at:</h3>
+        <h3 style="color:green;float:left;padding-left:5px">@DateTime.Now.ToString()</h3>
+    </div>*@
+<br>
+<br>
+
+<h1 style="float:left">Total Saving Market Comparison in Percentage</h1>
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+
+<p>Date Start: <input type="text" id="datepicker_start"></p>
+<p>Date End: <input type="text" id="datepicker_end"></p>
+<p><button onclick="getWithDates()">Procurar</button></p>
+
+
+<br>
+<br>
+
+@*<table id="TotalSavings" class="table table-responsive">
+        <tr>
+            <th style="text-align: center;">
+                UserId
+            </th>
+            <th style="text-align: center;">
+                StoreIds
+            </th>
+            <th style="text-align: center;">
+                Total Products
+            </th>
+            <th style="text-align: center;">
+                Max Price
+            </th>
+            <th style="text-align: center;">
+                Min Price
+            </th>
+            <th style="text-align: center;">
+                Difference
+            </th>
+            <th style="text-align: center;">
+                Savings
+            </th>
+            <th style="text-align: center;">
+                Create Date
+            </th>
+            <th></th>
+        </tr>
+    </table>*@
+<div style="width:100%;text-align:center">
+    <a onclick="enlargeDiminish()">Aumentar/Diminuir tamanho dos gráficos</a>
+</div>
+<p>
+    @{
+
+        foreach (var _storesTotalSavings in _data)
+        {
+            string _storeNames = string.Empty;
+            foreach (var _storeId in _storesTotalSavings.Item1.Split(','))
+            {
+                var _storeName = _stores.Where(c => c.Id.Equals(int.Parse(_storeId))).FirstOrDefault().Name + ", ";
+                _storeNames += _storeName;
+            }
+            _storeNames = _storeNames.Remove(_storeNames.Length - 2, 2);
+            @*@_storeNames*@
+
+            <div class="row charts">
+                <h2>@_storeNames</h2>
+                <div class="chart" style=" width: 100%; max-height: 500px; height:50vh; " id="chartdiv_@Html.Raw(_storesTotalSavings.Item1.Replace(",", ""))"></div>
+            </div>
+
+            <br />
+            <a onlick="showHideDataTable('dataTable_@Html.Raw(_storesTotalSavings.Item1.Replace(",", ""))')">Show/Hide graph data</a>
+
+            <div id="dataTable_@Html.Raw(_storesTotalSavings.Item1.Replace(",", ""))" style="display:none">
+                <table class="table table-responsive">
+                    <tr>
+                        <th style="text-align: center;">
+                            UserId
+                        </th>
+                        <th style="text-align: center;">
+                            StoreIds
+                        </th>
+                        <th style="text-align: center;">
+                            Total Products
+                        </th>
+                        <th style="text-align: center;">
+                            Max Price
+                        </th>
+                        <th style="text-align: center;">
+                            Min Price
+                        </th>
+                        <th style="text-align: center;">
+                            Difference
+                        </th>
+                        <th style="text-align: center;">
+                            Savings
+                        </th>
+                        <th style="text-align: center;">
+                            Create Date
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in _storesTotalSavings.Item2.OrderByDescending(c => c.CreateDate))
+                    {
+
+                        <tr>
+                            @*<td>
+                                    <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="@imgSrc" /></a>
+                                </td>*@
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.UserId
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @{
+                                    string __storeNames = string.Empty;
+                                    foreach (var _storeId in item.StoreIds.Split(','))
+                                    {
+                                        var __storeName = _stores.Where(c => c.Id.Equals(int.Parse(_storeId))).FirstOrDefault().Name + ", ";
+                                        __storeNames += __storeName;
+                                    }
+                                    __storeNames = __storeNames.Remove(__storeNames.Length - 2, 2);
+                                    @__storeNames
+
+                                }
+
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.TotalProducts
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.MaxPrice€
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.MinPrice€
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.PriceDifference€
+                            </td>
+
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.Savings%
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @item.CreateDate.ToString("dd-MM-yyyy hh:mm")
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+        }
+
+    }
+</p>
+
+<script src="~/Scripts/core.js"></script>
+<script src="~/Scripts/charts.js"></script>
+@*<script src="//www.amcharts.com/lib/4/lang/pt_PT.js"></script>*@
+<script src="~/Scripts/themes/animated.js"></script>
+<script src="~/Scripts/themes/dark.js"></script>
+<script>
+    function showHideDataTable(id) {
+        var _element = document.getElementById(id);
+        if (_element.style.display === "none") {
+            _element.style.display = "block";
+
+        } else {
+            _element.style.display = "none";
+
+        }
+    }
+    var _enlarged = false;
+    function enlargeDiminish() {
+        if (!_enlarged) {
+            document.getElementsByClassName('body-content')[0].style.maxWidth = '90%'
+            _enlarged = true;
+        } else {
+            document.getElementsByClassName('body-content')[0].removeAttribute('style');
+            _enlarged = false;
+        }
+    }
+</script>
+<script>
+    var _startDate;
+    var _endDate;
+    $(function () {
+        $("#datepicker_start").datepicker({
+            //dateFormat: "m/d/yy",
+            onSelect: function () {
+                _startDate = this.value;
+            }
+        });
+        $("#datepicker_end").datepicker({
+            //dateFormat: "m/d/yy",
+            onSelect: function () {
+                _endDate = this.value;
+            }
+        });
+
+        //$("#datepicker_start").datepicker("option",
+        //    $.datepicker.regional["pt"]);
+        debugger
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const _dateStart = urlParams.get('dateStart')
+        const _dateEnd = urlParams.get('dateEnd');
+
+        if (_dateStart && _dateEnd) {
+            $("#datepicker_start").datepicker('setDate', new Date(_dateStart));
+            $("#datepicker_end").datepicker('setDate', new Date(_dateEnd));
+            _startDate = _dateStart;
+            _endDate = _dateEnd;
+        }
+    });
+
+    function getWithDates() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const _userId = urlParams.get('userId')
+        window.open('?userId=' + _userId + '&dateStart=' + encodeURIComponent(_startDate) + '&dateEnd=' + encodeURIComponent(_endDate), "_self");
+    }
+</script>
+@{
+    var _counter = 1;
+    foreach (var _storesTotalSavings in _data)
+    {
+        <script>
+
+    @switch (_counter)
+    {
+        case 1:
+            @Html.Raw("am4core.useTheme(am4themes_myYellowTheme);");
+            break;
+        case 2:
+            @Html.Raw("am4core.useTheme(am4themes_myRedTheme);");
+            break;
+        case 3:
+            @Html.Raw("am4core.useTheme(am4themes_myGreenTheme);");
+            break;
+        case 4:
+            @Html.Raw("am4core.useTheme(am4themes_myBlackTheme);");
+            break;
+        case 5:
+            @Html.Raw("am4core.useTheme(am4themes_myBlueTheme);");
+            break;
+        default:
+            break;
+    }
+    @{
+        _counter++;
+        var _varName = _storesTotalSavings.Item1.Replace(",", "");
+            }
+
+
+
+
+        var unit = "@(Request.QueryString["interval"] == null || Request.QueryString["interval"].Equals("lastweek") ? "minute" : "hour")";
+        var chart = am4core.create("chartdiv_@Html.Raw(_varName)", am4charts.XYChart);
+        chart.paddingRight = 20;
+
+        var data_@Html.Raw(_varName) = [];
+
+        @foreach (var _totalSaving in _storesTotalSavings.Item2)
+            {
+            @Html.Raw(String.Concat("        data_" + Html.Raw(_varName) + ".push({ date: new Date('", _totalSaving.CreateDate.ToString("M/d/yyyy HH:mm:ss"), "'), value: '", _totalSaving.Savings.ToString(), "' });\n"));
+              }
+
+              chart.data = data_@Html.Raw(_varName);
+              chart.dateFormatter.inputDateFormat = "dd/MM/yyyy HH:mm:ss";
+              chart.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+
+              var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+              dateAxis.renderer.grid.template.location = 0;
+            //dateAxis.baseInterval = { count: 1, timeUnit: unit };
+              dateAxis.baseInterval = { count: 1, timeUnit: 'day' };
+              dateAxis.tooltipDateFormat = "dd/MM/yyyy HH:mm:ss";
+
+              dateAxis.dateFormatter = new am4core.DateFormatter();
+              dateAxis.dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss";
+            dateAxis.baseInterval = {
+                timeUnit: "minute",
+                count: 1
+            }
+              var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+              valueAxis.tooltip.disabled = false;
+              valueAxis.renderer.minWidth = 35;
+
+              var series = chart.series.push(new am4charts.LineSeries());
+              series.dataFields.dateX = "date";
+              series.dataFields.valueY = "value";
+              series.tooltipText = "[bold]{valueY}[/]";
+              series.tooltip.pointerOrientation = "vertical";
+              series.tooltip.background.fillOpacity = 0.6;
+
+              chart.cursor = new am4charts.XYCursor();
+              chart.cursor.snapToSeries = series;
+              chart.cursor.xAxis = dateAxis;
+
+              //var scrollbarX = new am4charts.XYChartScrollbar();
+              //scrollbarX.series.push(series);
+              //chart.scrollbarX = scrollbarX;
+              //am4core.unuseTheme(am4themes_myGreenTheme);
+              //am4core.useTheme(am4themes_myRedTheme);
+
+              function am4themes_myRedTheme(target) {
+                  if (target instanceof am4core.ColorSet) {
+                  target.list = [
+                      am4core.color("#ff002a")
+                  ];
+              }
+          }
+
+          function am4themes_myYellowTheme(target) {
+              if (target instanceof am4core.ColorSet) {
+              target.list = [
+                  am4core.color("#E7DA4F")
+              ];
+          }
+      }
+
+      function am4themes_myGreenTheme(target) {
+          if (target instanceof am4core.ColorSet) {
+              target.list = [
+                  am4core.color("#4fe778")
+              ];
+          }
+      }
+
+
+      function am4themes_myBlueTheme(target) {
+          if (target instanceof am4core.ColorSet) {
+              target.list = [
+                  am4core.color("#189AB4")
+              ];
+          }
+      }
+
+
+      function am4themes_myBlackTheme(target) {
+          if (target instanceof am4core.ColorSet) {
+              target.list = [
+                  am4core.color("#000000")
+              ];
+          }
+      }
+
+      function on_off(value) {
+          return value == 1 ? 'On' : 'Off'
+        }
+        </script>
+    }
+}
+
+@section scripts {
+    <script src="~/Scripts/datepicker-pt.js"></script>
+
+    @*<script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+        <script src="../signalr/hubs"></script>
+        <script src="~/SignalR.Sample/SignalR.Interactions.js"></script>*@
+}
+

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<SpiroWeb.Models.UserInteractionsModel>
+
+@{
+    ViewBag.Title = "Users Interactions";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+}
+<h2 style="margin-top:50px">Users Insights (@Model.Count() users) </h2>
+
+<table class="table" style="margin-top:50px; margin-bottom:50px; text-align:center">
+    <tr>
+        <th style="vertical-align: middle; text-align:center" style="vertical-align: middle; text-align:center">
+            User Id
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "Confirmed" })">
+                Confirmed
+            </a>
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "CreateDate" })">
+                Create Date
+            </a>
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "Interactions" })">
+                Interactions
+            </a>
+        </th>
+        @*<th style="vertical-align: middle; text-align:center">
+            Last Interaction
+        </th>*@
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "lastinteractiondate" })">
+                Last Interaction Date
+            </a>
+
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "ProductsAddedtoMarket" })">
+                Products Added to Market
+            </a>
+
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Products Added to Shopping List
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            Products Added to Consumed
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            <a href="@Url.Action("Users", "Interactions", new { orderBy = "BarCodeScanned" })">
+                LH - Barcode scanned
+            </a>
+
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+            LH - Products Added to Consumed
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+        </th>
+        <th style="vertical-align: middle; text-align:center">
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td style="vertical-align: middle;">
+            <a href="@Url.Action("User", "Interactions", new { userId = item.UserId })" target="_blank">@Html.DisplayFor(modelItem => item.Email)</a>
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Confirmed)
+        </td>
+        <td style="vertical-align: middle;">
+            @if (item.CreateDate != DateTime.MinValue)
+            {
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            }
+            else
+            {
+                <span>Original</span>
+            }
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.Interactions)
+        </td>
+        @*<td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.LastInteractionName)
+        </td>*@
+        <td style="vertical-align: middle;">
+            @if (item.LastInteractionDate != DateTime.MinValue)
+            {
+
+                @Html.DisplayFor(modelItem => item.LastInteractionDate)
+            }
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.ProductsAddedToMarket)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.ProductsAddedToShoppingList)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.ProductsAddedToConsumed)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.LHbarcodeScanned)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(modelItem => item.LHProductsAddedToConsumed)
+        </td>
+        <td style="vertical-align: middle;">
+            <button>Send Message</button>
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a href="@Url.Action("Delete", "Users", new { id = item.UserId })" onclick="return confirm('Are you sure, you want to delete it?')"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+        </td>
+    </tr>
+    }
+
+</table>

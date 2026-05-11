@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ClassLibrary1.Lyrics>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        * {
+            font-size: 22pt;
+            font-family: Arial;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        /*.column {
+            float: left;
+            width: 33%;
+        }*/
+
+        .row {
+            height: 100%;
+            column-count: 4;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        @foreach (var _lyric in Model)
+        {
+            <a target="_blank" href="/Lyrics/Details?id=@_lyric.Id">@_lyric.Artist - @_lyric.Track</a><br />
+        }
+    </div>
+</body>
+</html>

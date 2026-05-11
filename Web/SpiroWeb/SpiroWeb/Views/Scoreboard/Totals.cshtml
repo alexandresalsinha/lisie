@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Total Interactions";
+
+    int _totalProducts = SpiroWeb.Managers.ProductsManager.GetTotal();
+    int _totalStoreProducts = SpiroWeb.Managers.ProductsManager.GetTotalStoreProducts();
+    int _totalInteractions = SpiroWeb.Managers.InteractionsManager.GetTotal();
+    int _totalUsers = SpiroWeb.Managers.UsersManager.GetTotal();
+
+    string _currentDate = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+}
+
+<div style="padding:100px; text-align:center">
+    <div style="display: inline-block;">
+        <h3>@_currentDate </h3>
+    </div>
+    <div >
+        <h1>Interactions</h1>
+        <h3 id="totalInteractions">@_totalInteractions </h3>
+        <h4 id="totalInteractionsPlus" style="color:green"></h4>
+    </div>
+    <div>
+        <h1>Products</h1>
+        <h3 id="totalProducts">@_totalProducts</h3>
+        <span id="totalProductsPlus" style="color:green"></span>
+
+    </div>
+    <div>
+        <h1>Prices</h1>
+        <h3 id="totalStoreProducts">@_totalStoreProducts </h3>
+        <span id="totalStoreProductsPlus" style="color:green"></span>
+
+    </div>
+    <div >
+        <h1>Users</h1>
+        <h3 id="totalUsers">@_totalUsers</h3>
+        <span id="totalUsersPlus" style="color:green"></span>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script src="~/SignalR.Sample/SignalR.Interactions.js"></script>
+}

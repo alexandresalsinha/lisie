@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ClassLibrary1.UserTotalSavings>
+
+@{
+    ViewBag.Title = "User Total Savings";
+
+    var _stores = new List<ClassLibrary1.Stores>();
+    using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+    {
+        _stores = db.Stores.ToList();
+    }
+}
+
+@*<div style="padding:25px;display: inline-block;">
+    <h3 style="float:left">Updates count:</h3>
+    <h3 id="newProducPricesUpdates" style="float:left;padding-left:5px"></h3>
+    <h3 style="float:left;padding-left:40px">Started at:</h3>
+    <h3 style="color:green;float:left;padding-left:5px">@DateTime.Now.ToString()</h3>
+</div>*@
+<br><br><br>
+<table id="TotalSavings" class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+           UserId
+        </th>
+        <th style="text-align: center;">
+            StoreIds
+        </th>
+        <th style="text-align: center;">
+            Total Products
+        </th>
+        <th style="text-align: center;">
+            Max Price
+        </th>
+        <th style="text-align: center;">
+            Min Price
+        </th>
+        <th style="text-align: center;">
+            Difference
+        </th>
+        <th style="text-align: center;">
+            Savings
+        </th>
+        <th style="text-align: center;">
+            Create Date
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            @*<td>
+                    <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="@imgSrc" /></a>
+                </td>*@
+            <td style="text-align: center; vertical-align: middle;">
+                @item.UserId
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @{
+                    string _storeNames = string.Empty;
+                    foreach (var _storeId in item.StoreIds.Split(','))
+                    {
+                        var _storeName = _stores.Where(c => c.Id.Equals(int.Parse(_storeId))).FirstOrDefault().Name + ", ";
+                        _storeNames += _storeName;
+                    }
+                    _storeNames = _storeNames.Remove(_storeNames.Length - 2, 2);
+                    @_storeNames
+
+                }
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.TotalProducts
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.MaxPrice€
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.MinPrice€
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.PriceDifference€
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Savings%
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.CreateDate.ToString("dd-MM-yyyy hh:mm")
+            </td>
+        </tr>
+
+    }
+
+</table>
+@section scripts {
+    <script src="~/Scripts/jquery.color-2.1.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script src="~/SignalR.Sample/SignalR.Interactions.js"></script>
+}

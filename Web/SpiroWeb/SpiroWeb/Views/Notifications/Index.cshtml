@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ClassLibrary1.AspNetUsers>
+
+@{
+    ViewBag.Title = "Users";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+
+<div style="width:100%; margin-top:25px;margin-bottom:50px">
+    @using (Html.BeginForm("SendToAll", "Notifications", FormMethod.Get, new { id = "searchQueryValue" }))
+    {
+        <span>Title</span>
+        @Html.TextBox("title", "", new { @style = "width:100%" })
+        <span>Body</span>
+        @Html.TextBox("body", "", new { @style = "width:100%;height:50px", cols = "40", rows = "5" })
+        <span>Data</span>
+        @Html.TextBox("data", "", new { @style = "width:100%" })
+        @*@Html.Hidden("page", "1")*@
+        @*@Html.Hidden("orderBy", sortByQueryString)*@
+        @*@Html.Hidden("searchQuery", searchQueryString)*@
+        <div style="width:100%; text-align:center;margin-top:10px; margin-bottom:25px">
+            <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="return sendToAllUsers()">
+                <span class="ladda-label">Send to all users</span>
+                <span class="ladda-spinner"></span>
+            </button>
+            @*<input type="submit" value="Search" />*@
+        </div>
+
+    }
+</div>
+<div style="width:100%; margin-top:25px;margin-bottom:50px; display:none">
+    @using (Html.BeginForm("SendToUser", "Notifications", FormMethod.Get, new { id = "sendToUserForm" }))
+    {
+        @*@Html.TextBox("title2", "", new { @style = "width:100%" })*@
+        @*@Html.TextBox("body2", "", new { @style = "width:100%;height:50px", cols = "40", rows = "5" })*@
+        @*@Html.TextBox("data2", "", new { @style = "width:100%" })*@
+        @Html.Hidden("userId", "")
+        @Html.Hidden("title2", "")
+        @Html.Hidden("body2", "")
+        @Html.Hidden("data2", "")
+
+    }
+</div>
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+            Id
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Users", new { orderBy = "email" })">
+                Email
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfUsers)
+    {
+
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td style="text-align: center; vertical-align: middle;"> 
+            @item.Email
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a onclick="sendToUser('@item.Id', '@item.Email')"><span class="glyphicon glyphicon-send" style="font-size: 1.4em;" title="Delete"></span></a>
+        </td>
+    </tr>
+    }
+
+</table>
+<script>
+    function sendToUser(userId, userEmail) {
+        debugger
+        $('#title2').val($('#title').val());
+        $('#body2').val($('#body').val());
+        $('#data2').val($('#data').val());
+        $('#userId').val(userId);
+        $('#sendToUserForm').submit()
+    }
+    function sendToAllUsers() {
+        var result = confirm('De certeza que queres mandar a TODOS os utilizadores?');
+        if (result) {
+            $('#searchQueryValue').submit()
+        }
+        return result;
+    }
+</script>
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, orderBy = sortByQueryString, searchQiery = searchQueryString }))*@

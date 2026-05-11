@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ClassLibrary1.UndeadMachinas>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <div>
+        <table class="table table-responsive">
+            <tr>
+                <th style="text-align: center;">
+                    Undead Name
+                </th>
+                <th style="text-align: center;">
+                    Ngrok Adress
+                </th>
+                <th style="text-align: center;">
+                    Ngrok State
+                </th>
+                <th style="text-align: center;">
+                    Internal Ip
+                </th>
+                <th style="text-align: center;">
+                    External Ip
+                </th>
+                <th style="text-align: center;">
+                    Hostname
+                </th>
+                <th style="text-align: center;">
+                    Username
+                </th>
+                <th style="text-align: center;">
+                    Create
+                </th>
+                <th style="text-align: center;">
+                    Update
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+            <tr>
+                <td>
+                    @Html.Raw(item.UndeadName)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.NgrokAdress)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.NgrokState)
+                    <button onclick="setNgrockMode('@item.UndeadName', true)">On</button>
+                    <button onclick="setNgrockMode('@item.UndeadName', false)">Off</button>
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.InternalIp)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.ExternalIp)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.Hostname)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.Username)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.CreateDate.Value.ToString())
+                </td>
+
+                <td style="text-align: center; vertical-align: middle;">
+                    @Html.Raw(item.UpdateDate.HasValue ? item.UpdateDate.Value.ToString() : "")
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    <script>
+        function setNgrockMode(undeadeName, state) {
+            $.ajax({
+                url: "/UndeadMachinas/SaveNgrockMode?UndeadName=" + undeadeName +  "&mode=" + state
+            })
+            .done(function (data) {
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ClassLibrary1.Products>
+
+@{
+    ViewBag.Title = "Index";
+
+    string sortByQueryString = (!string.IsNullOrEmpty(Request.QueryString["orderBy"]) ? Request.QueryString["orderBy"] : string.Empty);
+    string pageQueryString = (!string.IsNullOrEmpty(Request.QueryString["page"]) ? Request.QueryString["page"] : string.Empty);
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "button - primary" })
+</p>
+<div style="width:100%; margin-top:25px;margin-bottom:50px">
+    @*<a href="@Url.Action("Index", "Products", new { page, orderBy = sortByQueryString, searchQuery = searchQueryString })">
+            @Html.DisplayNameFor(model => model.Name)
+        </a>*@
+    @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { id = "searchQueryValue" }))
+    {
+        @Html.TextBox("searchQuery", "", new { @style = "width:100%" })
+        @Html.Hidden("page", "1")
+        @Html.Hidden("orderBy", sortByQueryString)
+        <div style="width:100%; text-align:center;margin-top:10px; margin-bottom:25px">
+            <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="$('#searchQueryValue').submit()">
+                <span class="ladda-label">Search</span>
+                <span class="ladda-spinner"></span>
+            </button>
+            @*<input type="submit" value="Search" />*@
+        </div>
+
+    }
+</div>
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Barcode
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "name", searchQuery = searchQueryString })">
+                @Html.DisplayNameFor(model => model.Name)
+            </a>
+            @*<span class="glyphicons glyphicons-sorting"></span>*@
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Category
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        @*<th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>*@
+        <th style="text-align: center;">
+            Created by User
+        </th>
+        <th style="text-align: center;">
+            <a href="@Url.Action("Index", "Products", new { page = 1, orderBy = "InsertDate", searchQuery = searchQueryString })">
+                Create Date
+            </a>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OnePageOfProducts)
+    {
+        var imgSrc = string.Empty;
+        if (item.Picture != null)
+        {
+            var base64 = Convert.ToBase64String(item.Picture);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Picture)*@
+            <a href="@Url.Action("Details", "Products", new { id = item.Id })"><img style="width:140px" src="@imgSrc" /></a>
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Barcode
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Products", new { id = item.Id })">@item.Name</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Brand
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.CategoryString
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.Weight
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="@Url.Action("Details", "Users", new { id = item.CreatedByUserId })">@item.CreatedByUserId</a>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            @item.InsertDate.ToString("dd-MM-yyyy")
+        </td>
+        <td style="text-align: center; vertical-align: middle; display: table-cell;">
+            <a href="@Url.Action("Approve", "ProductsTemp", new { id = item.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Edit"></span></a>
+            <a href="@Url.Action("Delete", "ProductsTemp", new { id = item.Id, orderBy = sortByQueryString })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+        </td>
+    </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, orderBy = sortByQueryString, searchQuery = searchQueryString }))

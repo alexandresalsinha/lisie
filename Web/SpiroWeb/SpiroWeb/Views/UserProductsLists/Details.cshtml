@@ -1,0 +1,58 @@
+﻿@model ClassLibrary1.UserProductsList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserProductsList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ListName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Products.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Products.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

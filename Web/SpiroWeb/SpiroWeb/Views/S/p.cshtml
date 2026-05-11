@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="@ViewBag.Description">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@ViewBag.Title">
+    <meta property="og:description" content="@ViewBag.Description">
+    <meta property="og:image" content="@ViewBag.Image">
+    @*<meta http-equiv="refresh" content="0;url=@ViewBag.UrlRedirect" />*@
+</head>
+<body>
+    @{ 
+        string _url2 = ViewBag.UrlRedirect;
+        string _urlFinal = _url2.Replace("amp;", "");
+    }
+    @*<div>
+        <a href="@_urlFinal">@_urlFinal</a>
+        <p id="ios"></p>
+        <p id="android"></p>
+    </div>*@
+    <script>
+        window.onload = function () {
+            var _url = "@ViewBag.UrlRedirect";
+            _url = _url.replace("amp;", "");
+            window.location.href = _url;
+
+            //if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+            //    // run your code here
+            //}
+
+            var requestIsFromIos = /iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent);
+            var requestIsFromAndroid = /Android/i.test(navigator.userAgent);
+            console.log("requestIsFromIos", requestIsFromIos);
+            console.log("requestIsFromAndroid", requestIsFromAndroid);
+            document.getElementById("ios").textContent = "is ios - " + requestIsFromIos;
+            document.getElementById("android").textContent = "is android - " + requestIsFromAndroid;
+
+            var _storeUrl = "";
+            if (requestIsFromAndroid) {
+                _storeUrl = "https://play.google.com/store/apps/details?id=com.lisie.org";
+            }
+            if (requestIsFromIos) {
+                _storeUrl = "https://lisie.app";
+            }
+            setTimeout(() => {
+                window.location.href = _storeUrl;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:text=" " />
+
+         <TextView
+        android:id="@+id/textView_ProductList_GridItem_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03"
+        android:text="nome"
+        android:width="200dip" 
+		android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView_ProductList_GridItem_id"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        android:width="1dp" />
+    
+    
+</LinearLayout><!-- From: file:/C:/Users/ArdethMain/Documents/GitHub/SpiroStockManagement/SpiroStockManagement%20Android/app/src/main/res/layout/product_list_grid_item.xml -->

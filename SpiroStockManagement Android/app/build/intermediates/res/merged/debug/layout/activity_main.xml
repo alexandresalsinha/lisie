@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+   <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_ViewShoppingCart"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="View Shopping Cart" />
+
+        <Button
+            android:id="@+id/button_ViewInventory"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="View Inventory" />
+
+        <Button
+            android:id="@+id/button_AddToShoppingCart"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Add To Shopping Cart" />
+        
+         <Button
+             android:id="@+id/button_AddToInventory"
+             android:layout_width="200dp"
+             android:layout_height="wrap_content"
+             android:text="Add to Inventory" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/ArdethMain/Documents/GitHub/SpiroStockManagement/SpiroStockManagement%20Android/app/src/main/res/layout/activity_main.xml -->

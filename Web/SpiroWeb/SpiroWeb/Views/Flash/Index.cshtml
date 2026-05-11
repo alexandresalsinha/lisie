@@ -1,0 +1,66 @@
+﻿@model SpiroWeb.Models.FlashModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>FlashIndex</h2>
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Error))
+{
+    @Html.Raw(Model.Error)
+}
+
+@using (Html.BeginForm("index", "Flash"))
+{
+
+    <div class="editor-label ">
+        @Html.TextArea("texto",new { style="width:800px; height:200px"})
+
+    </div>
+    <input type="submit" type="submit" />
+    <div>
+
+
+
+        @if (Model != null && Model.DtResult != null)
+        {
+            <table border="1">
+                <thead>
+                    <tr>
+
+                        @foreach (System.Data.DataColumn col in Model.DtResult.Columns)
+                        {
+                            <th>@col.Caption</th>
+                            
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (System.Data.DataRow row in Model.DtResult.Rows)
+                    {
+                        <tr>
+                            @foreach (var cell in row.ItemArray)
+                            {
+                                <td>@cell.ToString()</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+             
+            
+        }
+
+
+    </div>
+    
+}
+
+

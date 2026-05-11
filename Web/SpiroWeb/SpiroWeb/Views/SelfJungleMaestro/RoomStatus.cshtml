@@ -1,0 +1,65 @@
+﻿@model SpiroWeb.Models.SelfJungleMaestroViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="Temperature"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="Moisture"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <script>
+        //var trace1 = {
+        //    x: [1, 2, 3, 4],
+        //    y: [10, 15, 13, 17],
+        //    mode: 'markers',
+        //    name: 'Scatter'
+        //};
+
+        var dataTemperature = [{
+            x: @Html.Raw(Model.DateAxis),
+            y: @Model.TemperatureAxis,
+            mode: 'lines',
+            name: 'Lines',
+            line: {
+                color: '#B22222',
+                width: 2
+            }
+        }];
+
+        var dataMoisture =[ {
+            x: @Html.Raw(@Model.DateAxis),
+            y: @Model.MoistureAxis,
+            mode: 'lines',
+            name: 'Lines'
+        }];
+
+        //var data1 = [dataTemperature];
+        //var trace3 = {
+        //    x: [1, 2, 3, 4],
+        //    y: [12, 9, 15, 12],
+        //    mode: 'lines+markers',
+        //    name: 'Scatter + Lines'
+        //};
+
+        //var data = [trace1, trace2, trace3];
+
+        var layoutTemperature = {
+            title: 'Room - Temperature'
+        };
+
+        var layoutMoisture = {
+            title: 'Room - Humidity'
+        };
+
+        Plotly.newPlot('Temperature', dataTemperature, layoutTemperature);
+        Plotly.newPlot('Moisture', dataMoisture, layoutMoisture);
+    </script>
+</body>
+</html>

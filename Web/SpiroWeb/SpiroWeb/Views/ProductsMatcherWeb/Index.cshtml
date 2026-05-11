@@ -1,0 +1,348 @@
+﻿@model IEnumerable<LisieStores.Extensibility.ProductSearchResult>
+
+@{
+    ViewBag.Title = "Products Matcher";
+
+    string searchQueryString = (!string.IsNullOrEmpty(Request.QueryString["searchQuery"]) ? Request.QueryString["searchQuery"] : string.Empty);
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        height: 100%;
+        width: 100%;
+        font-size: 0;
+    }
+
+    #left, #middle, #right {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        vertical-align: top;
+        font-size: 12px;
+        color: white;
+    }
+    #left {
+        width: 25%;
+        background: green;
+        padding: 15px;
+        text-align: center;
+        color:white;
+    }
+
+    #middle {
+        width: 50%;
+        background: red;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #right {
+        width: 25%;
+        background: black;
+        padding: 15px;
+        text-align: center;
+    }
+      
+</style>
+
+<br />
+
+<div style="width:100%; margin-top:25px;margin-bottom:50px">
+    @using (Html.BeginForm("Index", "ProductsMatcherWeb", FormMethod.Post, new { id = "searchQueryValue" }))
+    {
+        @Html.TextBox("searchQuery", "", new { @style = "width:100%" })
+        @Html.Hidden("searchQuery", searchQueryString)
+        <div style="width:100%; text-align:center;margin-top:10px; margin-bottom:25px">
+            <button id="searchForProductOnline" class="ladda-button" data-style="expand-right" onclick="$('#searchQueryValue').submit()">
+                <span class="ladda-label">Search</span>
+                <span class="ladda-spinner"></span>
+            </button>
+            @*<input type="submit" value="Search" />*@
+        </div>
+
+    }
+</div>
+
+<script>
+    function showStore(id) {
+        var jumbo = document.getElementById('jumboSearchResults');
+        var continente = document.getElementById('continenteSearchResults');
+        var pingodoce = document.getElementById('pingoDoceResults');
+        switch (id) {
+            case 1:
+                jumbo.style.display = "block";
+                continente.style.display = "none";
+                pingodoce.style.display = "none";
+                break;
+            case 2:
+                jumbo.style.display = "none";
+                continente.style.display = "block";
+                pingodoce.style.display = "none";
+                break;
+            case 3:
+                jumbo.style.display = "none";
+                continente.style.display = "none";
+                pingodoce.style.display = "block";
+                break;
+            default:
+        }
+    }
+</script>
+
+<div id="container">
+    <a href="#" onclick="showStore(1)"><div id="left">Jumbo</div></a>
+    <a href="#" onclick="showStore(2)"> <div id="middle">Continente</div></a>
+    <a href="#" onclick="showStore(3)"> <div id="right">Pingo Doce</div></a>
+</div>
+
+
+<div></div>
+<table id="jumboSearchResults" class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Name
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        <th style="text-align: center;">
+            Price
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>
+        @if (Session["selectedStore"] != null)
+        {
+            <th> Similarity %</th>
+        }
+        <th></th>
+    </tr>
+    @{
+        var currentIndex = 0;
+    }
+    @foreach (var item in Model)
+    {
+        if (item.StoreId != 1)
+        {
+            continue;
+        }
+
+        var imgSrc = string.Empty;
+        if (item.ImageUrl != null)
+        {
+            imgSrc = item.ImageUrl;
+        }
+
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Picture)*@
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><img style="width:140px" src="@imgSrc" /></a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Name
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Brand
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Weight
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Price€
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.PriceWeight
+            </td>
+            @if (Session["selectedStore"] != null)
+            {
+                <td> Similarity %</td>
+            }
+            <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Select"></span></a>
+            </td>
+        </tr>
+        currentIndex++;
+    }
+
+</table>
+
+<table id="continenteSearchResults" class="table table-responsive" style="display:block">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Name
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        <th style="text-align: center;">
+            Price
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>
+        @if (Session["selectedStore"] != null)
+        {
+            <th> Similarity Text %</th>
+        }
+        @if (Session["selectedStore"] != null)
+        {
+            <th> Similarity %</th>
+        }
+        <th></th>
+    </tr>
+    @{
+        currentIndex = 0;
+    }
+    @foreach (var item in Model)
+    {
+        if (item.StoreId != 2)
+        {
+            continue;
+        }
+
+        var imgSrc = string.Empty;
+        if (item.ImageUrl != null)
+        {
+            imgSrc = item.ImageUrl;
+        }
+
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Picture)*@
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><img style="width:140px" src="@imgSrc" /></a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Name
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Brand
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Weight
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Price€
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.PriceWeight
+            </td>
+            @if (Session["selectedStore"] != null)
+            {
+                <td> Similarity %</td>
+            }
+            <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Select"></span></a>
+            </td>
+        </tr>
+        currentIndex++;
+    }
+
+</table>
+
+<table id="pingoDoceResults" class="table table-responsive" style="display:block">
+    <tr>
+        <th style="text-align: center;">
+
+        </th>
+        <th style="text-align: center;">
+            Name
+        </th>
+        <th style="text-align: center;">
+            Brand
+        </th>
+        <th style="text-align: center;">
+            Weight
+        </th>
+        <th style="text-align: center;">
+            Price
+        </th>
+        <th style="text-align: center;">
+            Weight / Price
+        </th>
+        @if (Session["selectedStore"] != null)
+        {
+            <th> Similarity %</th>
+        }
+        <th></th>
+    </tr>
+    @{
+        currentIndex = 0;
+    }
+    @foreach (var item in Model)
+    {
+        if (item.StoreId != 3)
+        {
+            currentIndex++;
+            continue;
+        }
+
+        var imgSrc = string.Empty;
+        if (item.ImageUrl != null)
+        {
+            imgSrc = item.ImageUrl;
+        }
+
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Picture)*@
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><img style="width:140px" src="@imgSrc" /></a>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Name
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Brand
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Weight
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Price€
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.PriceWeight
+            </td>
+            @if (Session["selectedStore"] != null)
+            {
+                <td> Similarity %</td>
+            }
+            <td style="text-align: center; vertical-align: middle; display: table-cell;">
+                <a href="@Url.Action("Select", "ProductsMatcherWeb", new { currentIndex })"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Select"></span></a>
+            </td>
+        </tr>
+        currentIndex++;
+    }
+
+</table>
+
+@helper GetSimilarity(SpiroWeb.Objects.ProductSearchResult productSearchResult)
+{
+    if (Session["selectedProduct"] != null)
+    {
+        @*string similarityPercentage = SpiroWeb.Managers.ProductsMatcherManager.GetProductsSimilarity(Session["selectedProduct"] as SpiroWeb.Objects.ProductSearchResult, productSearchResult);
+
+            @: @similarityPercentage*@
+    }
+
+    @: 0
+}
+

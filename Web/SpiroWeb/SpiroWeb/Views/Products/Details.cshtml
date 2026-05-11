@@ -1,0 +1,406 @@
+﻿@model ClassLibrary1.Products
+
+@{
+    ViewBag.Title = "Details";
+
+    var imgSrc = string.Empty;
+    if (Model.Picture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Picture);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    var _jumboPrice = Model.StoreProducts.Where(c => c.StoreId == 1).FirstOrDefault();
+    var _continentePrice = Model.StoreProducts.Where(c => c.StoreId == 2).FirstOrDefault();
+    var _pingoDoce = Model.StoreProducts.Where(c => c.StoreId == 3).FirstOrDefault();
+
+    string _jumboPriceLiteral = (_jumboPrice != null) ? _jumboPrice.Price.ToString() + "€" : string.Empty;
+    string _continentePriceLiteral = (_continentePrice != null) ? _continentePrice.Price.ToString() + "€" : string.Empty;
+    string _pingoDocePriceLiteral = (_pingoDoce != null) ? _pingoDoce.Price.ToString() + "€" : string.Empty;
+
+    string _jumboPriceUrl = (_jumboPrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(Model.Id) : string.Empty;
+    string _continentePriceUrl = (_continentePrice != null) ? SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(Model.Id) : string.Empty;
+    string _pingoDocePriceUrl = (_pingoDoce != null) ? SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(Model.Id) : string.Empty;
+
+    string _calculatedCategory = SpiroWeb.Managers.ProductsManager.CalculateProductCategory(Model.Id);
+
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Picture)*@
+        </dt>
+
+        <dd>
+            <img style="width:140px" src="~/Handlers/GetProductImage.ashx?productId=@Model.Id" />
+            @*<img src="@imgSrc" />*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+        <dt>
+            Weight
+            @*@Html.DisplayNameFor(model => model.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            Weight / Price
+            @*@Html.DisplayNameFor(model => model.VariableWeightPrice)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VariableWeightPrice)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CategoryString)*@
+            Category String
+        </dt>
+        <dd>
+            @Model.CategoryString
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CategoryString)*@
+            Category (calculated)
+        </dt>
+
+        <dd>
+            @_calculatedCategory
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.InsertDate)*@
+            Create By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUserId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.InsertDate)*@
+            Create Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertDate)
+        </dd>
+        <dt>
+            Is Temp
+        </dt>
+
+        <dd>
+            @(!Model.IsTemp.HasValue ? "NULL" : Model.IsTemp.Value.ToString() )
+            @{
+                if (!Model.IsTemp.HasValue || !Model.IsTemp.Value)
+                {
+                    <a onclick="confirmProductReviewBad(@Model.Id)"><span class="glyphicon glyphicon-unchecked" style="font-size: 1.4em;" title="Review negative product review"></span></a>
+
+                }
+                else
+                {
+                    <a onclick="confirmProductReviewGood(@Model.Id)"><span class="glyphicon glyphicon-check" style="font-size: 1.4em;" title="Review positive products"></span></a>
+                }
+            }
+        </dd>
+
+        <dt>
+            Users that have product in lists
+        </dt>
+
+        <dd>
+            @foreach (var item in ViewBag.UserListsWhereProductIs)
+            {
+                <p>
+                    <a href="@Url.Action("Details", "Users", new { id = item.UserId })">
+                        @item.UserId
+                    </a>
+                </p>
+            }
+        </dd>
+        <br />
+        <br />
+        <br />
+
+        <dt>
+            Prices
+        </dt>
+
+        <dd>
+            @{
+                using (ClassLibrary1.SpiroStockManagementEntities db = new ClassLibrary1.SpiroStockManagementEntities())
+                {
+                    foreach (var storeProduct in Model.StoreProducts)
+                    {
+                        var _store = db.Stores.Where(c => c.Id == storeProduct.StoreId).FirstOrDefault();
+                        var _url = storeProduct.Url;
+                        string _needsUpdateStyle = storeProduct.NeedsUpdate.HasValue && storeProduct.NeedsUpdate.Value ? @"style=color:red" : string.Empty;
+
+                        var _productPricesUpdatesFailsLastWeek = 0;
+                        var _productPricesUpdatesFailsLastMonth = 0;
+                        var _productPriceLastSucessfulUpdate = storeProduct.LastSuccessfulUpdateDate.HasValue ? storeProduct.LastSuccessfulUpdateDate.Value.ToString("dd-MM-yyyy HH:mm") : "";
+                        if (storeProduct.NeedsUpdate.HasValue && storeProduct.NeedsUpdate.Value == true)
+                        {
+                            var pastDate = DateTime.Now.Date.AddDays(-7);
+                            var pastMonthDate = DateTime.Now.Date.AddMonths(-1);
+                            _productPricesUpdatesFailsLastWeek = db.ProductPricesUpdatesFails.Where(c => c.ProductId == storeProduct.ProductId && c.StoreId == storeProduct.StoreId && c.CreateDate >= pastDate).Count();
+                            _productPricesUpdatesFailsLastMonth = db.ProductPricesUpdatesFails.Where(c => c.ProductId == storeProduct.ProductId && c.StoreId == storeProduct.StoreId && c.CreateDate >= pastMonthDate).Count();
+
+                        }
+                        <a href="@_url">
+                            <p @_needsUpdateStyle>
+                                @_store.Name - @Math.Round(double.Parse(storeProduct.Price.ToString()), 2) €
+                                <span style="font-size:8pt">
+
+                                    @{
+                                        var _priceRatio = storeProduct.PriceRatio.HasValue ? Math.Round(double.Parse(storeProduct.PriceRatio.ToString()), 2).ToString() : string.Empty;
+
+                                        var _updateDateStr = storeProduct.UpdateDate.HasValue ? storeProduct.UpdateDate.Value.ToString("dd-MM-yyyy HH:mm") : string.Empty;
+                                    }
+                                    - @_priceRatio€\@storeProduct.Unit
+                                   
+                                </span>
+                                <br />
+                                <span style="font-size:8pt;">
+                                    <b> Last updated at: @_updateDateStr</b>
+                                </span>
+                                <span style="font-size:8pt;margin-left:5px">
+                                    <b> Last week fails: @_productPricesUpdatesFailsLastWeek</b>
+                                </span>
+                                <span style="font-size: 8pt; margin-left: 5px">
+                                    <b>       Last month fails: @_productPricesUpdatesFailsLastMonth</b>
+                                </span>
+                                <br />
+                                <span style="font-size: 8pt; color: green">
+                                    <b>Last sucessful at: @_productPriceLastSucessfulUpdate</b>
+                                </span>
+                            </p>
+                        </a>
+                        <table style="margin-left:20px; border-collapse: collapse;">
+                            <tr>
+                                <th></th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Id</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Barcode</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Name</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Brand</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Weight</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Price/Weight</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Unit</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Category</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Category Full</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Added by user</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Added date</th>
+                                <th style="border: 1px solid #dddddd; text-align: center">Is Temp</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><img style="width:140px" src="@storeProduct.ImageUrl" /></td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.Id</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.Barcode</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.Name</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.Brand</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.Weight</td>
+                                <td style="border: 1px solid #dddddd; text-align:center">@storeProduct.PriceRatio €</td>
+                                <td style="border: 1px solid #dddddd; text-align: center ">@storeProduct.Unit</td>
+                                <td style="border: 1px solid #dddddd; text-align: center ">@storeProduct.Category</td>
+                                <td style="border: 1px solid #dddddd; text-align: center ">@storeProduct.CategoryFull</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.UserId</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">@storeProduct.CreateDate.Value.ToString("dd-MM-yyyy HH:mm")</td>
+                                <td style="border: 1px solid #dddddd; text-align: center">
+                                    @(!storeProduct.IsTemp.HasValue ? false : storeProduct.IsTemp.Value )
+                                    @{
+                                        if (!storeProduct.IsTemp.HasValue || !storeProduct.IsTemp.Value)
+                                        {
+                                            <a onclick="confirmStoreProductReviewBad(@Model.Id,@storeProduct.Id, @Model.StoreProducts.Count)"><span class="glyphicon glyphicon-unchecked" style="font-size: 1.4em;" title="Review positive store product"></span></a>
+
+                                        }
+                                        else
+                                        {
+                                            <a onclick="confirmStoreProductReviewGood(@Model.Id,@storeProduct.Id, @Model.StoreProducts.Count)"><span class="glyphicon glyphicon-check" style="font-size: 1.4em;" title="Review positive store product"></span></a>
+
+                                        }
+                                    }
+
+                                </td>
+                                <td style="text-align: center; vertical-align: middle; display: table-cell;">
+
+                                    @if (Model.StoreProducts.First() != storeProduct)
+                                    {
+                                        <a href="/Products/SearchMarket?id=@Model.Id&storeId=@storeProduct.StoreId" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 1.4em;" title="Update Metadata"></span></a>
+                                        <a onclick="confirmUpdateMetadata(@Model.Id,@storeProduct.Id)"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Update Metadata"></span></a>
+
+                                        <a onclick="confirmDelete(@storeProduct.Id)"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Products/SearchMarket?id=@Model.Id&storeId=@storeProduct.StoreId" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 1.4em;" title="Update Metadata"></span></a>
+                                        <a onclick="confirmUpdateMetadata(@Model.Id,@storeProduct.Id)"><span class="glyphicon glyphicon-edit" style="font-size: 1.4em;" title="Update Metadata"></span></a>
+                                    }
+
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    }
+
+                }
+            }
+        </dd>
+        @*@Html.ActionLink("Update Product Metadata", "UpdateMetadata", new { id = Model.Id })*@
+    </dl>
+      
+</div>
+<p>
+    <a href="/api/Products/GetUpdated?id=@Model.Id" target="_blank">Update Prices</a>
+    <br />
+    <a href="/Products/PriceReports?id=@Model.Id" target="_blank">Price Reports</a>
+    <br />
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Delete", "Products", new { id = Model.Id })"><span class="glyphicon glyphicon-remove" style="font-size: 1.4em;" title="Delete"></span></a>
+</p>
+
+
+@helper GetJumboUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductJumboStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+
+@helper GetContinenteUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductContinenteStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+
+@helper GetPingoDoceUrl(string oldUrl, int productId)
+{
+    string url = SpiroWeb.Managers.ProductsManager.GetProductPingoDoceStoreUrl(productId);
+    //string url = "";
+    if (url != string.Empty)
+    {
+        @: @url
+    }
+    else
+    {
+        @: @oldUrl
+    }
+}
+<script>
+    function confirmDelete(id) {
+        if (confirm("Tens a certeza que queres apagar este produto de mercado?") == true) {
+            var _deleteUrl = '/StoreProducts/Delete/' + id;
+            window.open(_deleteUrl, '_blank');
+        } else {
+            text = "You canceled!";
+        }
+    }
+    function confirmUpdateMetadata(productId, storeProductId) {
+        if (confirm("Tens a certeza que queres fazer update da metadata deste produto de mercado?") == true) {
+            var _Url = '/StoreProducts/UpdateMetadata?productId=' + productId + '&storeProductId=' + storeProductId;
+            window.open(_Url, "_self");
+        } else {
+            text = "You canceled!";
+        }
+    }
+
+    function confirmStoreProductReviewGood(productId, storeProductId, storeProductsCount) {
+        if (storeProductsCount > 1) {
+            if (confirm("Tens a certeza que queres aceitar este produto de mercado como válido?") == true) {
+                var _Url = '/StoreProducts/AcceptTemp?productId=' + productId + '&storeProductId=' + storeProductId;
+                window.open(_Url, "_self");
+            } else {
+                text = "You canceled!";
+            }
+        } else {
+            if (confirm("Tens a certeza que queres aceitar este produto como válido?") == true) {
+                var _Url = '/Products/AcceptTemp?productId=' + productId;
+                window.open(_Url, "_self");
+            } else {
+                text = "You canceled!";
+            }
+        }
+    }
+    function confirmStoreProductReviewBad(productId, storeProductId, storeProductsCount) {
+        if (storeProductsCount > 1) {
+            if (confirm("Tens a certeza que queres aceitar este produto de mercado como válido?") == true) {
+                var _Url = '/StoreProducts/RefuseTemp?productId=' + productId + '&storeProductId=' + storeProductId;
+                window.open(_Url, "_self");
+            } else {
+                text = "You canceled!";
+            }
+        } else {
+            if (confirm("Tens a certeza que queres aceitar este produto como válido?") == true) {
+                var _Url = '/Products/RefuseTemp?productId=' + productId;
+                window.open(_Url, "_self");
+            } else {
+                text = "You canceled!";
+            }
+        }
+    }
+    function confirmProductReviewGood(productId) {
+        if (confirm("Tens a certeza que queres aceitar este produto como válido?") == true) {
+            var _Url = '/Products/AcceptTemp?productId=' + productId;
+            window.open(_Url, "_self");
+        } else {
+            text = "You canceled!";
+        }
+    }
+    function confirmProductReviewBad(productId) {
+        if (confirm("Tens a certeza que queres aceitar este produto como válido?") == true) {
+            var _Url = '/Products/RefuseTemp?productId=' + productId;
+            window.open(_Url, "_self");
+        } else {
+            text = "You canceled!";
+        }
+    }
+</script>

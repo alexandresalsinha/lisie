@@ -1,0 +1,48 @@
+﻿@model SpiroWeb.Models.SelfJungleMaestroPlantsViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Self Jungle Maestro Plants</title>
+    <style>
+        .img-hor-vert {
+            -moz-transform: scale(-1, -1);
+            -o-transform: scale(-1, -1);
+            -webkit-transform: scale(-1, -1);
+            transform: scale(-1, -1);
+        }
+    </style>
+</head>
+<body>
+    <a style="font-size:x-large" href="/selfjunglemaestro/roomstatus">Room Status</a><br /><br />
+    <p style="margin-left:20px"><b>Last readings at:</b> @Html.Raw(Model.RoomStatus.CreateDate.Value.ToString())</p>
+    <p style="margin-left:20px">Humidity: @Html.Raw(Model.RoomStatus.Humidity)</p>
+    <p style="margin-left:20px;margin-bottom:50px">Temperature: @Html.Raw(Model.RoomStatus.Temperature)</p>
+    <br />
+    @{
+        foreach (ClassLibrary1.SelfJungleMaestro_PlantStatus _plant in Model.Plants)
+        {
+            <a style="font-size:x-large" href="@Html.Raw("/selfjunglemaestro/plant?name=" + _plant.Name)">@_plant.Name</a><br />
+            <p style="margin-left:20px"><b>Last readings at:</b> @Html.Raw(_plant.CreateDate.Value.ToString())</p>
+            <p style="margin-left:20px">Moisture: @Html.Raw(_plant.Moisture)</p>
+            <p style="margin-left:20px">Temperature: @Html.Raw(_plant.Temperature)</p>
+            <p style="margin-left:20px">Sunlight: @Html.Raw(_plant.Sunlight)</p>
+            <p style="margin-left:20px">Fertility: @Html.Raw(_plant.Fertility)</p>
+        }
+    }
+    0
+    @*<a style="font-size:x-large" href="/selfjunglemaestro/plant?name=princebeauty">Prince Beauty</a><br />*@
+    @*<a style="font-size:x-large" href="/selfjunglemaestro/plant?name=ResurgenteAtilla">Resurgent Atilla</a><br />
+        <a style="font-size:x-large" href="/selfjunglemaestro/plant?name=BornPromise">Born Promise</a><br />*@
+    @if (!string.IsNullOrEmpty(Request.QueryString["pss"]) && Request.QueryString["pss"] == "maestroMaster")
+    {
+        <p style="font-size:x-large">Camera Streaming</p>
+        <img class="img-hor-vert" src="http://amdiskarayan.ddns.net/?action=stream" />
+    }
+</body>
+</html>

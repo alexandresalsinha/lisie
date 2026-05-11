@@ -1,0 +1,100 @@
+﻿@model SpiroWeb.Models.SelfJungleMaestroViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="plantTemperature"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="plantMoisture"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="plantFertility"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="plantSunlight"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <script>
+        //var trace1 = {
+        //    x: [1, 2, 3, 4],
+        //    y: [10, 15, 13, 17],
+        //    mode: 'markers',
+        //    name: 'Scatter'
+        //};
+
+        var dataTemperature = [{
+            x: @Html.Raw(Model.DateAxis),
+            y: @Model.TemperatureAxis,
+            mode: 'lines',
+            name: 'Lines',
+            line: {
+                color: '#B22222',
+                width: 2
+            }
+        }];
+
+        var dataMoisture =[ {
+            x: @Html.Raw(@Model.DateAxis),
+            y: @Model.MoistureAxis,
+            mode: 'lines',
+            name: 'Lines',
+            line: {
+                width: 2
+            }
+        }];
+
+        var dataFertility = [{
+            x: @Html.Raw(@Model.DateAxis),
+            y: @Model.FertilityAxis,
+            mode: 'lines',
+            name: 'Lines',
+            line: {
+                color: '#32CD32',
+                width: 2
+            }
+        }];
+
+        var dataSunlight = [{
+            x: @Html.Raw(@Model.DateAxis),
+            y: @Model.SunlightAxis,
+            mode: 'lines',
+            name: 'Lines',
+            line: {
+                color: '#FFFF00',
+                width: 2
+            }
+        }];
+
+        //var data1 = [dataTemperature];
+        //var trace3 = {
+        //    x: [1, 2, 3, 4],
+        //    y: [12, 9, 15, 12],
+        //    mode: 'lines+markers',
+        //    name: 'Scatter + Lines'
+        //};
+
+        //var data = [trace1, trace2, trace3];
+
+        var layoutTemperature = {
+            title: '@Html.Raw(@Model.PlantName + " - Temperature")' 
+        };
+
+        var layoutMoisture = {
+            title: '@Html.Raw(@Model.PlantName + " - Moisture")'
+        };
+        var layoutFertility = {
+            title: '@Html.Raw(@Model.PlantName + " - Fertility")'
+        };
+        var layoutSunlight = {
+            title: '@Html.Raw(@Model.PlantName + " - Sunligh")'
+        };
+        Plotly.newPlot('plantTemperature', dataTemperature, layoutTemperature);
+        Plotly.newPlot('plantMoisture', dataMoisture, layoutMoisture);
+        Plotly.newPlot('plantFertility', dataFertility, layoutFertility);
+        Plotly.newPlot('plantSunlight', dataSunlight, layoutSunlight);
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<br>
+<br>
+<span>Data de inicio: <input type="text" id="datepicker_start"></span>
+<span style="margin-left:20px"> Date de fim: <input type="text" id="datepicker_end"></span>
+<span><button onclick="getWithDates()">Procurar</button></span>
+
+<div style="width:100%; text-align:center; margin-top:50px">
+    <span> @ViewBag.StartDate</span>
+    <span> - @ViewBag.EndDate</span>
+</div>
+
+<br />
+<br />
+
+<table class="table table-responsive">
+    <tr>
+        <th style="text-align: center;">
+            Nome
+        </th>
+
+        <th style="text-align: center;">
+            Quantidade antiga
+        </th>
+        <th style="text-align: center;">
+            Quantidade nova
+        </th>
+        <th style="text-align: center;">
+            Data
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Items)
+    {
+        var _price = SpiroWeb.Helpers.TextTools.ParsePrice(item.Price.ToString());
+
+        <tr>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.Name
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+                @item.OldQuantity
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.NewQuantity
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                @item.InsertDate.ToString("dd-MM-yyyy HH:MM")
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    var _startDate;
+    var _endDate;
+    $(function () {
+        $("#datepicker_start").datepicker({
+            //dateFormat: "m/d/yy",
+            onSelect: function () {
+                _startDate = this.value;
+            }
+        });
+        $("#datepicker_end").datepicker({
+            //dateFormat: "m/d/yy",
+            onSelect: function () {
+                _endDate = this.value;
+            }
+        });
+
+        //$("#datepicker_start").datepicker("option",
+        //    $.datepicker.regional["pt"]);
+        debugger
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const _dateStart = urlParams.get('dateStart')
+        const _dateEnd = urlParams.get('dateEnd');
+
+        if (_dateStart && _dateEnd) {
+            $("#datepicker_start").datepicker('setDate', new Date(_dateStart));
+            $("#datepicker_end").datepicker('setDate', new Date(_dateEnd));
+            _startDate = _dateStart;
+            _endDate = _dateEnd;
+        }
+    });
+
+    function getWithDates() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const _businessId = urlParams.get('b')
+        window.open('?b=' + _businessId + '&dateStart=' + encodeURIComponent(_startDate) + '&dateEnd=' + encodeURIComponent(_endDate), "_self");
+    }
+</script>
+@section scripts {
+    <script src="~/Scripts/datepicker-pt.js"></script>
+}
