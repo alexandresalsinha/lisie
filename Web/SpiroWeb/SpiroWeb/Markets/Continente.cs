@@ -365,9 +365,14 @@ namespace SpiroWeb.Markets
 
                     //get Barcode
                     int _indexBeg = _returnedHtml.IndexOf("&amp;ean=") + "&amp;ean=".Length;
+                    int _indexEndArray = _returnedHtml.IndexOf("%7c", _indexBeg); //in case the barcode value is various barcodes in a array
                     int _indexEnd = _returnedHtml.IndexOf("&amp;", _indexBeg);
                     if (_indexBeg > -1 && _indexEnd > -1 && _indexEnd > _indexBeg)
                     {
+                        if(_indexEndArray < _indexEnd)
+                        {
+                            _indexEnd = _indexEndArray;
+                        }
                         _productBarcode = _returnedHtml.Substring(_indexBeg, _indexEnd - _indexBeg);
                     }
 
@@ -407,11 +412,11 @@ namespace SpiroWeb.Markets
                 //var _prodyctUnitRatio = _productPrimaryPriceUnit.ToLower() == "un" ? _productSecundaryPriceUnit : _productPrimaryPriceUnit;
 
                 //var _productPriceWeightValue = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.pwc-tile--price-secondary.col-tile--price-secondary > span.ct-price-value"].Text().Replace("\n", "").Replace("€", "").Trim();
-                var _productPrimaryPriceValue = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.prices-wrapper > span > span > span.ct-price-formatted"].First().Text().Replace("\n", "").Replace("€", "");
-                var _productPrimaryPriceUnit = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.prices-wrapper > span > span > span.pwc-m-unit"].Text().Replace("\n", "").Replace("/", "").Trim();
+                var _productPrimaryPriceValue = _productDom[".pwc-tile--price-primary"].First().Text().Replace("\n", "").Replace("€", "").Replace(" ", "");
+                var _productPrimaryPriceUnit = _productPrimaryPriceValue.Split('/')[1];
 
-                var _productSecondaryPriceValue = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.pwc-tile--price-secondary.col-tile--price-secondary > span.ct-price-value"].First().Text().Replace("\n", "").Replace("€", "");
-                var _productSecondaryPriceUnit = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.pwc-tile--price-secondary.col-tile--price-secondary > span.pwc-m-unit"].Text().Replace("\n", "").Replace("/", "").Trim();
+                var _productSecondaryPriceValue = _productDom[".pwc-tile--price-secondary"].First().Text().Replace("\n", "").Replace("€", "");
+                var _productSecondaryPriceUnit = _productSecondaryPriceValue.Split('/')[1].Replace(" ", "");
 
                 var _productPrice = string.Empty;
                 var _productPriceWeight = string.Empty;
@@ -419,7 +424,7 @@ namespace SpiroWeb.Markets
 
                 if (TextTools.IsBarcodeOfWeightType(_productBarcode))
                 {
-                    _productPrice = _productSecondaryPriceValue;
+                    _productPrice = _productPrimaryPriceValue;
                     _productPriceWeight = _productPrimaryPriceValue;
                     _prodyctUnitRatio = _productPrimaryPriceUnit.Replace("/", "");
 
