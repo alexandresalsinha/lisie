@@ -286,21 +286,23 @@ namespace SpiroWeb.Markets
 
                 var _productOnlineId = _productResultCQ.Attr("data-pid");
                 string _productUrl = _productResultCQ["a"].First().Attr("href");
-                string _productName = _productResultCQ[".col-tile--description"].Text();
-                string _productBrand = _productResultCQ[".col-tile--brand"].First().Text().Replace("\n", "").Trim();
+                string _productName = _productResultCQ[".pwc-tile--description "].Text().Replace("\n", "").Trim();
+                //string _productBrand = _productResultCQ[".col-tile--brand"].First().Text().Replace("\n", "").Trim();
+                string _productBrand = ""; //doesn´t appear on html
                 string _productImageUrl = _productResultCQ[".ct-tile-image"].First().Attr("data-src");
-                var _productWeight = _productResultCQ[".col-tile--quantity"].First().Text().Replace("\n", "").Trim();
-                var _productPrimaryPriceValue = _productResultCQ[".ct-price-formatted"].Text().Replace("\n", "").Replace("€", "").Trim();
+                var _productWeight = _productResultCQ[".pwc-tile--quantity"].First().Text().Replace("\n", "").Trim();
+                var _productPrimaryPriceValue = _productResultCQ[".pwc-tile--price-primary"].Text().Replace("\n", "").Replace("€", "").Trim();
 
-                var _productPriceWithDiscountValue = _productResultCQ[".value.ct-tile--price-value"].First().Attr("content");
+                var _productPriceWithDiscountValue = _productResultCQ[".list"].First().Text().Replace("\n", "").Replace("PVPR", "").Trim();
 
-                var _productSecundaryPriceValue = _productResultCQ[".ct-price-value"].Text().Replace("\n", "").Replace("€", "").Trim();
-                //var _productPrimaryPriceUnit = _productResultCQ[".ct-tile--price-primary .pwc-m-unit"].Text().Replace("\n", "").Replace("/", "").Trim();
-                var _productSecundaryPriceUnit = _productResultCQ[".col-tile--price-secondary .pwc-m-unit"].Text().Replace("\n", "").Replace("/", "").Trim();
+                var _productSecundaryPriceValue = _productResultCQ[".pwc-tile--price-secondary"].Text().Replace("\n", "").Replace("€", "").Trim();
+                //var _productSecundaryPriceUnit = _productResultCQ[".col-tile--price-secondary .pwc-m-unit"].Text().Replace("\n", "").Replace("/", "").Trim();
+                var _productSecondaryPriceUnit = _productSecundaryPriceValue.IndexOf('/') > -1 ? _productSecundaryPriceValue.Split('/')[1].Replace(" ", "") : "";
+
 
                 var _productPrice = _productPrimaryPriceValue;
                 var _productPriceWeight = _productSecundaryPriceValue;
-                var _prodyctUnitRatio = _productSecundaryPriceUnit;
+                var _prodyctUnitRatio = _productSecondaryPriceUnit;
                 _productSearchResultList.Add(new LisieStores.Extensibility.ProductSearchResult
                 {
                     Name = _productName,
@@ -416,7 +418,7 @@ namespace SpiroWeb.Markets
                 var _productPrimaryPriceUnit = _productPrimaryPriceValue.IndexOf('/') > -1 ? _productPrimaryPriceValue.Split('/')[1] : "";
 
                 var _productSecondaryPriceValue = _productDom[".pwc-tile--price-secondary"].First().Text().Replace("\n", "").Replace("€", "").Replace(" ", "");
-                var _productSecondaryPriceUnit = _productSecondaryPriceValue.Split('/')[1].Replace(" ", "");
+                var _productSecondaryPriceUnit = _productSecondaryPriceValue.IndexOf('/') > -1 ? _productSecondaryPriceValue.Split('/')[1].Replace(" ", "") : "";
 
                 if (_productSecondaryPriceValue.IndexOf(_productSecondaryPriceUnit) > -1)
                 {
