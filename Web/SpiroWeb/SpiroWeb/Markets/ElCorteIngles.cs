@@ -156,7 +156,8 @@ namespace SpiroWeb.Markets
                 CQ _produto = _Dom[".js-product"];
                 string _htmlSrc = _produto.Html();
 
-                var _onlineProductId = _produto.Attr("data-product-id").Replace("___", "");
+                //var _onlineProductId = _produto.Attr("data-product-id").Replace("___", "");
+                var _onlineProductId = "None";
                 string _image = "https:" + _produto[".js-zoom-to-modal-image"].First().Attr("src");
                 var _barcode = _produto[".pdp-reference span"].First().Text();
 

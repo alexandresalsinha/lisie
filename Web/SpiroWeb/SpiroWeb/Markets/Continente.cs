@@ -369,7 +369,7 @@ namespace SpiroWeb.Markets
                     int _indexEnd = _returnedHtml.IndexOf("&amp;", _indexBeg);
                     if (_indexBeg > -1 && _indexEnd > -1 && _indexEnd > _indexBeg)
                     {
-                        if(_indexEndArray < _indexEnd)
+                        if((_indexEndArray < _indexEnd) && _indexEndArray != -1)
                         {
                             _indexEnd = _indexEndArray;
                         }
@@ -413,10 +413,15 @@ namespace SpiroWeb.Markets
 
                 //var _productPriceWeightValue = _productDom["#maincontent > div > div > div.row.no-gutters.product-images-container > div.col-12.col-sm-7.col-md-6.product-name-details > div.product-name-details--wrapper.pwc-border--radius > div.attributes > div.row.no-gutters.prices-add-to-cart-actions > div.col-auto.ct-pdp--prices > div > div > div.pwc-tile--price-secondary.col-tile--price-secondary > span.ct-price-value"].Text().Replace("\n", "").Replace("€", "").Trim();
                 var _productPrimaryPriceValue = _productDom[".pwc-tile--price-primary"].First().Text().Replace("\n", "").Replace("€", "").Replace(" ", "");
-                var _productPrimaryPriceUnit = _productPrimaryPriceValue.Split('/')[1];
+                var _productPrimaryPriceUnit = _productPrimaryPriceValue.IndexOf('/') > -1 ? _productPrimaryPriceValue.Split('/')[1] : "";
 
-                var _productSecondaryPriceValue = _productDom[".pwc-tile--price-secondary"].First().Text().Replace("\n", "").Replace("€", "");
+                var _productSecondaryPriceValue = _productDom[".pwc-tile--price-secondary"].First().Text().Replace("\n", "").Replace("€", "").Replace(" ", "");
                 var _productSecondaryPriceUnit = _productSecondaryPriceValue.Split('/')[1].Replace(" ", "");
+
+                if (_productSecondaryPriceValue.IndexOf(_productSecondaryPriceUnit) > -1)
+                {
+                    _productSecondaryPriceValue = _productSecondaryPriceValue.Replace("/" + _productSecondaryPriceUnit, "");
+                }
 
                 var _productPrice = string.Empty;
                 var _productPriceWeight = string.Empty;
