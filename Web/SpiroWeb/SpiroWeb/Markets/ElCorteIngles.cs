@@ -171,10 +171,10 @@ namespace SpiroWeb.Markets
                 var _productPriceWithDiscount = _produto[".food-prices__price--original"].First().Text().Replace("€", "").Trim();
                 
                 var _productPrice = _produto[".food-prices__offer"].First().Text().Replace("€", "");
-                //if (string.IsNullOrEmpty(_productPriceWithDiscount))
-                //{
-                //    _productPrice = _produto[".food-prices__price--original"].First().Text();
-                //}
+                if (string.IsNullOrEmpty(_productPriceWithDiscount))
+                {
+                    _productPrice = _produto[".food-prices__price"].First().Text();
+                }
                 var _productPriceWeight = _produto[".food-prices__measurement-unit"].First().Text().Replace("(", "").Replace(")", "").Trim();
                 var _PriceWeightLiteral = _productPriceWeight;
                 _productPrice = _productPrice.Replace("€", "").Trim();
@@ -201,7 +201,7 @@ namespace SpiroWeb.Markets
                 //_weight = _weight.Replace("\n", " ").Trim();
 
                 //category
-                var _categoryHtml = _Dom[".breadcrumbs-item"];
+                var _categoryHtml = _Dom[".breadcrumbs_pdp li"];
                 var _category = "";
                 var _categoryFull = "";
                 var _count = 0;
@@ -209,7 +209,7 @@ namespace SpiroWeb.Markets
                 foreach (var _element in _categoryHtml.Elements)
                 {
                     CQ _elementCQ = _element.InnerHTML;
-                    var __text = _elementCQ.Text();
+                    var __text = _elementCQ.Text().Replace("/", "".Replace(" ", "")).Trim();
                     if (_count == 0)
                     {
                         _count++;
