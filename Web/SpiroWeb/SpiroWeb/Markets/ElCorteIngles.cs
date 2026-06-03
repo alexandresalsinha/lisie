@@ -153,35 +153,42 @@ namespace SpiroWeb.Markets
                 string _html = await FetchUrlMoreBypasses("https://www.elcorteingles.pt" + url);
 
                 CQ _Dom = _html;
-                CQ _produto = _Dom[".js-product"];
+                CQ _produto = _Dom[".food-pdp-page-content-grid"];
                 string _htmlSrc = _produto.Html();
 
                 //var _onlineProductId = _produto.Attr("data-product-id").Replace("___", "");
                 var _onlineProductId = "None";
-                string _image = "https:" + _produto[".js-zoom-to-modal-image"].First().Attr("src");
-                var _barcode = _produto[".pdp-reference span"].First().Text();
-
+                string _image = _produto["._hasSecondaryImages"].First().Attr("src");
+                var _barcode = _produto[".additional-info-modal__content ul li"].First().Text().Replace("EAN:  ", "");
+                var _name = _produto[".food-pdp-page-content-grid-detail-description h1"].First().Text().Trim();
+                var _brand = _produto[".food-pdp-page-content-grid-detail-brand"].First().Text();
+                
+                var _weightText = _produto[".food-pdp-page-content-grid-detail-presentation"].First().Text();
+                var _weightTextArray = _weightText.Split('|').ToList();
+                _weightTextArray.RemoveAt(0);
+                var _weight = String.Join(" ", _weightTextArray.ToArray()).Trim();
                 //prices      
-                var _productPriceWithDiscount = _produto["[itemprop=lowPrice]"].First().Text();
-                var _productPrice = _produto[".prices-price._current"].First().Text();
-                var _productPriceWeight = _produto[".prices-price._pum"].First().Text();
+                var _productPriceWithDiscount = _produto[".food-prices__price--original"].First().Text().Replace("€", "").Trim();
+                
+                var _productPrice = _produto[".food-prices__offer"].First().Text().Replace("€", "");
+                //if (string.IsNullOrEmpty(_productPriceWithDiscount))
+                //{
+                //    _productPrice = _produto[".food-prices__price--original"].First().Text();
+                //}
+                var _productPriceWeight = _produto[".food-prices__measurement-unit"].First().Text().Replace("(", "").Replace(")", "").Trim();
+                var _PriceWeightLiteral = _productPriceWeight;
                 _productPrice = _productPrice.Replace("€", "").Trim();
-                _productPriceWeight = _productPriceWeight.Replace("€", "").Replace("(", "").Replace(")", "").Trim();
+                _productPriceWeight = _productPriceWeight.Replace("€", "").Replace("(", "").Replace(")", "").Replace(" ", "").Trim();
                 var _productPriceWeightSpl = _productPriceWeight.Split('/');
                 _productPriceWeight = _productPriceWeightSpl.Length > 0 ? _productPriceWeightSpl[0] : string.Empty;
                 _productPriceWeight = _productPriceWeight.Trim();
                 var _unit = _productPriceWeightSpl.Length > 1 ? _productPriceWeightSpl[1].Trim() : string.Empty;
-                if (!string.IsNullOrEmpty(_productPriceWithDiscount))
-                {
-                    _productPrice = _productPriceWithDiscount.Trim();
-                }
+                //if (!string.IsNullOrEmpty(_productPriceWithDiscount))
+                //{
+                //    _productPrice = _productPriceWithDiscount.Trim();
+                //}
 
-                var _name = _produto[".pdp-title p span"].First().Text();
-                var _brand = _produto[".pdp-title span"].First().Text();
-                var _weightText = _produto[".pdp-title p"].First().Text();
-                var _weightTextArray = _weightText.Split('\n').ToList();
-                _weightTextArray.RemoveAt(0);
-                var _weight = String.Join(" ", _weightTextArray.ToArray()).Trim();
+               
                 //var _sec = __name["p"];
                 //var __sec = _sec["span"].First().Text();
                 //var _nameText = _sec.First().Text();
@@ -230,7 +237,9 @@ namespace SpiroWeb.Markets
                     Name = _name,
                     Brand = _brand,
                     Price = _productPrice,
+                    PriceWithoutDiscount = _productPriceWithDiscount,
                     PriceWeight = _productPriceWeight,
+                    PriceWeightLiteral = 0,
                     StoreId = this.StoreId,
                     StoreName = this.StoreName,
                     StoreColor = this.StoreColor,
@@ -239,7 +248,6 @@ namespace SpiroWeb.Markets
                     Weight = _weight,
                     ImageUrl = _image,
                     PriceLiteral = 0,
-                    PriceWeightLiteral = 0,
                     Category = _category,
                     FullCategory = _categoryFull,
                     Unit = _unit,
