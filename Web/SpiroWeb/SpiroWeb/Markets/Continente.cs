@@ -535,5 +535,10 @@ namespace SpiroWeb.Markets
             string _url = "/produto/" + onlineProductId + ".html";
             return await GetMetadata(_url);
         }
+
+        public Task<ProductSearchResult> FindProductAI(string name, string brand, string weight)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

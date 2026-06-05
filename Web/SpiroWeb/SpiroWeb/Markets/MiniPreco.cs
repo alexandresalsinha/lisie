@@ -411,5 +411,10 @@ namespace SpiroWeb.Markets
         {
             return null;
         }
+
+        public Task<ProductSearchResult> FindProductAI(string name, string brand, string weight)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

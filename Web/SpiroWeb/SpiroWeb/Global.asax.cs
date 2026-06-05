@@ -20,7 +20,7 @@ namespace SpiroWeb
             );
         }
 
-        protected void Application_Start()
+        protected async void Application_Start()
         {
             // Register Web API routing support before anything else
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -36,7 +36,15 @@ namespace SpiroWeb
 
             //put json as the default response
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+            
+            
+            //var _products = Managers.UserListsManager.GetV4("9ff8224f-17cf-49fb-b555-05779a13eb40");
+            //foreach (var product in _products)
+            //{
+            //    var _product = product;
+            //    await Managers.ProductsManager.UpdatePricesNew(product.Id);
 
+            //}
         }
     }
 }

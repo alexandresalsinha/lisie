@@ -902,6 +902,22 @@ namespace SpiroWeb.Helpers
             return _result;
         }
 
+        public async Task<LisieStores.Extensibility.ProductSearchResult> FindProductAI(int storeId, string name, string brand, string weight)
+        {
+            LisieStores.Extensibility.ProductSearchResult _result = new LisieStores.Extensibility.ProductSearchResult();
+            List<LisieStores.Extensibility.Market> _markets = Helpers.Extensibility.GetStoreFetchers();
+            var _market = _markets.Where(c => c.StoreId == storeId).FirstOrDefault();
+            if (_market != null)
+            {
+                LisieStores.Extensibility.IMarketFetcher _marketFetcher = (LisieStores.Extensibility.IMarketFetcher)Activator.CreateInstance(_market.ClassType);
+                _marketFetcher.StoreId = _market.StoreId;
+                _marketFetcher.StoreUrl = _market.StoreUrl;
+                _marketFetcher.StoreName = _market.StoreName;
+                _result = await _marketFetcher.FindProductAI(name, brand, weight);
+            }
+            return _result;
+        }
+
         public async Task<bool> AddProductsToOnlineStoreCart(string userId, int storeId, string storeUsername, string storePassword, List<int> userProductsIds)
         {
             bool _result = false;

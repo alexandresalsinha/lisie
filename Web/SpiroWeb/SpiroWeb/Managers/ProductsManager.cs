@@ -1602,7 +1602,7 @@ namespace SpiroWeb.Managers
                             }
                         }
                         else if (!string.IsNullOrEmpty(_storeProduct.Url)) //try with url
-                        {
+                        {   
                             _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
                         }
 

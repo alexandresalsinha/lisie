@@ -390,17 +390,18 @@ namespace SpiroWeb.Markets
             }
         }
 
-        public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight)
+        public async Task<ProductSearchResult> FindProductAI(string name, string brand)
         {
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    httpClient.Timeout = TimeSpan.FromMinutes(15); // Set a long timeout to prevent request timeout
+                    httpClient.Timeout = TimeSpan.FromMinutes(5); // Set a long timeout to prevent request timeout
 
                     var requestBody = new
                     {
-                        prompt = "usa o playwright e vai a este website: \"https://www.intermarche.pt/\" .Usa sempre uma nova instancia de browser. Se for preciso, Primeiro aceita as cookies. Depois, Onde diz código postal, introduz este valor \"1675-822\". quando aparecer a lista seleciona a loja \"INTERMARCHÉ SUPER FAMÕES\" . Mas se a loja \"Famões\" ou \"INTERMARCHÉ SUPER FAMÕES\" já estiver seleciona, não faças a instrução anterior.  Depois quando acabar de fazer loading a página, procura por este produto com o nome \"Cerveja c/ álcool branca\", de marca \"franziskaner\", e de peso \"Garrafa de 500 ml\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json."
+                        //prompt = "usa o playwright e vai a este website: \"https://www.intermarche.pt/\" .Usa sempre uma nova instancia de browser. Se for preciso, Primeiro aceita as cookies. Depois, Onde diz código postal, introduz este valor \"1675-822\". quando aparecer a lista seleciona a loja \"INTERMARCHÉ SUPER FAMÕES\" . Mas se a loja \"Famões\" ou \"INTERMARCHÉ SUPER FAMÕES\" já estiver seleciona, não faças a instrução anterior.  Depois quando acabar de fazer loading a página, procura por este produto com o nome \"Cerveja c/ álcool branca\", de marca \"franziskaner\", e de peso \"Garrafa de 500 ml\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json.";
+                        prompt = "usa o playwright e vai a este website: \"https://www.intermarche.pt/\"";
                     };
 
                     var json = new JavaScriptSerializer().Serialize(requestBody);
