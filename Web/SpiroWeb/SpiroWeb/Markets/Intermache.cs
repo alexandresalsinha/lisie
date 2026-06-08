@@ -401,7 +401,7 @@ namespace SpiroWeb.Markets
 
                     var requestBody = new
                     {
-                        prompt = "usa o playwright e vai a este website: \"https://www.intermarche.pt/\" .Usa sempre uma nova instancia de browser. Se for preciso, Primeiro aceita as cookies. Depois, Onde diz código postal, introduz este valor \"1675-822\". quando aparecer a lista seleciona a loja \"INTERMARCHÉ SUPER FAMÕES\" . Mas se a loja \"Famões\" ou \"INTERMARCHÉ SUPER FAMÕES\" já estiver seleciona, não faças a instrução anterior.  Depois quando acabar de fazer loading a página, procura por este produto com o nome \"" + name + "\", de marca \"" + brand + "\", e de peso \"" + weight + "\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json, retornar só mesmo o json."
+                        prompt = "usa o playwright e vai a este website: \"https://www.intermarche.pt/\" .Usa sempre uma nova instancia de browser sem abas abertas. Se for preciso, Primeiro aceita as cookies. Depois, Onde diz código postal, introduz este valor \"1675-822\". quando aparecer a lista seleciona a loja \"INTERMARCHÉ SUPER FAMÕES\" . Mas se a loja \"Famões\" ou \"INTERMARCHÉ SUPER FAMÕES\" já estiver seleciona, não faças a instrução anterior.  Depois quando acabar de fazer loading a página, procura por este produto com o nome \"" + name + "\", de marca \"" + brand + "\", e de peso \"" + weight + "\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"priceWithoutDiscount\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json, inclusive na propriedade \"answer\", retornar só mesmo o json."
                     };
 
                     var json = new JavaScriptSerializer().Serialize(requestBody);
@@ -433,6 +433,7 @@ namespace SpiroWeb.Markets
                     var _priceWeight = _answerDynamic["pricePerUnit"]["amount"];
                     var _priceWeightUnit = _answerDynamic["pricePerUnit"]["unit"];
                     var _categoriesList = _answerDynamic["categories"];
+                    var _priceWithoutDiscount = _answerDynamic["priceWithoutDiscount"]["amount"];
 
                     
                     //List<string> items = new List<string> { "string 1", "string 2", "string 3" };
@@ -456,7 +457,7 @@ namespace SpiroWeb.Markets
                         PriceLiteral = (float)_price,
                         PriceWeightLiteral= (float)_priceWeight,
                         PriceWeight = _priceWeight.ToString(),
-                        //PriceWithoutDiscount = "x", 
+                        PriceWithoutDiscount = _priceWithoutDiscount.ToString(),
                         Unit = _priceWeightUnit,
                         StoreId = this.StoreId,
                         StoreName = this.StoreName,
