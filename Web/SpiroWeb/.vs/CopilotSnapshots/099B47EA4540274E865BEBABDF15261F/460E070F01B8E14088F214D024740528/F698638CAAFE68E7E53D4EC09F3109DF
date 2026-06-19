@@ -1097,7 +1097,7 @@ namespace SpiroWeb.Managers
                         StoreProductId = storePrd.Id,
                         NeedsUpdate = storePrd.NeedsUpdate,
                         Url = storePrd.Url,
-                        CreatedByUserId = m.CreatedByUserId,
+                        CreatedByUserId = storePrd.UserId,
                         Weight = m.Weight,
                         Unit = storePrd.Unit,
                         UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue,
@@ -1134,7 +1134,7 @@ namespace SpiroWeb.Managers
                             Price = c.StorePrice,
                             NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
                             Url = c.Url,
-                            CreatedByUserId = c.StoreProductCreatedByUserId,
+                            CreatedByUserId = c.CreatedByUserId,
                             UpdateDate = c.UpdateDate,
                             Unit = c.Unit,
                             IsTemp = c.StoreProductIsTemp

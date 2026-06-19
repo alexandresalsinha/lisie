@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Dev\\lisie\\Web\\SpiroWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|c:\\dev\\lisie\\web\\spiroweb\\spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|c:\\dev\\lisie\\web\\spiroweb\\spiroweb\\controllers\\api\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\controllers\\api\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\controllers\\api\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|c:\\dev\\lisie\\web\\spiroweb\\spiroweb\\helpers\\onlineproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|c:\\dev\\lisie\\web\\spiroweb\\spiroweb\\controllers\\api\\productsapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\controllers\\api\\productsapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\markets\\intermache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\markets\\intermache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\helpers\\onlineproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\helpers\\onlineproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
@@ -32,24 +44,64 @@
               "RelativeDocumentMoniker": "SpiroWeb\\Controllers\\api\\ProductsController.cs",
               "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\ProductsController.cs",
               "RelativeToolTip": "SpiroWeb\\Controllers\\api\\ProductsController.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAewHkAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAFoBAAAAAAAAAAD4v2gBAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-08T14:53:53.53Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "ProductsApiController.cs",
+              "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\ProductsApiController.cs",
+              "RelativeDocumentMoniker": "SpiroWeb\\Controllers\\api\\ProductsApiController.cs",
+              "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\ProductsApiController.cs",
+              "RelativeToolTip": "SpiroWeb\\Controllers\\api\\ProductsApiController.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAswJIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T00:51:26.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Intermache.cs",
+              "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Intermache.cs",
+              "RelativeDocumentMoniker": "SpiroWeb\\Markets\\Intermache.cs",
+              "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Intermache.cs",
+              "RelativeToolTip": "SpiroWeb\\Markets\\Intermache.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T23:58:52.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\.gitignore",
+              "RelativeDocumentMoniker": "SpiroWeb\\.gitignore",
+              "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\.gitignore",
+              "RelativeToolTip": "SpiroWeb\\.gitignore",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEUAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-06-15T23:46:05.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "OnlineProducts.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Helpers\\OnlineProducts.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Helpers\\OnlineProducts.cs",
               "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Helpers\\OnlineProducts.cs",
               "RelativeToolTip": "SpiroWeb\\Helpers\\OnlineProducts.cs",
-              "ViewState": "AgIAAIQDAAAAAAAAAAAIwJMDAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAHkDAAAAAAAAAAAQwJMDAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T14:56:15.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-08T14:56:15.839Z"
             },
             {
               "$type": "Document",
@@ -59,14 +111,10 @@
               "RelativeDocumentMoniker": "SpiroWeb\\Managers\\ProductsManager.cs",
               "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Managers\\ProductsManager.cs",
               "RelativeToolTip": "SpiroWeb\\Managers\\ProductsManager.cs",
-              "ViewState": "AgIAAI4GAAAAAAAAAAAIwCMGAABqAAAAAAAAAA==",
+              "ViewState": "AgIAAGMFAAAAAAAAAAAMwHgFAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-08T14:55:01.303Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             }
           ]
         }

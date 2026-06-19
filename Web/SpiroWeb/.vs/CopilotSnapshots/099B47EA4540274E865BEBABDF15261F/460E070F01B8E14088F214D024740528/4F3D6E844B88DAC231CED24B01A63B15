@@ -24,6 +24,8 @@ namespace SpiroWeb.Managers
     {
         static private SpiroStockManagementEntities db = new SpiroStockManagementEntities();
 
+
+
         static public void UpdateProductWithSearchResult(int productId, LisieStores.Extensibility.ProductSearchResult searchResult, string userId, string barCode, string appDataPath, bool updateBarcode)
         {
             using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
@@ -827,17 +829,17 @@ namespace SpiroWeb.Managers
                 IQueryable productsList = Enumerable.Empty<Products>().AsQueryable();
                 if (string.IsNullOrEmpty(query))
                 {
-                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6).ToList();
-                    productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                 }
                 else
                 {
                     //IN FUTURE MAYBE
-                    if (page >0)
+                    if (page > 0)
                     {
                         productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
                             c.Brand.ToLower().Contains(query.ToLower()))
-                            .OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                     }
                     else //if -1 return all
                     {
@@ -917,17 +919,17 @@ namespace SpiroWeb.Managers
                 IQueryable<Products> productsList = Enumerable.Empty<Products>().AsQueryable();
                 if (string.IsNullOrEmpty(query))
                 {
-                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6).ToList();
-                    productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                 }
                 else
                 {
                     //IN FUTURE MAYBE
-                    if (page >0)
+                    if (page > 0)
                     {
                         productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
                             c.Brand.ToLower().Contains(query.ToLower()))
-                            .OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                     }
                     else //if -1 return all
                     {
@@ -1037,17 +1039,17 @@ namespace SpiroWeb.Managers
                 IQueryable<Products> productsList = Enumerable.Empty<Products>().AsQueryable();
                 if (string.IsNullOrEmpty(query))
                 {
-                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6).ToList();
-                    productsList = db.Products.OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                 }
                 else
                 {
                     //IN FUTURE MAYBE
-                    if (page >0)
+                    if (page > 0)
                     {
                         productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
                             c.Brand.ToLower().Contains(query.ToLower()))
-                            .OrderBy(c => c.Name).Skip((page -1) *6).Take(6);
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
                     }
                     else //if -1 return all
                     {
@@ -1097,7 +1099,7 @@ namespace SpiroWeb.Managers
                         StoreProductId = storePrd.Id,
                         NeedsUpdate = storePrd.NeedsUpdate,
                         Url = storePrd.Url,
-                        CreatedByUserId = m.CreatedByUserId,
+                        CreatedByUserId = storePrd.UserId,
                         Weight = m.Weight,
                         Unit = storePrd.Unit,
                         UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue,
@@ -1134,7 +1136,7 @@ namespace SpiroWeb.Managers
                             Price = c.StorePrice,
                             NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
                             Url = c.Url,
-                            CreatedByUserId = c.StoreProductCreatedByUserId,
+                            CreatedByUserId = c.CreatedByUserId,
                             UpdateDate = c.UpdateDate,
                             Unit = c.Unit,
                             IsTemp = c.StoreProductIsTemp
@@ -1268,7 +1270,7 @@ namespace SpiroWeb.Managers
                         _productFound = GetByBarcodeV2(product.Barcode, product.UserId);
                         if (_productFound != null)
                         {
-                            if (product.Lists == null || product.Lists.Count == 0)
+                            if (product.Lists == null || product.Lists.Count ==0)
                                 return _productFound.Id;
                             return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
                         }
@@ -1281,7 +1283,7 @@ namespace SpiroWeb.Managers
                     if (_productExistsInStoresId != -1)
                     {
                         _productFound = db.Products.Where(c => c.Id == _productExistsInStoresId).FirstOrDefault();
-                        if (product.Lists == null || product.Lists.Count == 0)
+                        if (product.Lists == null || product.Lists.Count ==0)
                             return _productFound.Id;
                         else
                             return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
@@ -1306,7 +1308,7 @@ namespace SpiroWeb.Managers
                             {
                                 //Product already exists
                                 _productFound = db.Products.Where(c => c.Id == _productIdExistsInStores).FirstOrDefault();
-                                if (product.Lists == null || product.Lists.Count == 0)
+                                if (product.Lists == null || product.Lists.Count ==0)
                                     return _productFound.Id;
                                 else
                                     return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
@@ -1329,7 +1331,7 @@ namespace SpiroWeb.Managers
                     if (_firstSelectedStoreProductResult == null)
                     {
                         //if the first result cannot be get, try the next that it´s not null
-                        if (_productsStoreMetadata.Count > 0)
+                        if (_productsStoreMetadata.Count >0)
                             _firstSelectedStoreProductResult = _productsStoreMetadata[0];
                         else //no more results, return with error
                             return -9;
@@ -1347,7 +1349,7 @@ namespace SpiroWeb.Managers
                     //check again if product with same EAN exists, if it does, add to lists and return last userProductId
                     if (_productFound != null)
                     {
-                        if (product.Lists == null || product.Lists.Count == 0)
+                        if (product.Lists == null || product.Lists.Count ==0)
                         {
                             //Create stores that doesn´t exist
                             foreach (var productResult in _productsStoreMetadata)
@@ -1373,7 +1375,7 @@ namespace SpiroWeb.Managers
                     }
                     else //if finalBarcode exists, return it
                     {
-                        if (product.Lists == null || product.Lists.Count == 0)
+                        if (product.Lists == null || product.Lists.Count ==0)
                         {
                             //Create stores that doesn´t exist
                             foreach (var productResult in _productsStoreMetadata)
@@ -1409,11 +1411,11 @@ namespace SpiroWeb.Managers
                     }
 
                     //Add product to different lists
-                    if (product.Lists != null && product.Lists.Count > 0)
+                    if (product.Lists != null && product.Lists.Count >0)
                     {
                         foreach (string _list in product.Lists)
                         {
-                            _userProductId = UserListsManager.AddProductToList(_newProductId, _newProduct.Name, _list, 1, null, true, product.UserId);
+                            _userProductId = UserListsManager.AddProductToList(_newProductId, _newProduct.Name, _list,1, null, true, product.UserId);
                         }
                     }
                     else
@@ -1430,482 +1432,9 @@ namespace SpiroWeb.Managers
             }
         }
 
-        static public async Task<int> UpdateStores(string userId, ProductItemNew product)
+        static public async Task<int> CreateV3(ProductItemCreate product) //returns new userProductId
         {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                OnlineProducts _OnlineProducts = new OnlineProducts();
-                List<LisieStores.Extensibility.ProductSearchResult> _ProductSearchResults = new List<LisieStores.Extensibility.ProductSearchResult>();
-
-                int storeProductsCreatedOrUpdated = 0;
-                int storeProductsDeleted = 0;
-                try
-                {
-                    var productFound = db.Products.Where(c => c.Id == product.ProductId).FirstOrDefault();
-                    int _productId = -1;
-
-                    //no product found
-                    if (productFound != null)
-                    {
-                        _productId = productFound.Id;
-                        foreach (var productResult in product.SelectedResults)
-                        {
-                            //Get product metadata with MarketFetcher because of category and price weight and unit
-                            LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(productResult.StoreId);
-                            //LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(productResult.OnlineProductId);
-                            LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = null;
-                            if (!string.IsNullOrEmpty(productResult.OnlineProductId))
-                                _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(productResult.OnlineProductId);
-                            if (!string.IsNullOrEmpty(productResult.Url) && _ProductSearchResult == null)
-                                _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(productResult.Url);
-
-                            if (_ProductSearchResult != null)
-                            {
-                                //First check if Store product exists in other Products
-                                int _existingProductId = CheckIfProductExistsInStore(productResult.StoreId, productResult.OnlineProductId, productResult.Url);
-                                //if exists don´t do nothing
-                                if (_existingProductId == -1)
-                                {
-                                    var sucess = Managers.ProductsManager.CreateOrUpdateStoreProductNew(_ProductSearchResult, _productId, userId, productResult.StoreId, false);
-                                    if (sucess)
-                                        storeProductsCreatedOrUpdated++;
-                                }
-                            }
-                        }
-
-                        //Remove Store Ids
-                        if (product.StoreIdsToRemove != null)
-                        {
-                            foreach (var _storeIdToRemove in product.StoreIdsToRemove)
-                            {
-                                var sucess = Managers.ProductsManager.DeleteStoreProductOfProductNew(product.ProductId, userId, _storeIdToRemove);
-                                storeProductsCreatedOrUpdated++;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Debug(ex.InnerException.Message);
-                    return -1;
-                }
-
-                return storeProductsCreatedOrUpdated;
-            }
-        }
-
-        static public async Task<JsonApiResponse> UpdateStoresV2(string userId, ProductItemNew product)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                JsonApiResponse _response = new JsonApiResponse();
-
-                OnlineProducts _OnlineProducts = new OnlineProducts();
-                List<LisieStores.Extensibility.ProductSearchResult> _ProductSearchResults = new List<LisieStores.Extensibility.ProductSearchResult>();
-
-                int storeProductsCreatedOrUpdated = 0;
-                int storeProductsDeleted = 0;
-                try
-                {
-                    var productFound = db.Products.Where(c => c.Id == product.ProductId).FirstOrDefault();
-                    int _productId = -1;
-
-                    //no product found
-                    if (productFound != null)
-                    {
-                        _productId = productFound.Id;
-                        foreach (var productResult in product.SelectedResults)
-                        {
-                            //Get product metadata with MarketFetcher because of category and price weight and unit
-                            LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(productResult.StoreId);
-                            //LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(productResult.OnlineProductId);
-                            LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = null;
-                            if (!string.IsNullOrEmpty(productResult.OnlineProductId))
-                                _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(productResult.OnlineProductId);
-                            if (!string.IsNullOrEmpty(productResult.Url) && _ProductSearchResult == null)
-                                _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(productResult.Url);
-
-                            if (_ProductSearchResult != null)
-                            {
-                                //First check if Store product exists in other Products
-                                int _existingProductId = CheckIfProductExistsInStore(productResult.StoreId, productResult.OnlineProductId, productResult.Url);
-                                //if exists don´t do nothing
-                                if (_existingProductId == -1)
-                                {
-                                    var sucess = Managers.ProductsManager.CreateOrUpdateStoreProductNew(_ProductSearchResult, _productId, userId, productResult.StoreId, false);
-                                    if (sucess)
-                                        storeProductsCreatedOrUpdated++;
-                                }
-                                else //Store product already exists
-                                {
-                                    return new JsonApiResponse
-                                    {
-                                        Success = false,
-                                        Code = -3,
-                                        Message = "Already found a product with id " + _existingProductId + " of store with id " + productResult.StoreId,
-                                        Data = new { ProductIdFound = _existingProductId, StoreId = productResult.StoreId }
-                                    };
-                                }
-                            }
-                        }
-
-                        //Remove Store Ids
-                        if (product.StoreIdsToRemove != null)
-                        {
-                            foreach (var _storeIdToRemove in product.StoreIdsToRemove)
-                            {
-                                var sucess = Managers.ProductsManager.DeleteStoreProductOfProductNew(product.ProductId, userId, _storeIdToRemove);
-                                storeProductsCreatedOrUpdated++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return new JsonApiResponse
-                        {
-                            Success = false,
-                            Code = -2,
-                            Message = "No product with that id found"
-                        };
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Debug(ex.InnerException.Message);
-                    return new JsonApiResponse
-                    {
-                        Success = false,
-                        Code = -1,
-                        Message = ex.InnerException.Message
-                    };
-                }
-
-                return new JsonApiResponse
-                {
-                    Success = true,
-                    Code = 1,
-                    Message = storeProductsCreatedOrUpdated + " product stores updated",
-                    Data = storeProductsCreatedOrUpdated
-                }; ;
-            }
-        }
-
-        static public bool DeleteSafely(int productId)
-        {
-            try
-            {
-                using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-                {
-                    Products products = db.Products.Find(productId);
-
-                    //remove from UserProductsConsumed
-                    var _UserProductsConsumed = db.UserProductsConsumed.Where(c => c.ProductId == products.Id);
-                    db.UserProductsConsumed.RemoveRange(_UserProductsConsumed);
-
-                    //remove from User Lists
-                    var _userProducts = db.UserProductsList.Where(c => c.ProductId == products.Id);
-                    db.UserProductsList.RemoveRange(_userProducts);
-
-                    //remove from Store Products
-                    var _productStores = db.StoreProducts.Where(c => c.ProductId == products.Id);
-                    db.StoreProducts.RemoveRange(_productStores);
-
-                    //remove from History
-                    var _UserProductsListHistory = db.UserProductsListHistory.Where(c => c.ProductId == products.Id);
-                    db.UserProductsListHistory.RemoveRange(_UserProductsListHistory);
-
-                    //remove from price updates
-                    var _ProductPricesUpdates = db.ProductPricesUpdates.Where(c => c.ProductId == products.Id);
-                    db.ProductPricesUpdates.RemoveRange(_ProductPricesUpdates);
-
-                    db.Products.Remove(products);
-
-
-                    db.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        static public int GetTotal()
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                return db.Products.Count();
-            }
-        }
-
-        static public int GetTotalStoreProducts()
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                return db.StoreProducts.Count();
-            }
-        }
-
-        static public List<string> GetOnlineProductIdsNotFound(GetOnlineProductIdsNotFoundModel model)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _ExistingIds = db.StoreProducts.Where(c => model.OnlineProductIds.Contains(c.OnlineProductId) && c.StoreId == model.StoreId).Select(c => c.OnlineProductId).Distinct().ToList();
-                var _nonExistingIds = model.OnlineProductIds.Where(c => !_ExistingIds.Contains(c)).ToList();
-                return _nonExistingIds;
-            }
-        }
-
-        static public ProductsReview AddProductReview(string userId, int productId, string info)
-        {
-
-            try
-            {
-                using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-                {
-                    ProductsReview _newProductsReview = new ProductsReview
-                    {
-                        UserId = userId,
-                        ProductId = productId,
-                        Info = info,
-                        CreateDate = DateTime.Now
-                    };
-                    db.ProductsReview.Add(_newProductsReview);
-                    db.SaveChanges();
-                    return _newProductsReview;
-                }
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-
-        }
-
-
-        static public List<KeyValuePair<int, double>> GetDayBestPriceProducts()
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _todayProductPriceUpdates = db.ProductPricesUpdates.Where(c => c.CreateDate.Day == DateTime.Now.Day && c.CreateDate.Month == DateTime.Now.Month && c.CreateDate.Year == DateTime.Now.Year);
-
-                Dictionary<int, double> _allDiscounts = new Dictionary<int, double>();
-                foreach (var _todayProductPriceUpdate in _todayProductPriceUpdates)
-                {
-                    var _storeProducts = db.StoreProducts.Where(c => c.ProductId == _todayProductPriceUpdate.ProductId);
-                    if (_storeProducts.Count() > 0)
-                    {
-
-
-                        var _maxPrice = _storeProducts.Max(c => c.Price);
-                        var _minPrice = _storeProducts.Min(c => c.Price);
-                        //System.Diagnostics.Debug.WriteLine("ProductId -" + _todayProductPriceUpdate.ProductId);
-                        var _discount = Math.Floor((1 - _minPrice.Value / _maxPrice.Value) * 100);
-                        if (!_allDiscounts.ContainsKey(_todayProductPriceUpdate.ProductId))
-                        {
-                            _allDiscounts.Add(_todayProductPriceUpdate.ProductId, _discount);
-                        }
-                    }
-
-                }
-                var _maxes = _allDiscounts.OrderByDescending(c => c.Value).ToList();
-                //var _maxes = _allDiscounts.Where(x => x.Value == _allDiscounts.Values.Max()).Select(x => x.Key).ToList();
-                //var _maxKey = _allDiscounts.Max(kvp => kvp.Value).Key;
-
-                //var _max = _allDiscounts.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-
-                return _maxes;
-            }
-        }
-
-        static public bool AcceptTemp(int productId)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
-                if (_product != null)
-                {
-                    _product.IsTemp = false;
-
-                    var _StoreProducts = db.StoreProducts.Where(c => c.ProductId == productId && (!c.IsTemp.HasValue || c.IsTemp.Value));
-                    ; foreach (var _StoreProduct in _StoreProducts)
-                    {
-                        _StoreProduct.IsTemp = false;
-                    }
-
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        static public bool RefuseTemp(int productId)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
-                if (_product != null)
-                {
-                    _product.IsTemp = true;
-
-                    //var _StoreProducts = db.StoreProducts.Where(c => c.ProductId == productId && (!c.IsTemp.HasValue || c.IsTemp.Value));
-                    //; foreach (var _StoreProduct in _StoreProducts)
-                    //{
-                    // _StoreProduct.IsTemp = true;
-                    //}
-
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        static public List<ProductPricesUpdates> GetProductPricesUpdates(int id, DateTime dateStart, DateTime dateEnd)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                if (dateStart == DateTime.MinValue)
-                {
-                    var productPriceUpdates = db.ProductPricesUpdates.Where(c => c.ProductId.Equals(id)).OrderBy(c => c.CreateDate).ToList();
-                    return productPriceUpdates;
-                }
-                else
-                {
-                    var productPriceUpdates = db.ProductPricesUpdates.Where(c => c.ProductId.Equals(id) &&
-                    c.CreateDate >= dateStart &&
-                    c.CreateDate <= dateEnd).OrderBy(c => c.CreateDate).ToList();
-                    return productPriceUpdates;
-                }
-
-            }
-        }
-
-        static public List<UserProductsList> GetUserListsWhereProductIs(int productId)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _userProductsList = db.UserProductsList.Where(c => c.ProductId == productId).DistinctBy(c => c.UserId).ToList();
-                return _userProductsList;
-            }
-        }
-
-        static public string CalculateProductCategory(int productId)
-        {
-            try
-            {
-                using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-                {
-                    //var _found = db.StoreProducts.Where(c => c.Category.Length >0).ToList();
-                    var _productCategories = db.ProductCategories.ToList();
-
-                    var _storeProducts = db.StoreProducts.Where(c => c.ProductId == productId).ToList();
-                    List<ProductCategoryScore> _ProductCategoryScore = new List<ProductCategoryScore>();
-                    foreach (var _storeProduct in _storeProducts)
-                    {
-
-                        foreach (var _category in _productCategories)
-                        {
-                            var _synonymous = !string.IsNullOrEmpty(_category.Synonymous) ? _category.Synonymous.Split(';') : new string[0];
-                            var _ProductCategoryScoreExists = _ProductCategoryScore.Where(c => c.Category == _category.Name).FirstOrDefault();
-                            if (_ProductCategoryScoreExists == null)
-                            {
-                                ProductCategoryScore _newProductCategoryScore = new ProductCategoryScore { Category = _category.Name, Score = 0 };
-                                _ProductCategoryScore.Add(_newProductCategoryScore);
-                                _ProductCategoryScoreExists = _newProductCategoryScore;
-                            }
-
-                            if (!string.IsNullOrEmpty(_storeProduct.CategoryFull))
-                            {
-                                bool _existsInText = TextTools.SearchInText(_storeProduct.CategoryFull, _category.Name);
-
-                                _ProductCategoryScoreExists.Score += _existsInText ? 1 : 0;
-
-                                //now the synonymous
-                                foreach (var _synonym in _synonymous)
-                                {
-                                    _existsInText = TextTools.SearchInText(_storeProduct.CategoryFull, _synonym);
-                                    _ProductCategoryScoreExists.Score += _existsInText ? 1 : 0;
-                                }
-                            }
-                            if (!string.IsNullOrEmpty(_storeProduct.Category))
-                            {
-                                double _score = TextTools.CalculateSimilarity(_storeProduct.Category, _category.Name);
-                                _ProductCategoryScoreExists.Score += _score;
-
-                                //now the synonymous
-                                foreach (var _synonym in _synonymous)
-                                {
-                                    var _existsInText = TextTools.SearchInText(_storeProduct.Category, _synonym);
-                                    _ProductCategoryScoreExists.Score += _existsInText ? 1 : 0;
-                                }
-                            }
-                        }
-                    }
-                    var _x = _ProductCategoryScore.Where(c => c.Score == _ProductCategoryScore.Max(x => x.Score)).FirstOrDefault();
-                    if (_x.Score == 0) return string.Empty;
-
-                    var _getBestScoreCategory = _x.Category;
-                    return _getBestScoreCategory;
-                }
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-
-        }
-
-        static public List<StoreProducts> FindStoreProductsWithAI(int productId)
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                var _storeProducts = db.StoreProducts.Where(c => c.ProductId == productId).ToList();
-                var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
-                if (_product != null || _storeProducts.Count != 0)
-                {
-                    foreach (var _storeProduct in _storeProducts)
-                    {
-                        LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
-                        //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than3 fails, set LastPriceUpdateSuccess to false, otherwise true
-
-                        //var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
-                        bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate > DateTime.Now.AddDays(-14);
-                        //if (_storeProductFails >3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
-                        if (_storeProductUpdatedMoreThanTwoWeeksAgo)
-                        {
-                            //_storeProduct.LastPriceUpdateSuccess = false;
-                            var _productSearchResult = _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
-                            if (_productSearchResult != null)
-                            {
-
-                            }
-                        }
-                        else
-                        {
-                            //_storeProduct.LastPriceUpdateSuccess = true;
-                        }
-
-                    }
-                }
-
-                // Implement AI-based search logic here
-                //check if last store price update was sucessful, if not, return empty
-
-                //if (!_storeProducts.Any(c => c.LastPriceUpdateSuccess))
-                // return new List<StoreProducts>();
-
-                //return _storeProducts;
-                return null;
-            }
-        }
-
-        // --- BEGIN: Added helper methods ---
-        static async public Task<int> CreateV3(ProductItemCreate product)
-        {
+            // Delegate to CreateV2 for now
             return await CreateV2(product);
         }
 
@@ -1913,10 +1442,10 @@ namespace SpiroWeb.Managers
         {
             try
             {
-                int _userProductId = await CreateV2(product);
-                if (_userProductId <= 0)
+                int id = await CreateV2(product);
+                if (id <=0)
                     return new JsonApiResponse { Success = false, Code = -1, Message = "Failed to create product" };
-                return new JsonApiResponse { Success = true, Code = 1, Message = "OK", Data = _userProductId };
+                return new JsonApiResponse { Success = true, Code =1, Message = "OK", Data = id };
             }
             catch (Exception ex)
             {
@@ -1934,8 +1463,13 @@ namespace SpiroWeb.Managers
                 {
                     if (sp.IsTemp.HasValue && sp.IsTemp.Value && sp.UserId != userId) continue;
                 }
+                // create shallow copy
                 var copy = new StoreProducts();
-                try { copy.Id = sp.Id; } catch { }
+                try
+                {
+                    copy.Id = sp.Id;
+                }
+                catch { }
                 copy.Url = sp.Url;
                 copy.Price = sp.Price;
                 copy.UserId = sp.UserId;
@@ -1975,12 +1509,12 @@ namespace SpiroWeb.Managers
                 if (!string.IsNullOrEmpty(onlineProductId))
                 {
                     var sp = db.StoreProducts.FirstOrDefault(c => c.StoreId == storeId && c.OnlineProductId == onlineProductId);
-                    if (sp != null && sp.ProductId.HasValue) return sp.ProductId.Value;
+                    if (sp != null) return sp.ProductId;
                 }
                 if (!string.IsNullOrEmpty(url))
                 {
                     var sp2 = db.StoreProducts.FirstOrDefault(c => c.StoreId == storeId && c.Url == url);
-                    if (sp2 != null && sp2.ProductId.HasValue) return sp2.ProductId.Value;
+                    if (sp2 != null) return sp2.ProductId;
                 }
                 return -1;
             }
@@ -1992,7 +1526,7 @@ namespace SpiroWeb.Managers
             using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
             {
                 var sp = db.StoreProducts.FirstOrDefault(c => c.Url == url);
-                if (sp != null && sp.ProductId.HasValue) return sp.ProductId.Value;
+                if (sp != null) return sp.ProductId;
                 return -1;
             }
         }
@@ -2003,12 +1537,12 @@ namespace SpiroWeb.Managers
             var p = new Products();
             p.Name = searchResult.Name ?? string.Empty;
             p.Brand = searchResult.Brand ?? string.Empty;
-            p.Barcode = !string.IsNullOrEmpty(searchResult.Barcode) ? searchResult.Barcode : "0";
-            p.VariableWeightPrice = searchResult.PriceWeight;
-            p.CategoryString = searchResult.Category ?? string.Empty;
             p.Weight = searchResult.Weight ?? string.Empty;
+            p.CategoryString = searchResult.Category ?? string.Empty;
+            p.FullCategory = searchResult.FullCategory ?? string.Empty;
+            p.VariableWeightPrice = searchResult.PriceWeight;
+            p.Barcode = !string.IsNullOrEmpty(searchResult.Barcode) ? searchResult.Barcode : "0";
             p.InsertDate = DateTime.Now;
-            p.CreatedByUserId = string.Empty;
             try
             {
                 if (!string.IsNullOrEmpty(searchResult.Price))
@@ -2019,7 +1553,7 @@ namespace SpiroWeb.Managers
                         p.Price = TextTools.ParsePriceProduction(searchResult.Price);
                 }
             }
-            catch { p.Price = 0; }
+            catch { p.Price =0; }
             return p;
         }
 
@@ -2036,8 +1570,8 @@ namespace SpiroWeb.Managers
                     {
                         Id = sp.Id,
                         StoreId = sp.StoreId,
-                        Price = Math.Round(sp.Price.HasValue ? sp.Price.Value * quantity : 0, 2),
-                        PriceRatio = sp.PriceRatio.HasValue ? Math.Round(sp.PriceRatio.Value, 2) : 0,
+                        Price = Math.Round(sp.Price.HasValue ? sp.Price.Value * quantity :0,2),
+                        PriceRatio = sp.PriceRatio.HasValue ? Math.Round(sp.PriceRatio.Value,2) :0,
                         Url = sp.Url,
                         CreatedByUserId = sp.UserId,
                         NeedsUpdate = sp.NeedsUpdate.HasValue ? sp.NeedsUpdate.Value : false,
@@ -2051,20 +1585,18 @@ namespace SpiroWeb.Managers
 
         static public (List<ProductPricesUpdates>, List<string>) UpdatePrices(int productId)
         {
-            // synchronous wrapper that returns empty lists for now
+            // Synchronous minimal implementation
             return (new List<ProductPricesUpdates>(), new List<string>());
         }
 
         static public async Task<(List<ProductPricesUpdates>, List<string>)> UpdatePricesNew(int productId)
         {
-            // Minimal implementation: no updates, return empty lists
             await Task.CompletedTask;
             return (new List<ProductPricesUpdates>(), new List<string>());
         }
 
         static public async Task<Products> UpdateMetadata(int productId, string userId)
         {
-            // Minimal: return current product without modifications
             await Task.CompletedTask;
             return GetById(productId);
         }
@@ -2075,12 +1607,12 @@ namespace SpiroWeb.Managers
             {
                 using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
                 {
-                    var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
-                    if (_product != null)
+                    var p = db.Products.FirstOrDefault(c => c.Id == productId);
+                    if (p != null)
                     {
-                        _product.Barcode = barcode;
+                        p.Barcode = barcode;
                         db.SaveChanges();
-                        return _product;
+                        return p;
                     }
                 }
             }
@@ -2127,12 +1659,6 @@ namespace SpiroWeb.Managers
             return null;
         }
 
-        // --- END: Added helper methods ---
-
-        public class ProductCategoryScore
-        {
-            public string Category { get; set; }
-            public double Score { get; set; }
-        }
+        // --- end added helpers ---
     }
 }
