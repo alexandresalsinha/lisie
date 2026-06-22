@@ -11,8 +11,8 @@ using System.Web.Script.Serialization;
 
 namespace SpiroWeb.Markets
 {
-    //[MarketAttr(3, "Pingo Doce", "https://mercadao.pt/store/pingo-doce", "#8BC53F")]
-    [MarketAttr(3, "Pingo Doce", "https://mercadao.pt", "#8BC53F", "https://mercadao.pt/store/pingo-doce/search?queries=")]
+    //[MarketAttr(3, "Pingo Doce", "https://www.pingodoce.pt", "#8BC53F")]
+    [MarketAttr(3, "Pingo Doce", "https://www.pingodoce.pt", "#8BC53F", "https://www.pingodoce.pt/on/demandware.store/Sites-pingo-doce-Site/default/Search-Show?q=")]
     public class PingoDoce : Market, IMarketFetcher
     {
 
@@ -450,7 +450,7 @@ namespace SpiroWeb.Markets
             }
         }
 
-        public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight)
+        public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight, string barcode = "")
         {
             try
             {
@@ -460,7 +460,11 @@ namespace SpiroWeb.Markets
 
                     var requestBody = new
                     {
-                        prompt = "usa o playwright e vai a este website: \"https://www.pingodoce.pt/\" .Usa sempre uma nova instancia de browser sem abas abertas. Se for preciso, Primeiro aceita as cookies. Depois  procura por este produto com o nome \"" + name + "\", de marca \"" + brand + "\", e de peso \"" + weight + "\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"priceWithoutDiscount\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json, inclusive na propriedade \"answer\", retornar só mesmo o json."
+                        prompt = "start a fresh browser instance using playwright with no open pages. Then go to this website, \"https://www.pingodoce.pt/\", and follow the instructions bellow in sequential order:\r\n\r\n- if there´s a cookie dialog, accept all cookies\r\n- look for the product with this characteristics\r\n\t" +
+                        "- Name: \"" + name + "\"\r\n\t" +
+                        "- Brand: \"" + brand + "\"\r\n\t" +
+                        "- Weight: \"" + weight + "\"\r\n" +
+                        "- extract the product information and output the data in JSON format, using this example for the properties to extract and the JSON schema. If barcode property doesn´t exist in the page, fill it with tan empty value. Only output the json, with no text behind or after\r\n\t-  {\"barcode\": \"5601244500063\",\"name\": \"Leite de Pastagem Meio Gordo\",\"brand\": \"Terra Nostra\",\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\"\"productId\": \"B052020616600167\",\"weight\":\"Quant. Mínima = 600 gr (3 un)\",\"price\": {\"amount\": 1.09,\"currency\": \"EUR\",\"formatted\": \"1,09 €\"},\"pricePerUnit\": {\"amount\": 1.09,\"unit\": \"Litro\",\"formatted\": \"1,09 € / Litro\"},\"\"priceWithoutDiscount\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"quantity\": {\"value\": 1,\"unit\": \"Litro\",\"formatted\": \"1 l\"},\"categories\": [\"Supermercado\",\"Lacticínios e ovos\",\"Leite\",\"Leite UHT\",\"Leite UHT meio gordo\"]}"
                     };
 
                     var json = new JavaScriptSerializer().Serialize(requestBody);
@@ -534,5 +538,6 @@ namespace SpiroWeb.Markets
                 return null;
             }
         }
+
     }
 }

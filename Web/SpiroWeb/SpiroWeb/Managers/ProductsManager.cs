@@ -3571,46 +3571,48 @@ namespace SpiroWeb.Managers
 
         }
 
-        static  public List<StoreProducts> FindStoreProductsWithAI(int productId)
+        static async public Task<List<StoreProducts>> FindStoreProductsWithAI(int productId)
         {
+            List<StoreProducts> _storeProductsToReturn = new List<StoreProducts>();
             using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
             {
                 var _storeProducts = db.StoreProducts.Where(c => c.ProductId == productId).ToList();
                 var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
                 if (_product != null || _storeProducts.Count != 0)
                 {
-                    foreach (var _storeProduct in _storeProducts)
+                    List<LisieStores.Extensibility.Market> _Markets = Helpers.Extensibility.GetStoreFetchers();
+                    foreach (var _Market in _Markets)
                     {
-                        LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
-                        //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than 3 fails, set LastPriceUpdateSuccess to false, otherwise true
-
-                        //var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
-                        bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate > DateTime.Now.AddDays(-14);
-                        //if (_storeProductFails > 3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
-                        if (_storeProductUpdatedMoreThanTwoWeeksAgo)
+                        if (_Market.StoreId == 5)
                         {
-                            //_storeProduct.LastPriceUpdateSuccess = false;
-                           var _productSearchResult = _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
-                            if (_productSearchResult != null)
+                            continue;
+                        }
+                        var _storeProduct = _storeProducts.Where(c => c.StoreId == _Market.StoreId).FirstOrDefault();
+                        if (_storeProduct != null)
+                        {
+                            LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
+                            //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than 3 fails, set LastPriceUpdateSuccess to false, otherwise true
+
+                            //var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
+                            bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate > DateTime.Now.AddDays(-14);
+                            //if (_storeProductFails > 3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
+                            if (_storeProductUpdatedMoreThanTwoWeeksAgo)
                             {
-                                
+                                //_storeProduct.LastPriceUpdateSuccess = false;
+                                var _productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
+                                if (_productSearchResult != null)
+                                {
+                                    bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, true);
+                                    
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
-                        else
-                        {
-                            //_storeProduct.LastPriceUpdateSuccess = true;
-                        }
-
                     }
                 }
-                
-            // Implement AI-based search logic here
-            //check if last store price update was sucessful, if not, return empty
-
-            //if (!_storeProducts.Any(c => c.LastPriceUpdateSuccess))
-            //    return new List<StoreProducts>();
-
-            //return _storeProducts;
                 return null;
             }
         }

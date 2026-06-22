@@ -119,7 +119,7 @@ namespace SpiroWeb.Controllers.Api
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> FindStoreProductsWithAI(int productId, string userId)
         {
-            var _y = ProductsManager.FindStoreProductsWithAI(productId);
+            var _y = await ProductsManager.FindStoreProductsWithAI(productId);
             var _completeModelV2 = UserListsManager.GetCompleteModelV2(-1, userId, productId);
 
             return Request.CreateResponse(HttpStatusCode.OK, _completeModelV2);

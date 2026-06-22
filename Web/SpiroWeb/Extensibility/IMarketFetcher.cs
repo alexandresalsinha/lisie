@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace LisieStores.Extensibility
         Task<ProductSearchResult> GetProductMetadata(string url);
         Task<ProductSearchResult> GetProductMetadataById(string onlineProductId);
         Task<ProductSearchResult> GetProductMetadataByBarcode(string barcode);
-        Task<ProductSearchResult> FindProductAI(string name, string brand,string weight);
+        Task<ProductSearchResult> FindProductAI(string name, string brand,string weight, string barcode = "");
         Task<bool> AddProductsToOnlineStoreCart(List<ProductAddToOnlineStore> products, string userId, string storeUsername, string storePassword);
         string GetProductViewableUrl(string onlineProductId, string url);
 

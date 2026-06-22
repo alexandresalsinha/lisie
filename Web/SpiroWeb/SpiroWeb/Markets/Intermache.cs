@@ -391,7 +391,7 @@ namespace SpiroWeb.Markets
             }
         }
 
-        public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight)
+        public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight, string barcode = "")
         {
             try
             {
