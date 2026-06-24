@@ -3594,16 +3594,17 @@ namespace SpiroWeb.Managers
                             //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than 3 fails, set LastPriceUpdateSuccess to false, otherwise true
 
                             //var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
-                            bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate > DateTime.Now.AddDays(-14);
+                            //bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate < DateTime.Now.AddDays(-14);
                             //if (_storeProductFails > 3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
-                            if (_storeProductUpdatedMoreThanTwoWeeksAgo)
+                            //if (_storeProductUpdatedMoreThanTwoWeeksAgo)
+                            if (_storeProduct.NeedsUpdate.Value)
                             {
                                 //_storeProduct.LastPriceUpdateSuccess = false;
                                 var _productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
                                 if (_productSearchResult != null)
                                 {
-                                    bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, true);
-                                    
+                                    bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, ifExistsDontUpdate:false);
+
                                 }
                             }
                             else
