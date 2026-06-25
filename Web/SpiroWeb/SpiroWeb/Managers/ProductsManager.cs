@@ -3604,7 +3604,6 @@ namespace SpiroWeb.Managers
                                 if (_productSearchResult != null)
                                 {
                                     bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, ifExistsDontUpdate:false);
-
                                 }
                             }
                             else
