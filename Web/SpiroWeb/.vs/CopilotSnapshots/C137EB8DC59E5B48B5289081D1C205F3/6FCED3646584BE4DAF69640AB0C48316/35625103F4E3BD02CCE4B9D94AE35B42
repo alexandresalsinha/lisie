@@ -49,12 +49,8 @@
     <authentication mode="None">
       <forms loginUrl="~/Account/Login" timeout="3600"/>
     </authentication>
-    <compilation debug="true" targetFramework="4.8">
-      <assemblies>
-        <add assembly="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"/>
-      </assemblies>
-    </compilation>
-    <httpRuntime targetFramework="4.8" maxUrlLength="10999" maxQueryStringLength="2097151"/>
+    <compilation debug="true" targetFramework="4.8"/>
+    <httpRuntime targetFramework="4.6.2" maxUrlLength="10999" maxQueryStringLength="2097151"/>
     <customErrors mode="Off"/>
     <machineKey validationKey="4D4AE535A5D09860317BEF7DBFCA6A33E33EA3B48D9DBB7F30E4ECC51E8B62783B74294C14CCC05633E40CD61DD96122C067F5061CAF9860B5B0869F8EBB1A68" decryptionKey="AD4415C8DF11C3538A848C678635380D5928E338A1FC849833A23F036579279F" validation="SHA1" decryption="AES"/>
   </system.web>
