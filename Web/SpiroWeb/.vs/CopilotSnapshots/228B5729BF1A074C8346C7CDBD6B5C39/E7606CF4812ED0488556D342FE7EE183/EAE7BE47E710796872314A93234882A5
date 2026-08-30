@@ -457,7 +457,7 @@ namespace SpiroWeb.Markets
             return _productSearchResult;
         }
 
-
+       
 
         public async Task<ProductSearchResult> FindProductAI(string name, string brand, string weight, string barcode = "")
         {
@@ -554,10 +554,10 @@ namespace SpiroWeb.Markets
         public async Task<ProductSearchResult> ExtractProductInfoAI(string url)
         {
             try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.Timeout = TimeSpan.FromMinutes(15); // Set a long timeout to prevent request timeout
+   {
+           using (var httpClient = new HttpClient())
+              {
+                 httpClient.Timeout = TimeSpan.FromMinutes(15); // Set a long timeout to prevent request timeout
 
                     var requestBody = new
                     {
@@ -571,91 +571,90 @@ namespace SpiroWeb.Markets
                     var response = await httpClient.PostAsync("http://localhost:4000/productMetadata", content);
                     var responseContent = await response.Content.ReadAsStringAsync();
 
-                    Console.WriteLine(responseContent);
+    Console.WriteLine(responseContent);
 
-                    var serializer = new JavaScriptSerializer();
-                    var resultDict = serializer.Deserialize<Dictionary<string, object>>(responseContent);
+             var serializer = new JavaScriptSerializer();
+    var resultDict = serializer.Deserialize<Dictionary<string, object>>(responseContent);
 
                     Dictionary<string, object> _answerDynamic;
-                    if (resultDict != null && resultDict.ContainsKey("answer"))
+          if (resultDict != null && resultDict.ContainsKey("answer"))
+      {
+         // Response is wrapped: { "answer": "```json ... ```" }
+  string _answer = Convert.ToString(resultDict["answer"]);
+         var jsonStartIndex = _answer.IndexOf("```json\n");
+     if (jsonStartIndex != -1)
+     {
+        _answer = _answer.Substring(jsonStartIndex + "```json\n".Length);
+            _answer = _answer.Replace("```", "").Trim();
+        }
+   _answerDynamic = serializer.Deserialize<Dictionary<string, object>>(_answer);
+           }
+            else
+           {
+       // Response is already the product JSON
+        _answerDynamic = resultDict;
+              }
+
+        if (_answerDynamic == null) return null;
+
+      Func<Dictionary<string, object>, string, object> get = (dict, key) =>
+             (dict != null && dict.ContainsKey(key)) ? dict[key] : null;
+
+         Func<object, string, object> getNested = (obj, key) =>
                     {
-                        // Response is wrapped: { "answer": "```json ... ```" }
-                        string _answer = Convert.ToString(resultDict["answer"]);
-                        var jsonStartIndex = _answer.IndexOf("```json\n");
-                        if (jsonStartIndex != -1)
-                        {
-                            _answer = _answer.Substring(jsonStartIndex + "```json\n".Length);
-                            _answer = _answer.Replace("```", "").Trim();
-                        }
-                        _answerDynamic = serializer.Deserialize<Dictionary<string, object>>(_answer);
-                    }
-                    else
-                    {
-                        // Response is already the product JSON
-                        _answerDynamic = resultDict;
-                    }
+          var d = obj as Dictionary<string, object>;
+                return (d != null && d.ContainsKey(key)) ? d[key] : null;
+ };
 
-                    if (_answerDynamic == null) return null;
+var _barcode = Convert.ToString(get(_answerDynamic, "barcode"));
+   var _name = Convert.ToString(get(_answerDynamic, "name"));
+           var _brand = Convert.ToString(get(_answerDynamic, "brand"));
+       var _weight = Convert.ToString(get(_answerDynamic, "weight"));
+           var _url = Convert.ToString(get(_answerDynamic, "url")) ?? string.Empty;
+        var _imageUrl = Convert.ToString(get(_answerDynamic, "imageUrl"));
+           var _productId = Convert.ToString(get(_answerDynamic, "productId"));
 
-                    Func<Dictionary<string, object>, string, object> get = (dict, key) =>
-                           (dict != null && dict.ContainsKey(key)) ? dict[key] : null;
+      var _priceObj = getNested(get(_answerDynamic, "price"), "amount");
+     var _priceWeightObj = getNested(get(_answerDynamic, "pricePerUnit"), "amount");
+  var _priceWeightUnit = Convert.ToString(getNested(get(_answerDynamic, "pricePerUnit"), "unit"));
+        var _priceWithoutDiscountObj = getNested(get(_answerDynamic, "priceWithoutDiscount"), "amount");
 
-                    Func<object, string, object> getNested = (obj, key) =>
-                               {
-                                   var d = obj as Dictionary<string, object>;
-                                   return (d != null && d.ContainsKey(key)) ? d[key] : null;
-                               };
+         float _price = _priceObj != null ? Convert.ToSingle(_priceObj) : 0f;
+          float _priceWeight = _priceWeightObj != null ? Convert.ToSingle(_priceWeightObj) : 0f;
+         string _priceWithoutDiscount = _priceWithoutDiscountObj != null ? Convert.ToString(_priceWithoutDiscountObj) : string.Empty;
 
-                    var _barcode = Convert.ToString(get(_answerDynamic, "barcode"));
-                    var _name = Convert.ToString(get(_answerDynamic, "name"));
-                    var _brand = Convert.ToString(get(_answerDynamic, "brand"));
-                    var _weight = Convert.ToString(get(_answerDynamic, "weight"));
-                    var _url = Convert.ToString(get(_answerDynamic, "url")) ?? string.Empty;
-                    var _imageUrl = Convert.ToString(get(_answerDynamic, "imageUrl"));
-                    var _productId = Convert.ToString(get(_answerDynamic, "productId"));
-
-                    var _priceObj = getNested(get(_answerDynamic, "price"), "amount");
-                    var _priceWeightObj = getNested(get(_answerDynamic, "pricePerUnit"), "amount");
-                    var _priceWeightUnit = Convert.ToString(getNested(get(_answerDynamic, "pricePerUnit"), "unit"));
-                    var _priceWithoutDiscountObj = getNested(get(_answerDynamic, "priceWithoutDiscount"), "amount");
-
-                    float _price = _priceObj != null ? Convert.ToSingle(_priceObj) : 0f;
-                    float _priceWeight = _priceWeightObj != null ? Convert.ToSingle(_priceWeightObj) : 0f;
-                    string _priceWithoutDiscount = _priceWithoutDiscountObj != null ? Convert.ToString(_priceWithoutDiscountObj) : string.Empty;
-
-                    var _categoriesList = get(_answerDynamic, "categories") as object[] ?? new object[0];
-                    var _categories = _categoriesList.Select(x => x.ToString()).ToList();
+            var _categoriesList = get(_answerDynamic, "categories") as object[] ?? new object[0];
+             var _categories = _categoriesList.Select(x => x.ToString()).ToList();
                     string _categoriesAll = string.Join(" > ", _categories);
 
-                    return new ProductSearchResult
-                    {
-                        Barcode = _barcode,
-                        Name = _name,
-                        Brand = _brand,
-                        Weight = _weight,
-                        Url = _url.Replace("https://www.auchan.pt", ""),
-                        ImageUrl = _imageUrl,
-                        OnlineProductId = _productId ?? string.Empty,
-                        Category = _categories.Count > 0 ? _categories[_categories.Count - 1] : string.Empty,
-                        Price = _price.ToString(),
-                        PriceLiteral = _price,
-                        PriceWeightLiteral = _priceWeight,
-                        PriceWeight = _priceWeight.ToString(),
-                        PriceWithoutDiscount = _priceWithoutDiscount,
-                        Unit = _priceWeightUnit,
-                        StoreId = this.StoreId,
-                        StoreName = this.StoreName,
-                        FullCategory = _categoriesAll,
-                        ViewableUrl = _url,
-                        StoreColor = this.StoreColor,
-                    };
-                }
+     return new ProductSearchResult
+     {
+           Barcode = _barcode,
+          Name = _name,
+    Brand = _brand,
+          Weight = _weight,
+   Url = _url.Replace("https://www.auchan.pt", ""),
+     ImageUrl = _imageUrl,
+      OnlineProductId = _productId ?? string.Empty,
+          Category = _categories.Count > 0 ? _categories[_categories.Count - 1] : string.Empty,
+    Price = _price.ToString(),
+        PriceLiteral = _price,
+  PriceWeightLiteral = _priceWeight,
+ PriceWeight = _priceWeight.ToString(),
+      PriceWithoutDiscount = _priceWithoutDiscount,
+     Unit = _priceWeightUnit,
+         StoreId = this.StoreId,
+            StoreName = this.StoreName,
+      FullCategory = _categoriesAll,
+  ViewableUrl = _url,
+        StoreColor = this.StoreColor,
+      };
+      }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in ExtractProductInfoAI: " + ex.Message);
-                return null;
-            }
-        }
-    }
+    catch (Exception ex)
+    {
+    Console.WriteLine("Error in ExtractProductInfoAI: " + ex.Message);
+   return null;
+         }
+  }
 }

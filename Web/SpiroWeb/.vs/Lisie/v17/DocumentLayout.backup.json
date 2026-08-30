@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Dev\\lisie\\Web\\SpiroWeb\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\markets\\auchan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\markets\\auchan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|c:\\dev\\lisie\\web\\spiroweb\\spiroweb\\controllers\\api\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\controllers\\api\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,20 +19,12 @@
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\markets\\continente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\managers\\productsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\managers\\userlistsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\managers\\userlistsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\controllers\\api\\userlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\controllers\\api\\userlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\markets\\auchan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|solutionrelative:spiroweb\\markets\\auchan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54EA8548-BE0B-4B73-A8EE-9066FE663507}|SpiroWeb\\LisieWeb.csproj|C:\\Dev\\lisie\\Web\\SpiroWeb\\spiroweb\\markets\\elcorteingles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,19 +74,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\ProductsController.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Controllers\\api\\ProductsController.cs",
               "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\ProductsController.cs",
               "RelativeToolTip": "SpiroWeb\\Controllers\\api\\ProductsController.cs",
-              "ViewState": "AgIAAHgAAAAAz8zMzMwOwH0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAHwAAAAAAAAAAADwv4MAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-08T14:53:53.53Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Auchan.cs",
+              "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Auchan.cs",
+              "RelativeDocumentMoniker": "SpiroWeb\\Markets\\Auchan.cs",
+              "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Auchan.cs",
+              "RelativeToolTip": "SpiroWeb\\Markets\\Auchan.cs",
+              "ViewState": "AgIAAFwCAAAAAAAAAAAwwJICAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-21T16:54:12.317Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -157,19 +171,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ProductsManager.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Managers\\ProductsManager.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Managers\\ProductsManager.cs",
               "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Managers\\ProductsManager.cs",
               "RelativeToolTip": "SpiroWeb\\Managers\\ProductsManager.cs",
-              "ViewState": "AgIAACMOAAAAzczMzMwowDUOAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAEQOAAAAAAAAAAAAwE4OAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T14:55:01.303Z"
+              "WhenOpened": "2026-06-08T14:55:01.303Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Continente.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Continente.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Markets\\Continente.cs",
@@ -177,11 +192,12 @@
               "RelativeToolTip": "SpiroWeb\\Markets\\Continente.cs",
               "ViewState": "AgIAABwCAAAAIAAAAAAEwCoCAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-21T01:14:58.497Z"
+              "WhenOpened": "2026-06-21T01:14:58.497Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UserListsController.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Controllers\\api\\UserListsController.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Controllers\\api\\UserListsController.cs",
@@ -189,23 +205,12 @@
               "RelativeToolTip": "SpiroWeb\\Controllers\\api\\UserListsController.cs",
               "ViewState": "AgIAAIsEAAAAAAAAAAAAAJMEAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-21T09:55:35.912Z"
+              "WhenOpened": "2026-08-21T09:55:35.912Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Auchan.cs",
-              "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Auchan.cs",
-              "RelativeDocumentMoniker": "SpiroWeb\\Markets\\Auchan.cs",
-              "ToolTip": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Markets\\Auchan.cs",
-              "RelativeToolTip": "SpiroWeb\\Markets\\Auchan.cs",
-              "ViewState": "AgIAAOUAAAAAZmZmZqYiwIACAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-21T16:54:12.317Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UserListsManager.cs",
               "DocumentMoniker": "C:\\Dev\\lisie\\Web\\SpiroWeb\\SpiroWeb\\Managers\\UserListsManager.cs",
               "RelativeDocumentMoniker": "SpiroWeb\\Managers\\UserListsManager.cs",
@@ -213,7 +218,8 @@
               "RelativeToolTip": "SpiroWeb\\Managers\\UserListsManager.cs",
               "ViewState": "AgIAAHMQAAAAzszMzEwVwH0QAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-28T21:42:05.346Z"
+              "WhenOpened": "2026-08-28T21:42:05.346Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -249,7 +255,8 @@
               "RelativeToolTip": "SpiroWeb\\Markets\\Intermache.cs",
               "ViewState": "AgIAABQCAAAAAAAAAAAwwDICAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-21T01:12:19.637Z"
+              "WhenOpened": "2026-06-21T01:12:19.637Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -273,7 +280,8 @@
               "RelativeToolTip": "SpiroWeb\\Markets\\PingoDoce.cs",
               "ViewState": "AgIAAL4BAAAAAAAAAAAgwHECAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-21T14:46:09.732Z"
+              "WhenOpened": "2026-06-21T14:46:09.732Z",
+              "EditorCaption": ""
             }
           ]
         }
