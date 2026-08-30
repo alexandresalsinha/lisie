@@ -730,8 +730,7 @@ namespace SpiroWeb.Markets
                     var requestBody = new
                     {
                         prompt = "usa o playwright e vai a este website: \"https://www.continente.pt/\" .Usa sempre uma nova instancia de browser " +
-                        "sem abas abertas. Se for preciso, Primeiro aceita as cookies. Depois, Onde diz código postal, introduz este valor \"1675-822\". " +
-                        "quando aparecer a lista seleciona a loja \"INTERMARCHÉ SUPER FAMÕES\" . Mas se a loja \"Famões\" ou \"INTERMARCHÉ SUPER FAMÕES\" já estiver seleciona, não faças a instrução anterior.  " +
+                        "sem abas abertas. Se for preciso, Primeiro aceita as cookies." +
                         "Depois quando acabar de fazer loading a página, procura por este produto com o nome \"" + name + "\", de marca \"" + brand + "\", e de peso \"" + weight + "\".  procura com diversas combinações, até encontrares o mais similar do produto que referi.  " +
                         "retorna toda a informação possível do produto em formato JSON. Finge que és um browser normal. retorna o json com este esquema: {\"\"barcode\": \"5601244500063\",\"\"name\": \"Leite de Pastagem Meio Gordo\",\"\"brand\": \"Terra Nostra\",\"\"weight\": \"1lt\",\"\"url\": \"https://www.elcorteingles.pt/supermercado/B052020616600167-terra-nostra-leite-de-pastagem-meio-gordo-1-l/\",\"\"imageUrl\": \"https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202109/29/05220912200803____10__1200x1200.jpg\",\"\"productId\": \"B052020616600167\",\"\"price\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"pricePerUnit\": {\"\"amount\": 1.09,\"\"unit\": \"Litro\",\"\"formatted\": \"1,09 € / Litro\"\"},\"\"priceWithoutDiscount\": {\"\"amount\": 1.09,\"\"currency\": \"EUR\",\"\"formatted\": \"1,09 €\"\"},\"\"quantity\": {\"\"value\": 1,\"\"unit\": \"Litro\",\"\"formatted\": \"1 l\"\"},\"\"categories\": [\"\"Supermercado\",\"\"Lacticínios e ovos\",\"\"Leite\",\"\"Leite UHT\",\"\"Leite UHT meio gordo\"\"]\"}\"}. Muito importante, não mostrar nenhum texto antes e depois do json, inclusive na propriedade \"answer\", retornar só mesmo o json."
                     };
@@ -783,6 +782,92 @@ namespace SpiroWeb.Markets
                         Brand = _brand,
                         Weight = _weight,
                         Url = _url.Replace("https://www.intermarche.pt", ""),
+                        ImageUrl = _imageUrl,
+                        OnlineProductId = string.Empty,
+                        Category = _categories[_categories.Count() - 1],
+                        Price = _price.ToString(),
+                        PriceLiteral = (float)_price,
+                        PriceWeightLiteral = (float)_priceWeight,
+                        PriceWeight = _priceWeight.ToString(),
+                        PriceWithoutDiscount = _priceWithoutDiscount.ToString(),
+                        Unit = _priceWeightUnit,
+                        StoreId = this.StoreId,
+                        StoreName = this.StoreName,
+                        FullCategory = _categoriesAll,
+                        ViewableUrl = _url,
+                        StoreColor = this.StoreColor,
+
+                    };
+                    //return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in FindProductAI: " + ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<ProductSearchResult> ExtractProductInfoAI(string url)
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.Timeout = TimeSpan.FromMinutes(3); // Set a long timeout to prevent request timeout
+
+                    var requestBody = new
+                    {
+                        url,
+                        storeId = this.StoreId,
+                    };
+
+                    var json = new JavaScriptSerializer().Serialize(requestBody);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await httpClient.PostAsync("http://localhost:4000/productMetadata", content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    //var responseContent = @"{\"answer\":\"```json\n{\n  \"barcode\": \"4072700003649\",\n  \"name\": \"Cerveja c/ álcool branca\",\n  \"brand\": \"Franziskan\",\n  \"weight\": \"Garrafa de 500 ml\",\n  \"url\": \"https://www.intermarche.pt/product/cerveja-c-ou-alcool-branca/4072700003649\",\n  \"imageUrl\": \"https://driveimg1.intermarche.com/pt/Content/images/boitmal/produit/zoom/557C857D9C4BA3F29BBB282C0FDF517E.jpg\",\n  \"productId\": \"4072700003649\",\n  \"price\": {\n    \"amount\": 2.19,\n    \"currency\": \"EUR\",\n    \"formatted\": \"2,19 €\"\n  },\n  \"pricePerUnit\": {\n    \"amount\": 4.38,\n    \"unit\": \"Litro\",\n    \"formatted\": \"4,38 € / Litro\"\n  },\n  \"quantity\": {\n    \"value\": 1,\n    \"unit\": \"Garrafa\",\n    \"formatted\": \"Garrafa de 500 ml\"\n  },\n  \"categories\": [\n    \"Bebidas\",\n    \"Cervejas e Sidras\",\n    \"Cervejas Estrangeiras e Artesanais\"\n  ]\n}\n```\"}";
+
+                    Console.WriteLine(responseContent);
+
+                    var serializer = new JavaScriptSerializer();
+                    dynamic result = serializer.Deserialize<dynamic>(responseContent);
+                    var _answer = result["answer"];
+                    var jsonStartIndex = _answer.IndexOf("```json\n");
+                    if (jsonStartIndex != -1)
+                    {
+                        _answer = _answer.Substring(jsonStartIndex + "```json\n".Length);
+                        _answer = _answer.Replace("```", "").Trim();
+                    }
+                    dynamic _answerDynamic = serializer.Deserialize<dynamic>(_answer);
+                    var _barcode = _answerDynamic["barcode"];
+                    var _name = _answerDynamic["name"];
+                    var _brand = _answerDynamic["brand"];
+                    var _weight = _answerDynamic["weight"];
+                    var _url = _answerDynamic["url"];
+                    var _imageUrl = _answerDynamic["imageUrl"];
+                    var _price = _answerDynamic["price"]["amount"];
+                    var _priceWeight = _answerDynamic["pricePerUnit"]["amount"];
+                    var _priceWeightUnit = _answerDynamic["pricePerUnit"]["unit"];
+                    var _categoriesList = _answerDynamic["categories"];
+                    var _priceWithoutDiscount = _answerDynamic["priceWithoutDiscount"]["amount"];
+
+
+                    //List<string> items = new List<string> { "string 1", "string 2", "string 3" };
+                    string _categoriesAll = string.Join(" > ", _categoriesList);
+
+                    var _categories = ((object[])_categoriesList).Select(x => x.ToString()).ToList();
+
+
+                    // Result: "string 1 > string 2 > string 3"
+                    return new ProductSearchResult
+                    {
+                        Barcode = _barcode,
+                        Name = _name,
+                        Brand = _brand,
+                        Weight = _weight,
+                        Url = _url.Replace("https://www.pingodoce.pt", ""),
                         ImageUrl = _imageUrl,
                         OnlineProductId = string.Empty,
                         Category = _categories[_categories.Count() - 1],

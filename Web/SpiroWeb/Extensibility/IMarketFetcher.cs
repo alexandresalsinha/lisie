@@ -18,6 +18,7 @@ namespace LisieStores.Extensibility
         Task<ProductSearchResult> GetProductMetadataById(string onlineProductId);
         Task<ProductSearchResult> GetProductMetadataByBarcode(string barcode);
         Task<ProductSearchResult> FindProductAI(string name, string brand,string weight, string barcode = "");
+        Task<ProductSearchResult> ExtractProductInfoAI(string url);
         Task<bool> AddProductsToOnlineStoreCart(List<ProductAddToOnlineStore> products, string userId, string storeUsername, string storePassword);
         string GetProductViewableUrl(string onlineProductId, string url);
 

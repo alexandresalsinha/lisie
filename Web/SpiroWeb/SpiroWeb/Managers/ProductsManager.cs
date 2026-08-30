@@ -3598,20 +3598,28 @@ namespace SpiroWeb.Managers
 
                             //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than 3 fails, set LastPriceUpdateSuccess to false, otherwise true
 
-                            var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
-                            bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate < DateTime.Now.AddDays(-14);
-                            if (_storeProductFails > 3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
-                                if (_storeProductUpdatedMoreThanTwoWeeksAgo)
-                                {
-                                    continue;
-                                }
+                            //var _storeProductFails = db.ProductPricesUpdatesFails.Where(c => c.ProductId == productId && c.StoreId == _IMarketFetcher.StoreId).Count();
+                            //bool _storeProductUpdatedMoreThanTwoWeeksAgo = _storeProduct.LastSuccessfulUpdateDate < DateTime.Now.AddDays(-14);
+                            //if (_storeProductFails > 3 && _storeProductUpdatedMoreThanTwoWeeksAgo)
+                            //    if (_storeProductUpdatedMoreThanTwoWeeksAgo)
+                            //    {
+                            //        continue;
+                            //    }
                             if (_storeProduct.NeedsUpdate.Value)
                             {
                                 //_storeProduct.LastPriceUpdateSuccess = false;
-                                var _productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
+                                var _productSearchResult = await _IMarketFetcher.ExtractProductInfoAI(_storeProduct.Stores.Url + _storeProduct.Url);
                                 if (_productSearchResult != null)
                                 {
                                     bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, ifExistsDontUpdate:false);
+                                }
+                                else
+                                {
+                                    var __productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
+                                    if (__productSearchResult != null)
+                                    {
+                                        bool _success = CreateOrUpdateStoreProductNew(__productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _Market.StoreId, ifExistsDontUpdate: false);
+                                    }
                                 }
                             }
                             else
@@ -3630,6 +3638,35 @@ namespace SpiroWeb.Managers
                             }
                         }
                     }
+                }
+                return null;
+            }
+        }
+
+        static async public Task<List<StoreProducts>> ExtractProductInfoAI(int productId,string userId, int storeId)
+        {
+            List<StoreProducts> _storeProductsToReturn = new List<StoreProducts>();
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var _storeProducts = db.StoreProducts.Where(c => c.ProductId == productId).ToList();
+                var _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
+                if (_product != null || _storeProducts.Count != 0)
+                {
+                    List<LisieStores.Extensibility.Market> _Markets = Helpers.Extensibility.GetStoreFetchers();
+                    LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(storeId);
+
+                        var _storeProduct = _storeProducts.Where(c => c.StoreId == storeId).FirstOrDefault();
+
+                        if (_storeProduct != null)
+                        {
+
+                                var _productSearchResult = await _IMarketFetcher.ExtractProductInfoAI(_storeProduct.Stores.Url + _storeProduct.Url);
+                                if (_productSearchResult != null)
+                                {
+                                    bool _success = CreateOrUpdateStoreProductNew(_productSearchResult, productId, userId, _storeProduct.StoreId, ifExistsDontUpdate: false);
+                                }
+                        }
+                    
                 }
                 return null;
             }

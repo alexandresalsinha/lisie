@@ -4214,5 +4214,18 @@ namespace SpiroWeb.Managers
                 };
             }
         }
+
+        static async public Task<List<StoreProducts>>  UpdateUserProductsWithAI(string userId)
+        {
+
+            var userProducts = GetV4(userId);
+            foreach (var userProduct in userProducts)
+            {
+                var storeProducts = await ProductsManager.FindStoreProductsWithAI(userProduct.ProductId);
+                //return storeProducts;
+            }
+            return new List<StoreProducts>();
+        }
+
     }
 }

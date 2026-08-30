@@ -127,6 +127,16 @@ namespace SpiroWeb.Controllers.Api
 
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<HttpResponseMessage> ExtractProductInfoAI(int productId, string userId, int storeId)
+        {
+            var _y = await ProductsManager.ExtractProductInfoAI(productId, userId, storeId);
+            var _completeModelV2 = UserListsManager.GetCompleteModelV2(-1, userId, productId);
+
+            return Request.CreateResponse(HttpStatusCode.OK, _completeModelV2);
+        }
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> GetByBarcodeAndSearchOnlineAndAddIfFound(string barcode, string userId)
         {
             Products product;
