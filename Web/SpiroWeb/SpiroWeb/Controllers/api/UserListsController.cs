@@ -1177,5 +1177,19 @@ namespace SpiroWeb.Controllers
             var _response = Managers.UserListsManager.UpdateUserProductsWithAI(userId);
             return Request.CreateResponse(HttpStatusCode.OK, _response);
         }
+
+        [HttpGet]
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage UpdateUserProducts(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            //Managers.InteractionsManager.Add(userId, "api/UserLists/CheckoutV2", new JavaScriptSerializer().Serialize(userId));
+            var _response = Managers.UserListsManager.UpdateUserProductsWithAI(userId);
+            return Request.CreateResponse(HttpStatusCode.OK, _response);
+        }
     }
 }

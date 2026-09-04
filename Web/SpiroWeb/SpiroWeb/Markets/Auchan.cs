@@ -303,7 +303,9 @@ namespace SpiroWeb.Markets
                 CQ _brand = _divRow[".rating"].Next();
                 CQ _priceWeight = _divRow[".auc-measures--price-per-unit"].First();
                 CQ _image = _jumboDom[".carousel > div > div > picture > img"];
-                CQ _price = _divRow[".item-price"];
+                //CQ _price = _divRow[".item-price"];
+                CQ _priceWithoutDiscount = _divRow[".price .strike-through"];
+                CQ _price = _priceWithoutDiscount.Length == 0 ? _divRow[".price .value"] : _divRow[".price .sales .value"];
                 CQ _barcode = _jumboDom[".product-ean"];
                 //CQ _productDetail = _jumboDom[".product-detail"]; //In FUTURE USE - has a lot of important urls
                 //CQ _barcodeAttr = _productDetail.Attr("data-ean"); //GO FETCH THE NEW WAY
@@ -389,6 +391,9 @@ namespace SpiroWeb.Markets
                 if (_priceWeightTextWords.Length > 1)
                     _priceWeightText = _priceWeightTextWords[_priceWeightTextWords.Length - 2].Replace("€", "");
 
+                //get price
+                string _priceValue = _price.Text().Replace('\n', ' ').Replace(" ", "").Replace("€", "");
+                string _priceWithoutDiscounteValue = _priceWithoutDiscount.Length > 0 ? _priceWithoutDiscount.Attr("content").Replace('\n', ' ').Replace(" ", "").Replace("€", "") : string.Empty;
 
                 //Get categories
                 CQ _produtosCategories = _jumboDom[".breadcrumb-item"];
@@ -441,9 +446,10 @@ namespace SpiroWeb.Markets
                 _productSearchResult.StoreName = this.StoreName;
                 _productSearchResult.StoreId = this.StoreId;
                 _productSearchResult.StoreColor = this.StoreColor;
-                _productSearchResult.Price = _auchanProduct.offers?.price;
+                _productSearchResult.Price = _priceValue;
+                _productSearchResult.PriceWithoutDiscount = _priceWithoutDiscounteValue;
                 _productSearchResult.Url = newUrl;
-                _productSearchResult.ViewableUrl = newUrl;
+                _productSearchResult.ViewableUrl = this.StoreUrl + newUrl;
                 _productSearchResult.Unit = _productUnit.Trim();
                 _productSearchResult.OnlineProductId = _auchanProduct.sku;
                 _productSearchResult.StoreProductId = _auchanProduct.sku;
