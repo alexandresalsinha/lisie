@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -1074,52 +1073,36 @@ namespace SpiroWeb.Managers
                             productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)) ||
                              _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)))
                                     .OrderBy(c => c.Name);
-                            //if (!string.IsNullOrEmpty(userId))
-                            //{
-                            //    //productsList = productsList.Where(c => !c.IsTemp.HasValue || c.IsTemp.HasValue && c.CreatedByUserId == userId);
-                            //    productsList = productsList.Where(c => !c.IsTemp.HasValue || c.IsTemp == false || (c.IsTemp.Value && c.CreatedByUserId == userId));
-
-                            //}
-                            //else
-                            //{
-                            //    productsList = productsList.Where(c => !c.IsTemp.HasValue);
-
-                            //}
                         }
                     }
                 }
 
-                //var _temp45 = productsList.ToList();
-
+                //try to inner join
                 var _temp =
-                from m in productsList
-                join storePrd in db.StoreProducts on m.Id equals storePrd.ProductId
-                where (!string.IsNullOrEmpty(userId) ? (!storePrd.IsTemp.HasValue || storePrd.IsTemp == false || (storePrd.IsTemp.Value && storePrd.UserId == userId)) : true)
-                //orderby m.Id descending
-                select new UserProductListCompleteTempModel
-                {
-                    Id = storePrd.Id,
-                    ProductId = m.Id,
-                    //Quantity = m.Quantity.Value,
-                    Barcode = m.Barcode,
-                    Brand = m.Brand,
-                    ItemType = "product",
-                    Name = m.Name,
-                    Category = m.CategoryString,
-                    //Price = 0,
-                    StorePrice = Math.Round(storePrd.Price.Value, 2),
-                    StoreId = storePrd.StoreId,
-                    StoreProductId = storePrd.Id,
-                    NeedsUpdate = storePrd.NeedsUpdate,
-                    Url = storePrd.Url,
-                    CreatedByUserId = m.CreatedByUserId,
-                    Weight = m.Weight,
-                    Unit = storePrd.Unit,
-                    UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue,
-                    ProductIsTemp = m.IsTemp.HasValue ? m.IsTemp.Value : false,
-                    StoreProductIsTemp = storePrd.IsTemp.HasValue ? storePrd.IsTemp.Value : false,
-                    StoreProductCreatedByUserId = storePrd.UserId
-                };
+                    from m in productsList
+                    join storePrd in db.StoreProducts on m.Id equals storePrd.ProductId
+                    //orderby m.Id descending
+                    select new UserProductListCompleteTempModel
+                    {
+                        Id = storePrd.Id,
+                        ProductId = m.Id,
+                        //Quantity = m.Quantity.Value,
+                        Barcode = m.Barcode,
+                        Brand = m.Brand,
+                        ItemType = "product",
+                        Name = m.Name,
+                        Category = m.CategoryString,
+                        //Price = 0,
+                        StorePrice = Math.Round(storePrd.Price.Value, 2),
+                        StoreId = storePrd.StoreId,
+                        StoreProductId = storePrd.Id,
+                        NeedsUpdate = storePrd.NeedsUpdate,
+                        Url = storePrd.Url,
+                        CreatedByUserId = storePrd.UserId,
+                        Weight = m.Weight,
+                        Unit = storePrd.Unit,
+                        UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue
+                    };
 
                 //var _distinctCount = _distinc.Count();
                 //get distinct UserProduct Id
@@ -1135,13 +1118,17 @@ namespace SpiroWeb.Managers
                     UserProductListCompleteModel2 _UserProductListCompleteModel2New = new UserProductListCompleteModel2
                     {
                         Id = 0,
+                        //Id = _UserProductListCompleteTempModel.ProductId,
                         ProductId = _UserProductListCompleteTempModel.ProductId,
+                        //Quantity = item.Quantity,
                         Barcode = _UserProductListCompleteTempModel.Barcode,
                         Brand = _UserProductListCompleteTempModel.Brand,
+                        //ItemType = "product",
                         Name = _UserProductListCompleteTempModel.Name,
                         Category = _UserProductListCompleteTempModel.Category,
                         Weight = _UserProductListCompleteTempModel.Weight,
                         Price = 0,
+                        //PriceList = new List<StoreProduct>(),
                         PriceList = _dist.Select(c => new StoreProduct
                         {
                             Id = c.StoreProductId,
@@ -1149,18 +1136,26 @@ namespace SpiroWeb.Managers
                             Price = c.StorePrice,
                             NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
                             Url = c.Url,
-                            CreatedByUserId = c.StoreProductCreatedByUserId,
+                            CreatedByUserId = c.CreatedByUserId,
                             UpdateDate = c.UpdateDate,
-                            Unit = c.Unit,
-                            IsTemp = c.StoreProductIsTemp
+                            Unit = c.Unit
                         }).ToList(),
-                        LastAddedDate = _UserProductListCompleteTempModel.LastAddedDate,
-                        IsTemp = _UserProductListCompleteTempModel.ProductIsTemp,
-                        CreatedByUserId = _UserProductListCompleteTempModel.CreatedByUserId,
+                        LastAddedDate = _UserProductListCompleteTempModel.LastAddedDate
                     };
                     _listToReturn.Add(_UserProductListCompleteModel2New);
 
                 }
+
+                //List<Models.UserProductListCompleteModel2> _finalListToReturn = new List<UserProductListCompleteModel2>();
+                //foreach (var _product in _listToReturn)
+                //{
+                //    //search for temp product
+                //    var _tempProduct = db.Products.Where(c => c.Id == _product.ProductId && c.IsTemp == true).FirstOrDefault();
+                //    if (_tempProduct == null)
+                //    {
+                //        _finalListToReturn.Add(_product);
+                //    }
+                //}
 
                 return _listToReturn;
             }
@@ -1538,498 +1533,6 @@ namespace SpiroWeb.Managers
         //                            _storeProduct.Unit = _ProductSearchResult.Unit;
         //                        else if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _ProductSearchResult.Unit.ToLower().Trim() != _storeProduct.Unit.ToLower().Trim())
         //                            _storeProduct.Unit = _ProductSearchResult.Unit;
-        //                        db2.SaveChanges();
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    Logger.Debug("ProductSearchResult not filled not found", "pricesupdate.txt");
-        //                    //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult));
-
-        //                    _storeProduct.UpdateDate = DateTime.Now;
-        //                    _storeProduct.NeedsUpdate = true;
-        //                    db2.SaveChanges();
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Logger.Debug(ex.Message, "pricesupdate.txt");
-
-
-        //                Console.WriteLine(ex.Message);
-
-        //                _storeProduct.UpdateDate = DateTime.Now;
-        //                _storeProduct.NeedsUpdate = true;
-        //                db2.SaveChanges();
-
-        //                break;
-        //            }
-        //        }
-        //        return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
-        //    }
-
-        //}
-
-        async static public Task<(List<ProductPricesUpdates> productPricesUpdates, List<string> details)> UpdatePricesNew(int productId)
-        {
-            Debug.WriteLine("#UpdatePricesNew START for ProductID - " + productId);
-            Logger.FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Logs");
-            //Logger.Debug("#UpdatePricesNew RUNNING for ProductID - " + productId, "pricesupdate.txt");
-            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
-            {
-                OnlineProducts _OnlineProducts = new OnlineProducts();
-                var _storeProducts = db2.StoreProducts.Where(c => c.ProductId == productId).Include(c => c.Stores).ToList();
-                Debug.WriteLine("#UpdatePricesNew found " + _storeProducts.Count + " store products for ProductID - " + productId);
-
-                List<ProductPricesUpdates> _productPricesUpdate = new List<ProductPricesUpdates>();
-                List<string> _productPricesUpdateDetails = new List<string>();
-
-                string _productdUpdatedMessage = string.Empty;
-                string _productEanFound = string.Empty;
-                foreach (var _storeProduct in _storeProducts)
-                {
-                    Debug.WriteLine("#UpdatePricesNew processing StoreId - " + _storeProduct.StoreId + ", StoreProductId - " + _storeProduct.Id);
-                    if (_storeProduct.StoreId != 1 && _storeProduct.StoreId != 2)
-                    {
-                        Debug.WriteLine("#UpdatePricesNew skipping StoreId - " + _storeProduct.StoreId + " (not 1 or 2)");
-                        continue;
-                    }
-                    //TODO - try to remove this line now that we are with using
-                    ((IObjectContextAdapter)db2)
-                                  .ObjectContext
-                                  .Refresh(RefreshMode.StoreWins, _storeProduct);
-
-                    try
-                    {
-                        //Logger.Debug("storeId - " + _storeProduct.StoreId, "pricesupdate.txt");
-
-                        LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
-                        LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = null;
-                        if (!string.IsNullOrEmpty(_storeProduct.OnlineProductId)) //first try with id
-                        {
-                            _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(_storeProduct.OnlineProductId);
-                            if (_ProductSearchResult == null) //if null, try with url
-                            {
-                                _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
-                            }
-                        }
-                        else if (!string.IsNullOrEmpty(_storeProduct.Url)) //try with url
-                        {   
-                            _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
-                        }
-
-
-                        //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult), "pricesupdate.txt");
-
-                        if (_ProductSearchResult != null && _ProductSearchResult.Price != string.Empty) //Product online found
-                        {
-                            Logger.Debug("_ProductSearchResult.Price - " + _ProductSearchResult.Price, "pricesupdate.txt");
-                            Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " found online price - " + _ProductSearchResult.Price);
-
-                            //check if barcode exists, if it does save it
-                            if (_productEanFound == string.Empty && !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
-                            {
-                                _productEanFound = _ProductSearchResult.Barcode;
-                            }
-
-                            //NEW - with culture invariant
-                            double _newPrice = TextTools.ParsePrice(_ProductSearchResult.Price);
-
-                            //PRICE IS DIFFERENT, update
-                            //Logger.Debug("_newPrice - " + _newPrice.ToString(), "pricesupdate.txt");
-                            if (_newPrice != 0 && Math.Round(_storeProduct.Price.Value, 2) != Math.Round(_newPrice, 2))
-                            {
-                                Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " price changed from " + _storeProduct.Price.Value + " to " + _newPrice);
-                                //Add to prices update history
-                                ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
-                                {
-                                    OldPrice = _storeProduct.Price.Value,
-                                    NewPrice = _newPrice,
-                                    CreateDate = DateTime.Now,
-                                    CreatedByUserId = "0",
-                                    ProductId = productId,
-                                    StoreId = _storeProduct.StoreId
-                                };
-                                db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
-
-                                //Send signalR to /scoreboard/ProductPricesUpdates
-                                //Logger.Debug("Sending SignalR", "pricesupdate.txt");
-                                Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductPriceUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _ProductPricesUpdate);
-
-                                //Add to the return
-                                _productPricesUpdateDetails.Add(_productdUpdatedMessage =
-                                   _storeProduct.Stores.Name + " - " +
-                                   (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
-                                   + " de preço, " + _storeProduct.Products.Name);
-
-                                _productPricesUpdate.Add(_ProductPricesUpdate);
-
-                                //Logger.Debug("Price Ratio", "pricesupdate.txt");
-                                _storeProduct.Price = _newPrice;
-                                double _priceRatio = 0;
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight))
-                                {
-                                    //NEW - with culture invariant
-                                    _priceRatio = TextTools.ParsePrice(_ProductSearchResult.PriceWeight);
-                                }
-                                //Logger.Debug("Price Ratio ended", "pricesupdate.txt");
-                                _storeProduct.PriceRatio = _priceRatio;
-                                _storeProduct.Unit = _ProductSearchResult.Unit.ToLower();
-                                _storeProduct.UpdateDate = DateTime.Now;
-                                _storeProduct.NeedsUpdate = false;
-
-                                //if url from store GetMetadata, is different, update it
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
-                                    _storeProduct.Url = _ProductSearchResult.Url;
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _ProductSearchResult.OnlineProductId != _storeProduct.OnlineProductId)
-                                    _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-
-                                //New fields
-                                if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
-                                    _storeProduct.Name = _ProductSearchResult.Name;
-                                if (_storeProduct.Brand == null && !string.IsNullOrEmpty(_ProductSearchResult.Brand))
-                                    _storeProduct.Brand = _ProductSearchResult.Brand;
-                                if (_storeProduct.Weight == null && !string.IsNullOrEmpty(_ProductSearchResult.Weight))
-                                    _storeProduct.Weight = _ProductSearchResult.Weight;
-                                if (_storeProduct.ImageUrl == null && !string.IsNullOrEmpty(_ProductSearchResult.ImageUrl))
-                                    _storeProduct.ImageUrl = _ProductSearchResult.ImageUrl;
-                                if (_storeProduct.Barcode == null && !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
-                                    _storeProduct.Barcode = _ProductSearchResult.Barcode;
-
-                                //Category
-                                if ((_storeProduct.Category == null || string.IsNullOrEmpty(_ProductSearchResult.Category)) && !string.IsNullOrEmpty(_ProductSearchResult.Category))
-                                    _storeProduct.Category = _ProductSearchResult.Category;
-                                if ((_storeProduct.CategoryFull == null || string.IsNullOrEmpty(_ProductSearchResult.FullCategory)) && !string.IsNullOrEmpty(_ProductSearchResult.FullCategory))
-                                    _storeProduct.CategoryFull = _ProductSearchResult.FullCategory;
-
-                                _storeProduct.LastSuccessfulUpdateDate = DateTime.Now;
-                                db2.SaveChanges();
-                                Debug.WriteLine("#UpdatePricesNewSaved StoreProductId - " + _storeProduct.StoreId + " saved sucessfully. Product Id :" + productId);
-
-
-                            }
-                            else //Price is not different, check if url,OnlineProductId, PriceRatio, Unit are different, if they are, update it
-                            {
-                                Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " price unchanged (" + _storeProduct.Price.Value + "), checking other fields");
-                                //_storeProduct.Price = _newPrice;
-                                _storeProduct.UpdateDate = DateTime.Now;
-                                _storeProduct.NeedsUpdate = false;
-
-                                //Url
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
-                                    _storeProduct.Url = _ProductSearchResult.Url;
-                                //OnlineProductId
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId == null) //if OnlineProductId exists and StoreProduct OnlineProductId is null, update it
-                                    _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-                                else if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId.Trim() != _ProductSearchResult.OnlineProductId.Trim())
-                                    _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-                                //PriceRatio
-                                double _priceRatio = 0;
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight))
-                                {
-                                    //NEW - with culture invariant
-                                    _priceRatio = TextTools.ParsePrice(_ProductSearchResult.PriceWeight);
-
-                                    if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio == null) //if PriceWeigh exists and StoreProduct PriceRatio is null, update it
-                                        _storeProduct.PriceRatio = _priceRatio;
-                                    else if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio.ToString().Trim() != _ProductSearchResult.PriceWeight.Trim())
-                                        _storeProduct.PriceRatio = _priceRatio;
-                                }
-                                //Unit
-                                if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _storeProduct.Unit == null) //if Unit exists and StoreProduct Unit is null, update it
-                                    _storeProduct.Unit = _ProductSearchResult.Unit;
-                                else if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _ProductSearchResult.Unit.ToLower().Trim() != _storeProduct.Unit.ToLower().Trim())
-                                    _storeProduct.Unit = _ProductSearchResult.Unit;
-
-                                //New fields
-                                if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
-                                    _storeProduct.Name = _ProductSearchResult.Name;
-                                if (_storeProduct.Brand == null && !string.IsNullOrEmpty(_ProductSearchResult.Brand))
-                                    _storeProduct.Brand = _ProductSearchResult.Brand;
-                                if (_storeProduct.Weight == null && !string.IsNullOrEmpty(_ProductSearchResult.Weight))
-                                    _storeProduct.Weight = _ProductSearchResult.Weight;
-                                if (_storeProduct.ImageUrl == null && !string.IsNullOrEmpty(_ProductSearchResult.ImageUrl))
-                                    _storeProduct.ImageUrl = _ProductSearchResult.ImageUrl;
-                                if (_storeProduct.Barcode == null && !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
-                                    _storeProduct.Barcode = _ProductSearchResult.Barcode;
-
-                                //Category
-                                if ((_storeProduct.Category == null || string.IsNullOrEmpty(_ProductSearchResult.Category)) && !string.IsNullOrEmpty(_ProductSearchResult.Category))
-                                    _storeProduct.Category = _ProductSearchResult.Category;
-                                if ((_storeProduct.CategoryFull == null || string.IsNullOrEmpty(_ProductSearchResult.FullCategory)) && !string.IsNullOrEmpty(_ProductSearchResult.FullCategory))
-                                    _storeProduct.CategoryFull = _ProductSearchResult.FullCategory;
-
-                                _storeProduct.LastSuccessfulUpdateDate = DateTime.Now;
-                                db2.SaveChanges();
-                            }
-                        }
-                        else
-                        {
-                            //Logger.Debug("ProductSearchResult not filled not found", "pricesupdate.txt");
-                            //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult));
-                            Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " NOT found online, marking as needs update");
-                            //Add to ProductPricesUpdatesFails.
-                            ProductPricesUpdatesFails _newProductPricesUpdatesFails = new ProductPricesUpdatesFails
-                            {
-                                StoreProductId = _storeProduct.Id,
-                                CreateDate = DateTime.Now,
-                                ProductId = productId,
-                                StoreId = _storeProduct.StoreId
-                            };
-                            db2.ProductPricesUpdatesFails.Add(_newProductPricesUpdatesFails);
-
-                            _storeProduct.UpdateDate = DateTime.Now;
-                            _storeProduct.NeedsUpdate = true;
-                            db2.SaveChanges();
-                        }
-
-                        Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Debug(ex.Message, "pricesupdate.txt");
-
-                        Debug.WriteLine("#UpdatePricesNew EXCEPTION for StoreProductId - " + _storeProduct.Id + ": " + ex.Message);
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine(ex.StackTrace);
-
-                        //Add to ProductPricesUpdatesFails.
-                        ProductPricesUpdatesFails _newProductPricesUpdatesFails = new ProductPricesUpdatesFails
-                        {
-                            StoreProductId = _storeProduct.Id,
-                            CreateDate = DateTime.Now,
-                            ProductId = productId,
-                            StoreId = _storeProduct.StoreId
-                        };
-                        db2.ProductPricesUpdatesFails.Add(_newProductPricesUpdatesFails);
-
-                        _storeProduct.UpdateDate = DateTime.Now;
-                        _storeProduct.NeedsUpdate = true;
-                        db2.SaveChanges();
-
-                        Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
-
-                        break;
-                    }
-                }
-
-                //if found EAN in product metadata's, check if product EAN is 0, if it is update with newly found barcode
-                if (_productEanFound != string.Empty)
-                {
-                    Products _product = db.Products.Include("StoreProducts").Where(c => c.Id == productId).FirstOrDefault();
-                    if (_product != null && _product.Barcode == "0")
-                    {
-                        var _productWithBarcodeAlreadyExists = db.Products.Include("StoreProducts").Where(c => c.Barcode == _productEanFound).FirstOrDefault();
-                        if (_productWithBarcodeAlreadyExists == null)
-                        {
-                            _product.Barcode = _productEanFound;
-                            db.Entry(_product).State = EntityState.Modified;
-                            db.SaveChanges();
-                        }
-                        else
-                        {
-                            //product already exists, delete _product
-                            //merge both StoreProducts to product with barcode already
-                            foreach (var _oldStoreProduct in _product.StoreProducts)
-                            {
-                                //if it doesen´t exists in _productWithBarcodeAlreadyExists, create it
-                                if (!_productWithBarcodeAlreadyExists.StoreProducts.Where(c => c.StoreId == _oldStoreProduct.StoreId).Any())
-                                {
-                                    StoreProducts _StoreProductsNew = new StoreProducts
-                                    {
-                                        CreateDate = _oldStoreProduct.CreateDate,
-                                        NeedsUpdate = _oldStoreProduct.NeedsUpdate,
-                                        OnlineProductId = _oldStoreProduct.OnlineProductId,
-                                        Price = _oldStoreProduct.Price,
-                                        PriceRatio = _oldStoreProduct.PriceRatio,
-                                        ProductId = _productWithBarcodeAlreadyExists.Id,
-                                        StoreId = _oldStoreProduct.StoreId,
-                                        Unit = _oldStoreProduct.Unit,
-                                        UpdateDate = _oldStoreProduct.UpdateDate,
-                                        Url = _oldStoreProduct.Url,
-                                        UserId = _oldStoreProduct.UserId
-                                    };
-                                    db.StoreProducts.Add(_StoreProductsNew);
-                                    db.SaveChanges();
-                                }
-                            }
-                            DeleteSafely(_product.Id);
-                        }
-                    }
-                }
-
-                Debug.WriteLine("#UpdatePricesNew END for ProductID - " + productId + ", " + _productPricesUpdate.Count + " price(s) updated");
-                return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
-            }
-
-        }
-
-        //Newer, testing double.parse with invariante culture - TO DELETE
-        //async static public Task<(List<ProductPricesUpdates> productPricesUpdates, List<string> details)> UpdatePricesNew2(int productId)
-        //{
-        //    Logger.FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Logs");
-        //    //Logger.Debug("#UpdatePricesNew RUNNING for ProductID - " + productId, "pricesupdate.txt");
-        //    using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
-        //    {
-        //        OnlineProducts _OnlineProducts = new OnlineProducts();
-        //        var _storeProducts = db2.StoreProducts.Where(c => c.ProductId == productId).Include(c => c.Stores).ToList();
-
-        //        List<ProductPricesUpdates> _productPricesUpdate = new List<ProductPricesUpdates>();
-        //        List<string> _productPricesUpdateDetails = new List<string>();
-
-        //        string _productdUpdatedMessage = string.Empty;
-        //        string _productEanFound = string.Empty;
-        //        foreach (var _storeProduct in _storeProducts)
-        //        {
-        //            //TODO - try to remove this line now that we are with using
-        //            ((IObjectContextAdapter)db2)
-        //                          .ObjectContext
-        //                          .Refresh(RefreshMode.StoreWins, _storeProduct);
-
-        //            try
-        //            {
-        //                //Logger.Debug("storeId - " + _storeProduct.StoreId, "pricesupdate.txt");
-
-        //                LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
-        //                LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = null;
-        //                if (!string.IsNullOrEmpty(_storeProduct.OnlineProductId)) //first try with id
-        //                {
-        //                    _ProductSearchResult = await _IMarketFetcher.GetProductMetadataById(_storeProduct.OnlineProductId);
-        //                    if (_ProductSearchResult == null) //if null, try with url
-        //                    {
-        //                        _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
-        //                    }
-        //                }
-        //                else if (!string.IsNullOrEmpty(_storeProduct.Url)) //try with url
-        //                {
-        //                    _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
-        //                }
-
-
-        //                //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult), "pricesupdate.txt");
-
-        //                if (_ProductSearchResult != null && _ProductSearchResult.Price != string.Empty) //Product online found
-        //                {
-        //                    //Logger.Debug("_ProductSearchResult.Price - " + _ProductSearchResult.Price, "pricesupdate.txt");
-
-        //                    //check if barcode exists, if it does save it
-        //                    if (_productEanFound == string.Empty && !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
-        //                    {
-        //                        _productEanFound = _ProductSearchResult.Barcode;
-        //                    }
-
-        //                    //!MPORTANT
-        //                    double _newPrice = TextTools.ParsePrice(_ProductSearchResult.Price);
-
-        //                    //PRICE IS DIFFERENT, update
-        //                    //Logger.Debug("_newPrice - " + _newPrice.ToString(), "pricesupdate.txt");
-        //                    if (_newPrice != 0 && Math.Round(_storeProduct.Price.Value, 2) != Math.Round(_newPrice, 2))
-        //                    {
-        //                        //Add to prices update history
-        //                        ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
-        //                        {
-        //                            OldPrice = _storeProduct.Price.Value,
-        //                            NewPrice = _newPrice,
-        //                            CreateDate = DateTime.Now,
-        //                            CreatedByUserId = "0",
-        //                            ProductId = productId,
-        //                            StoreId = _storeProduct.StoreId
-        //                        };
-        //                        db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
-
-        //                        //Send signalR to /scoreboard/ProductPricesUpdates
-        //                        //Logger.Debug("Sending SignalR", "pricesupdate.txt");
-        //                        Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductPriceUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _ProductPricesUpdate);
-
-        //                        //Add to the return
-        //                        _productPricesUpdateDetails.Add(_productdUpdatedMessage =
-        //                           _storeProduct.Stores.Name + " - " +
-        //                           (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
-        //                           + " de preço, " + _storeProduct.Products.Name);
-
-        //                        _productPricesUpdate.Add(_ProductPricesUpdate);
-
-        //                        //Logger.Debug("Price Ratio", "pricesupdate.txt");
-        //                        _storeProduct.Price = _newPrice;
-        //                        double _priceRatio = 0;
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight))
-        //                        {
-        //                            //if (HttpContext.Current.Request.IsLocal) //For LOCAL
-        //                            //{
-        //                            //    Logger.Debug("IsLocal", "pricesupdate.txt");
-        //                            //    _priceRatio = TextTools.ParsePriceLocal(_ProductSearchResult.PriceWeight);
-        //                            //    //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim());
-        //                            //}
-        //                            //else
-        //                            //{
-        //                            //    Logger.Debug("IsProd", "pricesupdate.txt");
-        //                            //    Logger.Debug("_ProductSearchResult.PriceWeight - " + _ProductSearchResult.PriceWeight, "pricesupdate.txt");
-        //                            //    _priceRatio = TextTools.ParsePriceProduction(_ProductSearchResult.PriceWeight);
-        //                            //    //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim());
-        //                            //}
-        //                            _priceRatio = TextTools.ParsePrice(_ProductSearchResult.PriceWeight);
-        //                        }
-        //                        //Logger.Debug("Price Ratio ended", "pricesupdate.txt");
-        //                        _storeProduct.PriceRatio = _priceRatio;
-        //                        _storeProduct.Unit = _ProductSearchResult.Unit.ToLower();
-        //                        _storeProduct.UpdateDate = DateTime.Now;
-        //                        _storeProduct.NeedsUpdate = false;
-
-        //                        //if url from store GetMetadata, is different, update it
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
-        //                            _storeProduct.Url = _ProductSearchResult.Url;
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _ProductSearchResult.OnlineProductId != _storeProduct.OnlineProductId)
-        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-
-        //                        //New fields
-        //                        if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
-        //                            _storeProduct.Name = _ProductSearchResult.Name;
-        //                        if (_storeProduct.Brand == null && !string.IsNullOrEmpty(_ProductSearchResult.Brand))
-        //                            _storeProduct.Brand = _ProductSearchResult.Brand;
-        //                        if (_storeProduct.Weight == null && !string.IsNullOrEmpty(_ProductSearchResult.Weight))
-        //                            _storeProduct.Weight = _ProductSearchResult.Weight;
-        //                        if (_storeProduct.ImageUrl == null && !string.IsNullOrEmpty(_ProductSearchResult.ImageUrl))
-        //                            _storeProduct.ImageUrl = _ProductSearchResult.ImageUrl;
-
-        //                        db2.SaveChanges();
-
-        //                    }
-        //                    else //Price is not different, check if url,OnlineProductId, PriceRatio, Unit are different, if they are, update it
-        //                    {
-        //                        //_storeProduct.Price = _newPrice;
-        //                        _storeProduct.UpdateDate = DateTime.Now;
-        //                        _storeProduct.NeedsUpdate = false;
-
-        //                        //Url
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
-        //                            _storeProduct.Url = _ProductSearchResult.Url;
-        //                        //OnlineProductId
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId == null) //if OnlineProductId exists and StoreProduct OnlineProductId is null, update it
-        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-        //                        else if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId.Trim() != _ProductSearchResult.OnlineProductId.Trim())
-        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
-        //                        //PriceRatio
-        //                        double _priceRatio = 0;
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight))
-        //                        {
-        //                            //if (HttpContext.Current.Request.IsLocal) //For LOCAL
-        //                            //                                         //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim());
-        //                            //    _priceRatio = TextTools.ParsePriceLocal(_ProductSearchResult.PriceWeight);
-        //                            //else
-        //                            //    //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim());
-        //                            //    _priceRatio = TextTools.ParsePriceProduction(_ProductSearchResult.PriceWeight);
-        //                            _priceRatio = TextTools.ParsePrice(_ProductSearchResult.PriceWeight);
-
-        //                            if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio == null) //if PriceWeigh exists and StoreProduct PriceRatio is null, update it
-        //                                _storeProduct.PriceRatio = _priceRatio;
-        //                            else if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio.ToString().Trim() != _ProductSearchResult.PriceWeight.Trim())
-        //                                _storeProduct.PriceRatio = _priceRatio;
-        //                        }
-        //                        //Unit
-        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _storeProduct.Unit == null) //if Unit exists and StoreProduct Unit is null, update it
-        //                            _storeProduct.Unit = _ProductSearchResult.Unit;
-        //                        else if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _ProductSearchResult.Unit.ToLower().Trim() != _storeProduct.Unit.ToLower().Trim())
-        //                            _storeProduct.Unit = _ProductSearchResult.Unit;
 
         //                        //New fields
         //                        if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
@@ -2044,40 +1547,28 @@ namespace SpiroWeb.Managers
         //                        db2.SaveChanges();
         //                    }
         //                }
-        //                else
+        //                catch (Exception ex)
         //                {
-        //                    //Logger.Debug("ProductSearchResult not filled not found", "pricesupdate.txt");
-        //                    //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult));
+        //                    Logger.Debug(ex.Message, "pricesupdate.txt");
+
+        //                    Console.WriteLine(ex.Message);
+        //                    Console.WriteLine(ex.StackTrace);
 
         //                    _storeProduct.UpdateDate = DateTime.Now;
         //                    _storeProduct.NeedsUpdate = true;
         //                    db2.SaveChanges();
+
+        //                    Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
+
+        //                    break;
         //                }
-
-        //                Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
         //            }
-        //            catch (Exception ex)
-        //            {
-        //                Logger.Debug(ex.Message, "pricesupdate.txt");
 
-        //                Console.WriteLine(ex.Message);
-        //                Console.WriteLine(ex.StackTrace);
-
-        //                _storeProduct.UpdateDate = DateTime.Now;
-        //                _storeProduct.NeedsUpdate = true;
-        //                db2.SaveChanges();
-
-        //                Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
-
-        //                break;
-        //            }
-        //        }
-
-        //        return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
+        //            return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
         //    }
 
         //}
-
+ 
         static public List<Models.StoreProduct> GetPricesListOfProduct(int productId, int quantity, string userId = "")
         {
             List<Models.StoreProduct> _storeProducts = new List<Models.StoreProduct>();
@@ -2435,6 +1926,7 @@ namespace SpiroWeb.Managers
 
                     Products _newProduct = GetProductOfSearchResult(_firstProductSearchResult);
                     _newProduct.IsTemp = true;
+                    _newProduct.InsertDate = DateTime.Now;
 
                     _newProduct.Barcode = !string.IsNullOrEmpty(product.Barcode) ?
                         product.Barcode :
@@ -2603,7 +2095,7 @@ namespace SpiroWeb.Managers
                             {
                                 if (productResult != null)
                                 {
-                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, true);
+                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, false);
                                 }
                             }
                             return _productFound.Id;
@@ -2629,202 +2121,31 @@ namespace SpiroWeb.Managers
                             {
                                 if (productResult != null)
                                 {
-                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, true);
+                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, true, false, false);
                                 }
                             }
                             return _productFound.Id;
                         }
                         else
+                        {
                             return UserListsManager.AddProductToLists(_productWithBarcodeAlreadyExists, product.Lists, product.UserId);
+                        }
                     }
                     _newProduct.CreatedByUserId = product.UserId;
                     int _newProductId = AddNewProduct(_newProduct);
 
                     //If producted not added, ex: has no barcode, return -10
                     if (_newProductId == -1)
+                    {
                         return -10;
+                    }
 
                     //Create ProductStores
                     foreach (var productResult in _productsStoreMetadata)
                     {
                         if (productResult != null)
                         {
-                            CreateOrUpdateStoreProductNew(productResult, _newProductId, product.UserId, productResult.StoreId);
-                        }
-                    }
-
-                    //Add product to different lists
-                    if (product.Lists != null && product.Lists.Count > 0)
-                    {
-                        foreach (string _list in product.Lists)
-                        {
-                            _userProductId = UserListsManager.AddProductToList(_newProductId, _newProduct.Name, _list, 1, null, true, product.UserId);
-                        }
-                    }
-                    else
-                    {
-                        return _newProductId;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Logger.Debug(ex.InnerException.Message);
-                    return -9; //return error code
-                }
-                return _userProductId;
-            }
-        }
-
-
-        static async public Task<int> CreateV3(ProductItemCreate product) //returns new userProductId
-        {
-            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
-            {
-                int _userProductId = -1;
-                string _finalBarcode = product.Barcode;
-                try
-                {
-                    //Check if product with ean already exists , if it does add to lists and return last userProductId
-                    Products _productFound = null;
-                    if (!string.IsNullOrEmpty(product.Barcode))
-                    {
-                        _productFound = GetByBarcodeV2(product.Barcode, product.UserId);
-                        if (_productFound != null)
-                        {
-                            if (product.Lists == null || product.Lists.Count == 0)
-                                return _productFound.Id;
-                            return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
-                        }
-                    }
-
-                    //See if exists product with StoreUrl, and StoreProductId (AVOID DUPLICATES)
-                    ///if it exists, add to lists and return userProductId of last list added
-                    //TODO(maybe) - Add Barcoes Table , to associate new barcodes to existing products
-                    int _productExistsInStoresId = CheckIfProductExistsInStores(product.SelectedResults);
-                    if (_productExistsInStoresId != -1)
-                    {
-                        _productFound = db.Products.Where(c => c.Id == _productExistsInStoresId).FirstOrDefault();
-                        if (product.Lists == null || product.Lists.Count == 0)
-                            return _productFound.Id;
-                        else
-                            return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
-                    }
-
-                    //get metadata from all selectedResults
-                    List<LisieStores.Extensibility.ProductSearchResult> _productsStoreMetadata = new List<LisieStores.Extensibility.ProductSearchResult>();
-                    foreach (var _productStoreMetadata in product.SelectedResults)
-                    {
-                        LisieStores.Extensibility.IMarketFetcher _ImarketFetcher = Helpers.Extensibility.GetStoreFetcher(_productStoreMetadata.StoreId);
-                        LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = null;
-                        if (!string.IsNullOrEmpty(_productStoreMetadata.Url))
-                            _ProductSearchResult = await _ImarketFetcher.GetProductMetadata(_productStoreMetadata.Url);
-                        else if (!string.IsNullOrEmpty(_productStoreMetadata.OnlineProductId))
-                            _ProductSearchResult = await _ImarketFetcher.GetProductMetadataById(_productStoreMetadata.OnlineProductId);
-
-                        if (_ProductSearchResult != null)
-                        {
-                            //See if exists product with StoreUrl, and StoreProductId
-                            int _productIdExistsInStores = CheckIfProductExistsInStore(_ProductSearchResult.StoreId, _ProductSearchResult.OnlineProductId, _ProductSearchResult.Url);
-                            if (_productIdExistsInStores != -1)
-                            {
-                                //Product already exists
-                                _productFound = db.Products.Where(c => c.Id == _productIdExistsInStores).FirstOrDefault();
-                                if (product.Lists == null || product.Lists.Count == 0)
-                                    return _productFound.Id;
-                                else
-                                    return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
-                            }
-
-                            //Add result do list
-                            _productsStoreMetadata.Add(_ProductSearchResult);
-
-                            //if finalBarcode is null and this is not, set with this
-                            if (string.IsNullOrEmpty(_finalBarcode) &&
-                                !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
-                            {
-                                _finalBarcode = _ProductSearchResult.Barcode;
-                            }
-                        }
-                    }
-
-                    //Go get the FirstAddedProductFromStoreId selected by user of ProductStoreetadata
-                    LisieStores.Extensibility.ProductSearchResult _firstSelectedStoreProductResult = _productsStoreMetadata.Where(c => c.StoreId == product.FirstAddedProductFromStoreId).FirstOrDefault();
-                    if (_firstSelectedStoreProductResult == null)
-                    {
-                        //if the first result cannot be get, try the next that it´s not null
-                        if (_productsStoreMetadata.Count > 0)
-                            _firstSelectedStoreProductResult = _productsStoreMetadata[0];
-                        else //no more results, return with error
-                            return -9;
-
-                    }
-
-                    //if first result has barcode, and _finalBarcode is null, add this on
-                    if (string.IsNullOrEmpty(product.Barcode) &&
-                    !string.IsNullOrEmpty(_firstSelectedStoreProductResult.Barcode))
-                        _finalBarcode = _firstSelectedStoreProductResult.Barcode;
-
-                    //If finalBarcode Check if product already exists
-                    if (!string.IsNullOrEmpty(_finalBarcode))
-                        _productFound = GetByBarcodeV2(_finalBarcode, product.UserId);
-                    //check again if product with same EAN exists, if it does, add to lists and return last userProductId
-                    if (_productFound != null)
-                    {
-                        if (product.Lists == null || product.Lists.Count == 0)
-                        {
-                            //Create stores that doesn´t exist
-                            foreach (var productResult in _productsStoreMetadata)
-                            {
-                                if (productResult != null)
-                                {
-                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, true);
-                                }
-                            }
-                            return _productFound.Id;
-                        }
-                        else
-                            return UserListsManager.AddProductToLists(_productFound, product.Lists, product.UserId);
-                    }
-
-                    Products _newProduct = GetProductOfSearchResult(_firstSelectedStoreProductResult);
-                    _newProduct.IsTemp = true;
-
-                    var _productWithBarcodeAlreadyExists = db.Products.Where(c => c.Barcode == _finalBarcode).FirstOrDefault();
-                    if (_productWithBarcodeAlreadyExists == null)
-                    {
-                        _newProduct.Barcode = _finalBarcode;
-                    }
-                    else //if finalBarcode exists, return it
-                    {
-                        if (product.Lists == null || product.Lists.Count == 0)
-                        {
-                            //Create stores that doesn´t exist
-                            foreach (var productResult in _productsStoreMetadata)
-                            {
-                                if (productResult != null)
-                                {
-                                    CreateOrUpdateStoreProductNew(productResult, _productFound.Id, product.UserId, productResult.StoreId, true);
-                                }
-                            }
-                            return _productFound.Id;
-                        }
-                        else
-                            return UserListsManager.AddProductToLists(_productWithBarcodeAlreadyExists, product.Lists, product.UserId);
-                    }
-                    _newProduct.CreatedByUserId = product.UserId;
-                    int _newProductId = AddNewProduct(_newProduct);
-
-                    //If producted not added, ex: has no barcode, return -10
-                    if (_newProductId == -1)
-                        return -10;
-
-                    //Create ProductStores
-                    foreach (var productResult in _productsStoreMetadata)
-                    {
-                        if (productResult != null)
-                        {
-                            CreateOrUpdateStoreProductNew(productResult, _newProductId, product.UserId, productResult.StoreId);
+                            CreateOrUpdateStoreProductNew(productResult, _newProductId, product.UserId, productResult.StoreId, false, true, false);
                         }
                     }
 
@@ -3163,9 +2484,6 @@ namespace SpiroWeb.Managers
         {
             using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
             {
-                OnlineProducts _OnlineProducts = new OnlineProducts();
-                List<LisieStores.Extensibility.ProductSearchResult> _ProductSearchResults = new List<LisieStores.Extensibility.ProductSearchResult>();
-
                 int storeProductsCreatedOrUpdated = 0;
                 int storeProductsDeleted = 0;
                 try
@@ -3215,7 +2533,7 @@ namespace SpiroWeb.Managers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Debug(ex.InnerException.Message);
+                    Logger.Debug(ex.Message, "pricesupdate.txt");
                     return -1;
                 }
 
@@ -3228,9 +2546,6 @@ namespace SpiroWeb.Managers
             using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
             {
                 JsonApiResponse _response = new JsonApiResponse();
-
-                OnlineProducts _OnlineProducts = new OnlineProducts();
-                List<LisieStores.Extensibility.ProductSearchResult> _ProductSearchResults = new List<LisieStores.Extensibility.ProductSearchResult>();
 
                 int storeProductsCreatedOrUpdated = 0;
                 int storeProductsDeleted = 0;
@@ -3300,12 +2615,12 @@ namespace SpiroWeb.Managers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Debug(ex.InnerException.Message);
+                    Logger.Debug(ex.Message, "pricesupdate.txt");
                     return new JsonApiResponse
                     {
                         Success = false,
                         Code = -1,
-                        Message = ex.InnerException.Message
+                        Message = ex.Message
                     };
                 }
 
@@ -3440,7 +2755,7 @@ namespace SpiroWeb.Managers
 
                 }
                 var _maxes = _allDiscounts.OrderByDescending(c => c.Value).ToList();
-                //var _maxes = _allDiscounts.Where(x => x.Value == _allDiscounts.Values.Max()).Select(x => x.Key).ToList();
+                //var _maxes = _allDiscounts.Where(x => x.Value == _allDiscounts.Max()).Select(x => x.Key).ToList();
                 //var _maxKey = _allDiscounts.Max(kvp => kvp.Value).Key;
 
                 //var _max = _allDiscounts.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -3611,7 +2926,7 @@ namespace SpiroWeb.Managers
 
                         if (_storeProduct != null)
                         {
-                            LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
+                            //LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
 
                             //fetch from database from table ProductPricesUpdatesFails where ProductID and store id equals the variables above, see how many fails de store product had in the last week , and if it had more than 3 fails, set LastPriceUpdateSuccess to false, otherwise true
 
@@ -3624,20 +2939,19 @@ namespace SpiroWeb.Managers
                             //    }
                             if (_storeProduct.NeedsUpdate.Value)
                             {
-                                //_storeProduct.LastPriceUpdateSuccess = false;
-                                var _productSearchResult = await _IMarketFetcher.ExtractProductInfoAI(_storeProduct.Stores.Url + _storeProduct.Url);
-                                if (_productSearchResult != null)
-                                {
-                                    bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, ifExistsDontUpdate:false);
-                                }
-                                else
-                                {
-                                    var __productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
-                                    if (__productSearchResult != null)
-                                    {
-                                        bool _success = CreateOrUpdateStoreProductNew(__productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _Market.StoreId, ifExistsDontUpdate: false);
-                                    }
-                                }
+                                //var _productSearchResult = await _IMarketFetcher.ExtractProductInfoAI(_storeProduct.Stores.Url + _storeProduct.Url);
+                                //if (_productSearchResult != null)
+                                //{
+                                //    bool _success =  CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct.StoreId, ifExistsDontUpdate:false);
+                                //}
+                                //else
+                                //{
+                                //    var __productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
+                                //    if (__productSearchResult != null)
+                                //    {
+                                //        bool _success = CreateOrUpdateStoreProductNew(__productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _Market.StoreId, ifExistsDontUpdate: false);
+                                //    }
+                                //}
                             }
                             else
                             {
@@ -3647,11 +2961,23 @@ namespace SpiroWeb.Managers
                         else
                         {
                             LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_Market.StoreId);
+                            if (_product.Brand.ToLower().Contains("continente") || 
+                                _product.Brand.ToLower().Contains("auchan") ||
+                                _product.Name.ToLower().Contains("auchan") ||
+                                _product.Name.ToLower().Contains("continente"))
+                            {
+                                continue;
+                            }
 
                             var _productSearchResult = await _IMarketFetcher.FindProductAI(_product.Name, _product.Brand, _product.Weight);
                             if (_productSearchResult != null)
                             {
-                                bool _success = CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _Market.StoreId, ifExistsDontUpdate: false);
+                                var _passthrough = true;
+                                if (_passthrough)
+                                {
+                                    bool _success = CreateOrUpdateStoreProductNew(_productSearchResult, productId, "9ff8224f-17cf-49fb-b555-05779a13eb40", _Market.StoreId, ifExistsDontUpdate: false);
+
+                                }
                             }
                         }
                     }

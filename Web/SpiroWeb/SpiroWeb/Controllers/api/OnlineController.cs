@@ -34,6 +34,15 @@ namespace SpiroWeb.Controllers.api
 
         }
 
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public async Task<LisieStores.Extensibility.ProductSearchResult> FindProductAI(int productId)
+        //{
+        //    OnlineProducts _OnlineProducts = new OnlineProducts();
+        //    LisieStores.Extensibility.ProductSearchResult _result = await _OnlineProducts.FindProductAI(productId);
+        //    return _result;
+
+        //}
+
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<LisieStores.Extensibility.ProductSearchResult> GetMarketProductByOnlineId(int storeId, string onlineProductId)
         {

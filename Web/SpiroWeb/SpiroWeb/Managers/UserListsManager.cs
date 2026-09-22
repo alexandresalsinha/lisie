@@ -1,5 +1,6 @@
 ﻿using ClassLibrary1;
 using Microsoft.Ajax.Utilities;
+using PuppeteerSharp;
 using SpiroWeb.Helpers;
 using SpiroWeb.Models;
 using SpiroWeb.Objects;
@@ -8,6 +9,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+
 //using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -3992,20 +3995,20 @@ namespace SpiroWeb.Managers
 
                 //check if last lisie home entry was more then 12 hours ago and list = "bought"
                 //if true, change user list to "consumed"
-                if (list == "bought")
-                {
-                    var _lastUserHistoryEntry = UserHistoryManager.GetLastEntry(userId, list);
-                    if (_lastUserHistoryEntry != null)
+                //if (list == "bought")
+                //{
+                //    var _lastUserHistoryEntry = UserHistoryManager.GetLastEntry(userId, list);
+                //    if (_lastUserHistoryEntry != null)
 
-                    {
-                        var _hours = (DateTime.Now - _lastUserHistoryEntry.InsertDate).TotalHours;
-                        if (_hours >= 12)
-                        {
-                            Managers.LisieHomeManager.SetUserState(userId, "consumed");
-                            list = "consumed";
-                        }
-                    }
-                }
+                //    {
+                //        var _hours = (DateTime.Now - _lastUserHistoryEntry.InsertDate).TotalHours;
+                //        if (_hours >= 12)
+                //        {
+                //            Managers.LisieHomeManager.SetUserState(userId, "consumed");
+                //            list = "consumed";
+                //        }
+                //    }
+                //}
 
                 if (_product != null)
                 {
@@ -4214,5 +4217,47 @@ namespace SpiroWeb.Managers
                 };
             }
         }
+
+        static async public Task<List<StoreProducts>>  UpdateUserProductsWithAI(string userId)
+        {
+
+            var userProducts = GetV4(userId);
+            foreach (var userProduct in userProducts)
+            {
+                if (userProduct.ItemType.Contains("inventory"))
+                {
+                    continue;
+                }
+                var storeProducts = await ProductsManager.FindStoreProductsWithAI(userProduct.ProductId);
+                //return storeProducts;
+            }
+            return new List<StoreProducts>();
+        }
+
+        static async public Task<bool> UpdateUserProducts(string userId)
+        {
+            try
+            {
+                var userProducts = GetV4(userId);
+                foreach (var userProduct in userProducts)
+                {
+                    if (userProduct.ItemType.Contains("inventory"))
+                    {
+                        continue;
+                    }
+                    var _pricesUpdates = await Managers.ProductsManager.UpdatePricesNew(userProduct.ProductId);
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+            //return false;
+        }
+
+
     }
 }

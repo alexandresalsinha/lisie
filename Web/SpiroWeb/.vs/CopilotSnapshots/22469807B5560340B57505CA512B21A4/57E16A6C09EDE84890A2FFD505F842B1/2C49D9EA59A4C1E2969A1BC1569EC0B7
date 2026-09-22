@@ -1,0 +1,1761 @@
+﻿using ClassLibrary1;
+using LisieStores.Extensibility;
+using Microsoft.Ajax.Utilities;
+using SpiroWeb.Helpers;
+using SpiroWeb.Models;
+using SpiroWeb.Objects;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http.Results;
+using System.Xml.Linq;
+
+namespace SpiroWeb.Managers
+{
+    public static class ProductsManager
+    {
+        static private SpiroStockManagementEntities db = new SpiroStockManagementEntities();
+
+
+
+        static public void UpdateProductWithSearchResult(int productId, LisieStores.Extensibility.ProductSearchResult searchResult, string userId, string barCode, string appDataPath, bool updateBarcode)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                Products _product = db.Products.Where(c => c.Id == productId).FirstOrDefault();
+                if (_product != null)
+                {
+                    if (updateBarcode) _product.Barcode = !string.IsNullOrEmpty(barCode) ? barCode : "0";
+                    _product.Name = searchResult.Name;
+                    _product.Price = double.Parse(searchResult.Price.Replace("€", "").Trim());
+                    _product.VariableWeightPrice = searchResult.PriceWeight;
+                    _product.CategoryString = searchResult.Category;
+                    _product.Brand = searchResult.Brand;
+                    _product.Weight = searchResult.Weight;
+                    _product.InsertDate = DateTime.Now;
+                    _product.CreatedByUserId = userId;
+                    WebClient _client = new WebClient();
+                    _client.DownloadFile(new Uri(searchResult.ImageUrl), appDataPath);
+                    byte[] _imageInBase64 = ManageImage.GetBase64OfImagePath(appDataPath);
+                    _product.Picture = _imageInBase64;
+                }
+            }
+
+        }
+
+        static public void CopyProduct(Products product, Products sourceProduct, string appDataPath)
+        {
+            product.Barcode = sourceProduct.Barcode;
+            product.Name = sourceProduct.Name;
+            product.Price = sourceProduct.Price;
+            product.VariableWeightPrice = sourceProduct.VariableWeightPrice;
+            product.CategoryString = sourceProduct.CategoryString;
+            product.Brand = sourceProduct.Brand;
+            product.Weight = sourceProduct.Weight;
+            product.InsertDate = DateTime.Now;
+            product.CreatedByUserId = sourceProduct.CreatedByUserId;
+            product.Picture = sourceProduct.Picture;
+        }
+
+        static public void CreateStoreProduct(Objects.ProductSearchResult searchResult, int productId, string userId, string productUrl, int storeId)
+        {
+            StoreProducts _storeProduct = new StoreProducts();
+            _storeProduct.Url = productUrl;
+            _storeProduct.Price = double.Parse(searchResult.Price.Replace("€", "").Trim());
+            _storeProduct.UserId = userId;
+            _storeProduct.ProductId = productId;
+            _storeProduct.CreateDate = DateTime.Now;
+            _storeProduct.StoreId = storeId;
+            db.StoreProducts.Add(_storeProduct);
+            db.SaveChanges();
+        }
+
+        //static public bool CreateOrUpdateStoreProduct(Objects.ProductSearchResult searchResult, int productId, string userId, int storeId, bool ifExistsDontUpdate = false)
+        //{
+        //    var _storeProductExists = db.StoreProducts.Where(c => c.ProductId == productId && c.StoreId == storeId).FirstOrDefault();
+        //    if (_storeProductExists != null)
+        //    {
+        //        if (ifExistsDontUpdate == false)
+        //        {
+        //            _storeProductExists.Url = searchResult.Url;
+        //            _storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Trim()), 2);
+        //            _storeProductExists.UpdateDate = DateTime.Now;
+        //            _storeProductExists.NeedsUpdate = false;
+        //            db.SaveChanges();
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        StoreProducts _storeProduct = new StoreProducts();
+        //        _storeProduct.Url = searchResult.Url;
+        //        _storeProduct.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Trim()), 2);
+        //        _storeProduct.UserId = userId;
+        //        _storeProduct.ProductId = productId;
+        //        _storeProduct.CreateDate = DateTime.Now;
+        //        _storeProduct.StoreId = storeId;
+        //        _storeProduct.NeedsUpdate = false;
+        //        db.StoreProducts.Add(_storeProduct);
+        //        db.SaveChanges();
+        //        return true;
+        //    }
+        //}
+
+        //Obsolete
+        static public bool CreateOrUpdateStoreProduct(Objects.ProductSearchResult searchResult, int productId, string userId, int storeId, bool ifExistsDontUpdate = false, bool updateIfUserHasPermission = true)
+        {
+            var _storeProductExists = db.StoreProducts.Where(c => c.ProductId == productId && c.StoreId == storeId).FirstOrDefault();
+            if (_storeProductExists != null)
+            {
+                if (ifExistsDontUpdate == false)
+                {
+                    if (!updateIfUserHasPermission) //permission not requires
+                    {
+                        _storeProductExists.Url = searchResult.Url;
+                        _storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Trim()), 2);
+                        _storeProductExists.UpdateDate = DateTime.Now;
+                        _storeProductExists.NeedsUpdate = false;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else //permission requires
+                    {
+                        //check if user hás permission
+                        //is user a moderador?
+                        var _userIsModerator = UserPermissionsManager.IsUserModerator(userId);
+                        //var _userIsModerator = false;
+                        if (_userIsModerator || _storeProductExists.UserId.Equals(userId))
+                        {
+                            _storeProductExists.Url = searchResult.Url;
+                            _storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Trim()), 2);
+                            _storeProductExists.UpdateDate = DateTime.Now;
+                            _storeProductExists.NeedsUpdate = false;
+                            db.SaveChanges();
+                            return true;
+                        }
+                        else
+                            return false; //user has no permission
+
+                    }
+                }
+                return false; //It exists, but because of ifExistsDontUpdate=true, don´t update
+            }
+            else
+            {
+                StoreProducts _storeProduct = new StoreProducts();
+                _storeProduct.Url = searchResult.Url;
+                _storeProduct.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Trim()), 2);
+                _storeProduct.UserId = userId;
+                _storeProduct.ProductId = productId;
+                _storeProduct.CreateDate = DateTime.Now;
+                _storeProduct.StoreId = storeId;
+                _storeProduct.NeedsUpdate = false;
+                db.StoreProducts.Add(_storeProduct);
+                db.SaveChanges();
+                return true;
+            }
+        }
+
+        static public bool CreateOrUpdateStoreProductNew(LisieStores.Extensibility.ProductSearchResult searchResult, int productId, string userId, int storeId, bool ifExistsDontUpdate = false, bool updateIfUserHasPermission = true, bool isTemp = true)
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                var _storeProductExists = db2.StoreProducts.Where(c => c.ProductId == productId && c.StoreId == storeId).FirstOrDefault();
+                if (_storeProductExists != null)
+                {
+                    if (ifExistsDontUpdate == false)
+                    {
+                        if (!updateIfUserHasPermission) //permission not requires
+                        {
+                            _storeProductExists.Url = searchResult.Url;
+
+                            //FOR LOCAL AND PRODUCTION
+                            //if (HttpContext.Current.Request.IsLocal)
+                            //    _storeProductExists.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                            //else
+                            //    _storeProductExists.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                            if (HttpContext.Current.Request.IsLocal)
+                                _storeProductExists.Price = searchResult.Price != null ? TextTools.ParsePriceLocal(searchResult.Price) : 0;
+                            else
+                                _storeProductExists.Price = searchResult.Price != null ? TextTools.ParsePriceProduction(searchResult.Price) : 0;
+
+                            _storeProductExists.UpdateDate = DateTime.Now;
+                            _storeProductExists.NeedsUpdate = false;
+                            _storeProductExists.OnlineProductId = searchResult.OnlineProductId;
+
+                            //New fields (for comparising purposes)
+                            if (!string.IsNullOrEmpty(searchResult.Name))
+                                _storeProductExists.Name = searchResult.Name;
+                            if (!string.IsNullOrEmpty(searchResult.Brand))
+                                _storeProductExists.Brand = searchResult.Brand;
+                            if (!string.IsNullOrEmpty(searchResult.Weight))
+                                _storeProductExists.Weight = searchResult.Weight;
+                            if (!string.IsNullOrEmpty(searchResult.ImageUrl))
+                                _storeProductExists.ImageUrl = searchResult.ImageUrl;
+
+                            //FOR LOCAL AND PRODUCTION
+                            //if (HttpContext.Current.Request.IsLocal)
+                            //    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                            //else
+                            //    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                            if (HttpContext.Current.Request.IsLocal)
+                                _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceLocal(searchResult.PriceWeight) : 0;
+                            else
+                                _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceProduction(searchResult.PriceWeight) : 0;
+
+                            _storeProductExists.Unit = searchResult.Unit != null ? searchResult.Unit : "un";
+                            db2.SaveChanges();
+                            return true;
+                        }
+                        else //permission requires
+                        {
+                            //check if user hás permission
+                            //is user a moderador?
+                            var _userIsModerator = UserPermissionsManager.IsUserModerator(userId);
+                            //var _userIsModerator = false;
+                            if (_userIsModerator || _storeProductExists.UserId.Equals(userId))
+                            {
+                                _storeProductExists.Url = searchResult.Url;
+
+                                //FOR LOCAL AND PRODUCTION
+                                //if (HttpContext.Current.Request.IsLocal)
+                                //    _storeProductExists.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                                //else
+                                //    _storeProductExists.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                                if (HttpContext.Current.Request.IsLocal)
+                                    _storeProductExists.Price = searchResult.Price != null ? TextTools.ParsePriceLocal(searchResult.Price) : 0;
+                                else
+                                    _storeProductExists.Price = searchResult.Price != null ? TextTools.ParsePriceProduction(searchResult.Price) : 0;
+
+                                _storeProductExists.OnlineProductId = searchResult.OnlineProductId;
+                                _storeProductExists.UpdateDate = DateTime.Now;
+                                _storeProductExists.NeedsUpdate = false;
+
+
+                                //New fields (for comparising purposes)
+                                if (!string.IsNullOrEmpty(searchResult.Name))
+                                    _storeProductExists.Name = searchResult.Name;
+                                if (!string.IsNullOrEmpty(searchResult.Brand))
+                                    _storeProductExists.Brand = searchResult.Brand;
+                                if (!string.IsNullOrEmpty(searchResult.Weight))
+                                    _storeProductExists.Weight = searchResult.Weight;
+                                if (!string.IsNullOrEmpty(searchResult.ImageUrl))
+                                    _storeProductExists.ImageUrl = searchResult.ImageUrl;
+
+                                //FOR LOCAL AND PRODUCTION
+                                //if (HttpContext.Current.Request.IsLocal)
+                                //    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                                //else
+                                //    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                                if (HttpContext.Current.Request.IsLocal)
+                                    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceLocal(searchResult.PriceWeight) : 0;
+                                else
+                                    _storeProductExists.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceProduction(searchResult.PriceWeight) : 0;
+
+                                _storeProductExists.Unit = searchResult.Unit != null ? searchResult.Unit : "un";
+                                db2.SaveChanges();
+                                return true;
+                            }
+                            else
+                                return false; //user has no permission
+
+                        }
+                    }
+                    return false; //It exists, but because of ifExistsDontUpdate=true, don´t update
+                }
+                else
+                {
+                    StoreProducts _storeProduct = new StoreProducts();
+                    _storeProduct.Url = searchResult.Url;
+
+                    //FOR LOCAL AND PRODUCTION
+                    //if (HttpContext.Current.Request.IsLocal)
+                    //    _storeProduct.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                    //else
+                    //    _storeProduct.Price = searchResult.Price != null ? Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                    if (HttpContext.Current.Request.IsLocal)
+                        _storeProduct.Price = searchResult.Price != null ? TextTools.ParsePriceLocal(searchResult.Price) : 0;
+                    else
+                        _storeProduct.Price = searchResult.Price != null ? TextTools.ParsePriceProduction(searchResult.Price) : 0;
+
+
+                    _storeProduct.OnlineProductId = searchResult.OnlineProductId;
+                    _storeProduct.UserId = userId;
+                    _storeProduct.ProductId = productId;
+                    _storeProduct.CreateDate = DateTime.Now;
+                    _storeProduct.StoreId = storeId;
+                    _storeProduct.NeedsUpdate = false;
+                    //_storeProduct.IsTemp = true;
+                    _storeProduct.IsTemp = isTemp;
+
+                    //New fields (for comparising purposes)
+                    if (!string.IsNullOrEmpty(searchResult.Name))
+                        _storeProduct.Name = searchResult.Name;
+                    if (!string.IsNullOrEmpty(searchResult.Brand))
+                        _storeProduct.Brand = searchResult.Brand;
+                    if (!string.IsNullOrEmpty(searchResult.Weight))
+                        _storeProduct.Weight = searchResult.Weight;
+                    if (!string.IsNullOrEmpty(searchResult.ImageUrl))
+                        _storeProduct.ImageUrl = searchResult.ImageUrl;
+
+                    //FOR LOCAL AND PRODUCTION
+                    //if (!string.IsNullOrEmpty(searchResult.PriceWeight))
+                    //{
+                    //    if (HttpContext.Current.Request.IsLocal)
+                    //        _storeProduct.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim()), 2) : 0;
+                    //    else
+                    //        _storeProduct.PriceRatio = searchResult.PriceWeight != null ? Math.Round(double.Parse(searchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim()), 2) : 0;
+                    //}
+                    if (!string.IsNullOrEmpty(searchResult.PriceWeight))
+                    {
+                        if (HttpContext.Current.Request.IsLocal)
+                            _storeProduct.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceLocal(searchResult.PriceWeight) : 0;
+                        else
+                            _storeProduct.PriceRatio = searchResult.PriceWeight != null ? TextTools.ParsePriceProduction(searchResult.PriceWeight) : 0;
+                    }
+
+                    _storeProduct.Unit = searchResult.Unit != null ? searchResult.Unit : "un";
+                    db2.StoreProducts.Add(_storeProduct);
+                    db2.SaveChanges();
+                    Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastNewStoreProduct("9ff8224f-17cf-49fb-b555-05779a13eb40", GetTotalStoreProducts());
+                    return true;
+                }
+            }
+        }
+
+        //For Go Getter purposes
+        //static public bool CreateOrUpdateStoreProductNewGoGetter(LisieStores.Extensibility.ProductSearchResult searchResult, int productId, string userId, int storeId, bool ifExistsDontUpdate = false, bool updateIfUserHasPermission = true)
+        //{
+        //    var _storeProductExists = db.StoreProductsNew.Where(c => c.ProductId == productId && c.StoreId == storeId).FirstOrDefault();
+        //    if (_storeProductExists != null)
+        //    {
+        //        if (ifExistsDontUpdate == false)
+        //        {
+        //            if (!updateIfUserHasPermission) //permission not requires
+        //            {
+        //                _storeProductExists.Url = searchResult.Url;
+        //                //FOR LOCAL
+        //                //_storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+        //                //FOR PRODUCTION
+        //                _storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+        //                _storeProductExists.UpdateDate = DateTime.Now;
+        //                _storeProductExists.NeedsUpdate = false;
+        //                _storeProductExists.OnlineProductId = searchResult.OnlineProductId;
+        //                db.SaveChanges();
+        //                return true;
+        //            }
+        //            else //permission requires
+        //            {
+        //                //check if user hás permission
+        //                //is user a moderador?
+        //                var _userIsModerator = UserPermissionsManager.IsUserModerator(userId);
+        //                //var _userIsModerator = false;
+        //                if (_userIsModerator || _storeProductExists.UserId.Equals(userId))
+        //                {
+        //                    _storeProductExists.Url = searchResult.Url;
+
+        //                    //FOR LOCAL
+        //                    //_storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+        //                    //FOR PRODUCTION
+        //                    _storeProductExists.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+        //                    _storeProductExists.OnlineProductId = searchResult.OnlineProductId;
+        //                    _storeProductExists.UpdateDate = DateTime.Now;
+        //                    _storeProductExists.NeedsUpdate = false;
+        //                    db.SaveChanges();
+        //                    return true;
+        //                }
+        //                else
+        //                    return false; //user has no permission
+
+        //            }
+        //        }
+        //        return false; //It exists, but because of ifExistsDontUpdate=true, don´t update
+        //    }
+        //    else
+        //    {
+        //        StoreProductsNew _storeProduct = new StoreProductsNew();
+        //        _storeProduct.Url = searchResult.Url;
+        //        //FOR LOCAL
+        //        //_storeProduct.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+        //        //FOR PRODUCTION
+        //        _storeProduct.Price = Math.Round(double.Parse(searchResult.Price.Replace("€", "").Replace(",", ".").Trim()), 2);
+
+        //        _storeProduct.UserId = userId;
+        //        _storeProduct.ProductId = productId;
+        //        _storeProduct.CreateDate = DateTime.Now;
+        //        _storeProduct.StoreId = storeId;
+        //        _storeProduct.NeedsUpdate = false;
+        //        _storeProduct.OnlineProductId = searchResult.OnlineProductId;
+        //        db.StoreProductsNew.Add(_storeProduct);
+        //        db.SaveChanges();
+        //        return true;
+        //    }
+        //}
+
+        public static int AddProductSimpleToUserList(ProductSimpleItem productSimple)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var _exists = db.UserProductsSimple.Where(c => c.Name.ToLower().Trim() == productSimple.Name.ToLower().Trim() && c.UserId == productSimple.UserId).FirstOrDefault();
+                if (_exists != null)
+                {
+                    _exists.Quantity++;
+                    db.SaveChanges();
+                    return _exists.Id;
+                }
+                else
+                {
+                    UserProductsSimple _UserProductsSimpleNew = new UserProductsSimple
+                    {
+                        Name = productSimple.Name,
+                        //ImageUrl = productSimple.ImageUrl,
+                        Quantity = 1,
+                        CreateDate = DateTime.Now,
+                        UpdateDate = DateTime.Now,
+                        ListName = productSimple.List,
+                        UserId = productSimple.UserId
+                    };
+                    db.UserProductsSimple.Add(_UserProductsSimpleNew);
+                    db.SaveChanges();
+                    return _UserProductsSimpleNew.Id;
+                }
+            }
+        }
+
+        public static string AddProductRecognizedIoTToUserList(string userId, string productRecognized)
+        {
+            //make translations here
+            switch (productRecognized.ToLower().Replace("_", " "))
+            {
+                case "apple":
+                    productRecognized = "Maça";
+                    break;
+                case "orange":
+                    productRecognized = "Laranja";
+                    break;
+                case "bell pepper red":
+                    productRecognized = "Pimento vermelho";
+                    break;
+                default:
+                    break;
+            }
+
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var _exists = db.UserProductsSimple.Where(c => c.Name.ToLower().Trim() == productRecognized.ToLower().Trim() && c.UserId == userId).FirstOrDefault();
+                if (_exists != null)
+                {
+                    _exists.Quantity++;
+                    db.SaveChanges();
+                    return productRecognized;
+                }
+                else
+                {
+                    UserProductsSimple _UserProductsSimpleNew = new UserProductsSimple
+                    {
+                        Name = productRecognized,
+                        ImageUrl = string.Empty,
+                        Quantity = 1,
+                        CreateDate = DateTime.Now,
+                        UpdateDate = DateTime.Now,
+                        UserId = userId
+                    };
+                    db.UserProductsSimple.Add(_UserProductsSimpleNew);
+                    db.SaveChanges();
+                    return productRecognized;
+                }
+            }
+        }
+
+
+        static public void DeleteStoreProductsOfProduct(int productId)
+        {
+            var storeProducts = db.StoreProducts.Where(c => c.ProductId == productId).ToList();
+            if (storeProducts.Count > 0) db.StoreProducts.RemoveRange(storeProducts);
+            db.SaveChanges();
+        }
+
+        static public bool DeleteStoreProductOfProductNew(int productId, string userId, int storeId, bool deleteIfUserHasPermission = true)
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                var _storeProduct = db2.StoreProducts.Where(c => c.ProductId == productId && c.StoreId == storeId).FirstOrDefault();
+                if (_storeProduct != null)
+                {
+                    if (deleteIfUserHasPermission) //Permission to delete requires
+                    {
+                        var _userIsModerator = UserPermissionsManager.IsUserModerator(userId);
+                        if (_userIsModerator || _storeProduct.UserId.Equals(userId)) //has permission
+                        {
+                            db2.StoreProducts.Remove(_storeProduct);
+                            db2.SaveChanges();
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                    else //Permission not requires
+                    {
+                        db2.StoreProducts.Remove(_storeProduct);
+                        db2.SaveChanges();
+                        return true;
+                    }
+                }
+                else
+                    return false;
+            }
+        }
+
+        static public string GetProductJumboStoreUrl(int productId)
+        {
+            var userShoppingList2 = from m in db.StoreProducts where m.ProductId == productId && m.StoreId == 1 select m.Url;
+            if (userShoppingList2.Count() > 0)
+            {
+                return "http://www.auchan.pt" + userShoppingList2.First();
+            }
+            else return string.Empty;
+        }
+
+        static public string GetProductContinenteStoreUrl(int productId)
+        {
+            var userShoppingList2 = from m in db.StoreProducts where m.ProductId == productId && m.StoreId == 2 select m.Url;
+            if (userShoppingList2.Count() > 0)
+            {
+                return "http://www.continente.pt" + userShoppingList2.First();
+            }
+            else return string.Empty;
+        }
+
+        static public string GetProductPingoDoceStoreUrl(int productId)
+        {
+            var userShoppingList2 = from m in db.StoreProducts where m.ProductId == productId && m.StoreId == 3 select m.Url;
+            if (userShoppingList2.Count() > 0)
+            {
+                return "http://www.mercadao.pt" + userShoppingList2.First();
+            }
+            else return string.Empty;
+        }
+
+        static public int AddNewProduct(Products newProduct)
+        {
+            try
+            {
+                if (newProduct != null && !string.IsNullOrEmpty(newProduct.Barcode))
+                {
+                    db.Products.Add(newProduct);
+                    db.SaveChanges();
+                    Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastNewProduct("9ff8224f-17cf-49fb-b555-05779a13eb40", GetTotal());
+                    return newProduct.Id;
+                }
+
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        static public Products GetById(int id)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                return db.Products.Include("StoreProducts").Where(c => c.Id.Equals(id)).FirstOrDefault();
+            }
+        }
+
+        static public Products GetByBarcode(string barcode)
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                var _product = db.Products.Include("StoreProducts").Where(c => c.Barcode.Equals(barcode)).FirstOrDefault();
+                if (_product != null)
+                {
+                    return _product;
+                }
+                else if (barcode.StartsWith("0"))
+                {
+                    _product = db.Products.Include("StoreProducts").Where(c => c.Barcode.Equals(barcode.Remove(0, 1))).FirstOrDefault();
+                    return _product;
+                }
+                else //Find weight barcodes 
+                {
+                    _product = db.Products.Include("StoreProducts").Where(c => c.Barcode.StartsWith(barcode.Substring(0, 7)) && c.Barcode.EndsWith("000000")).FirstOrDefault();
+                    if (_product != null)
+                    {
+                        return _product;
+                    }
+                }
+                return null;
+            }
+        }
+
+        static public Products GetByBarcodeV2(string barcode, string userId = "")
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                var _product = db.Products.Include("StoreProducts")
+                    .Where(c => c.Barcode.Equals(barcode) && (!c.IsTemp.HasValue || c.IsTemp == false))
+                    .FirstOrDefault();
+                if (_product != null)
+                {
+                    return _product;
+                }
+
+                if (barcode.StartsWith("0"))
+                {
+                    _product = db.Products.Include("StoreProducts")
+                        .Where(c => c.Barcode.Equals(barcode.Remove(0, 1)) && (!c.IsTemp.HasValue || c.IsTemp == false))
+                        .FirstOrDefault();
+                    if (_product != null)
+                    {
+                        return _product;
+                    }
+
+                }
+
+                _product = db.Products.Include("StoreProducts").Where(c => c.Barcode.StartsWith(barcode.Substring(0, 7)) && c.Barcode.EndsWith("000000")).FirstOrDefault();
+                if (_product != null)
+                {
+                    return _product;
+                }
+
+                //see in user temp products
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    _product = db.Products.Include("StoreProducts")
+                    .Where(c => c.Barcode.Equals(barcode) &&
+                               (c.IsTemp.HasValue || c.IsTemp == true) && c.CreatedByUserId == userId)
+                    .FirstOrDefault();
+                    if (_product != null)
+                    {
+                        return _product;
+                    }
+
+                    if (barcode.StartsWith("0"))
+                    {
+                        _product = db.Products.Include("StoreProducts")
+                             .Where(c => c.Barcode.Equals(barcode.Remove(0, 1)) &&
+                                        (c.IsTemp.HasValue || c.IsTemp == true) && c.CreatedByUserId == userId)
+                             .FirstOrDefault();
+                        if (_product != null)
+                        {
+                            return _product;
+                        }
+                    }
+
+                    _product = db.Products.Include("StoreProducts")
+                        .Where(c => c.Barcode.StartsWith(barcode.Substring(0, 7)) &&
+                                    c.Barcode.EndsWith("000000") &&
+                                   (c.IsTemp.HasValue || c.IsTemp == true) && c.CreatedByUserId == userId)
+                    .FirstOrDefault();
+                    if (_product != null)
+                    {
+                        return _product;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+
+        static public Products GetDTOById(int id)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var product = db.Products.Include("StoreProducts").Where(c => c.Id.Equals(id)).FirstOrDefault();
+                if (product != null)
+                {
+                    return new Products()
+                    {
+                        Id = product.Id,
+                        Barcode = product.Barcode,
+                        Brand = product.Brand,
+                        CategoryString = product.CategoryString,
+                        InsertDate = product.InsertDate,
+                        Name = product.Name,
+                        Price = product.Price,
+                        VariableWeightPrice = product.VariableWeightPrice,
+                        StoreProducts = Managers.ProductsManager.GetStoreProductsCopy(product.StoreProducts),
+                        Weight = product.Weight,
+                        AddedByUserId = product.AddedByUserId,
+                        CreatedByUserId = product.CreatedByUserId,
+                        IsTemp = product.IsTemp,
+                        FullCategory = product.FullCategory
+                    };
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        static public Products GetByStoreIdAndOnlineProductId(int storeId, string onlineProductId)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var _storeProduct = db.StoreProducts.Include("Products").Where(c => c.StoreId == storeId && c.OnlineProductId == onlineProductId).FirstOrDefault();
+                if (_storeProduct != null)
+                {
+                    return _storeProduct.Products;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        static public Products GetByStoreIdAndUrl(int storeId, string url)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var _storeProduct = db.StoreProducts.Include("Products").Where(c => c.StoreId == storeId && c.Url == url).FirstOrDefault();
+                if (_storeProduct != null)
+                {
+                    return _storeProduct.Products;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        //if it finds online, it creates new product in database
+        static async public Task<Products> GetByBarcodeAndSearchOnlineAndAddIfFound(string barcode, string userId)
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                List<LisieStores.Extensibility.ProductSearchResult> _results = null;
+
+                var _product = GetByBarcode(barcode);
+                if (_product != null)
+                {
+                    return _product;
+                }
+                else //Find online 
+                {
+                    _results = await GetByBarcodeOnline(barcode);
+                }
+
+                //if found online, create new product and return it
+                if (_results != null && _results.Count > 0)
+                {
+                    ProductItemCreate _ProductItemCreate = new ProductItemCreate();
+                    _ProductItemCreate.Barcode = _results[0].Barcode;
+                    _ProductItemCreate.FirstAddedProductFromStoreId = _results[0].StoreId;
+                    _ProductItemCreate.UserId = userId;
+                    _ProductItemCreate.SelectedResults = new List<LisieStores.Extensibility.ProductSearchResult>();
+                    foreach (var _result in _results)
+                    {
+                        _ProductItemCreate.SelectedResults.Add(new LisieStores.Extensibility.ProductSearchResult
+                        {
+                            StoreId = _result.StoreId,
+                            Url = _result.Url
+                        });
+                    }
+                    int _newProductId = await CreateV2(_ProductItemCreate);
+                    if (_newProductId > 0)
+                    {
+                        return GetById(_newProductId);
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        static async public Task<List<LisieStores.Extensibility.ProductSearchResult>> GetByBarcodeOnline(string barcode)
+        {
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                OnlineProducts _OnlineProducts = new OnlineProducts();
+                List<LisieStores.Extensibility.ProductSearchResult> _results = null;
+                if (barcode.StartsWith("0")) //try first without 0 before, than with
+                {
+                    _results = await _OnlineProducts.GetMarketsProductByBarcode(barcode.Remove(0, 1)); //without 0
+                    if (_results == null || _results.Count == 0)//try with 0
+                        _results = await _OnlineProducts.GetMarketsProductByBarcode(barcode);
+                }
+                else
+                    _results = await _OnlineProducts.GetMarketsProductByBarcode(barcode);
+
+                if (_results == null || _results.Count == 0) //try to get by weight barcode
+                {
+                    string _BarcodeWeight = barcode;
+                    if (_BarcodeWeight.StartsWith("0"))
+                        _BarcodeWeight = _BarcodeWeight.Remove(0, 1);
+                    _BarcodeWeight = _BarcodeWeight.Substring(0, 7) + "000000";
+                    _results = await _OnlineProducts.GetMarketsProductByBarcode(_BarcodeWeight);
+                }
+
+                return _results;
+            }
+        }
+
+        static public List<Products> GetProductsAutocomplete(string term, bool withoutBarcode)
+        {
+            if (withoutBarcode)
+                return (from c in db.Products
+                        where (c.Name.ToLower().Contains(term.ToLower()) ||
+                               c.Brand.ToLower().Contains(term.ToLower())) &&
+                               c.Barcode == "0"
+                        select c).ToList();
+            else
+                return (from c in db.Products
+                        where c.Name.ToLower().Contains(term.ToLower()) ||
+                               c.Brand.ToLower().Contains(term.ToLower())
+                        select c).ToList();
+        }
+
+        static public List<Models.UserProductListCompleteModel2> GetAll(int page, string query, bool withoutBarcode = false)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                //List<Products> productsList = new List<Products>();
+                //IQueryable<Products> productsList = new IQueryable<Products>();
+                IQueryable productsList = Enumerable.Empty<Products>().AsQueryable();
+                if (string.IsNullOrEmpty(query))
+                {
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                }
+                else
+                {
+                    //IN FUTURE MAYBE
+                    if (page > 0)
+                    {
+                        productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
+                            c.Brand.ToLower().Contains(query.ToLower()))
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                    }
+                    else //if -1 return all
+                    {
+                        var decomposed = query.Normalize(NormalizationForm.FormD);
+                        var filtered = decomposed.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark);
+                        var _normalizedQuery = new String(filtered.ToArray());
+
+                        string[] _searchWords = query.ToLower().Trim(' ').Split(' ');
+                        string[] _searchWordsNormalized = _normalizedQuery.ToLower().Trim(' ').Split(' ');
+                        if (withoutBarcode)
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z) &&
+                            c.Barcode.Equals("0"))
+                            ||
+                            _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z))
+                            && c.Barcode.Equals("0"))
+                               .OrderBy(c => c.Name);
+                        }
+                        else
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)) ||
+                             _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)))
+                                    .OrderBy(c => c.Name);
+                        }
+                    }
+                }
+                List<Models.UserProductListCompleteModel2> _list = new List<Models.UserProductListCompleteModel2>();
+                foreach (Products product in productsList)
+                {
+                    _list.Add(new UserProductListCompleteModel2()
+                    {
+                        ProductId = product.Id,
+                        Barcode = product.Barcode,
+                        Brand = product.Brand,
+                        Category = product.CategoryString,
+                        LastAddedDate = product.InsertDate.Value,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Weight = product.Weight
+                    });
+                }
+
+                foreach (var _product in _list)
+                {
+                    var _storeProducts = from m in db.StoreProducts where m.ProductId == _product.ProductId select m;
+                    if (_storeProducts.Count() > 0)
+                    {
+                        foreach (var storeProduct in _storeProducts)
+                        {
+                            if (_product.PriceList == null) _product.PriceList = new List<Models.StoreProduct>();
+                            _product.PriceList.Add(new Models.StoreProduct
+                            {
+                                Id = storeProduct.Id,
+                                Price = Math.Round(storeProduct.Price.Value, 2),
+                                PriceRatio = storeProduct.PriceRatio.HasValue ? Math.Round(storeProduct.PriceRatio.Value, 2) : 0,
+                                StoreId = storeProduct.StoreId,
+                                Url = storeProduct.Url,
+                                CreatedByUserId = storeProduct.UserId,
+                                NeedsUpdate = ((storeProduct.NeedsUpdate.HasValue) ? storeProduct.NeedsUpdate.Value : false),
+                                UpdateDate = ((storeProduct.UpdateDate.HasValue) ? storeProduct.UpdateDate.Value : DateTime.MinValue),
+                                Unit = storeProduct.Unit
+                            });
+                        }
+                    }
+                }
+                return _list;
+            }
+        }
+
+        //with inner join
+        static public List<Models.UserProductListCompleteModel2> GetAllV2(int page, string query, bool withoutBarcode = false)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                //List<Products> productsList = new List<Products>();
+                //IQueryable<Products> productsList = new IQueryable<Products>();
+                IQueryable<Products> productsList = Enumerable.Empty<Products>().AsQueryable();
+                if (string.IsNullOrEmpty(query))
+                {
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                }
+                else
+                {
+                    //IN FUTURE MAYBE
+                    if (page > 0)
+                    {
+                        productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
+                            c.Brand.ToLower().Contains(query.ToLower()))
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                    }
+                    else //if -1 return all
+                    {
+                        var decomposed = query.Normalize(NormalizationForm.FormD);
+                        var filtered = decomposed.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark);
+                        var _normalizedQuery = new String(filtered.ToArray());
+
+                        string[] _searchWords = query.ToLower().Trim(' ').Split(' ');
+                        string[] _searchWordsNormalized = _normalizedQuery.ToLower().Trim(' ').Split(' ');
+                        if (withoutBarcode)
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z) &&
+                            c.Barcode.Equals("0"))
+                            ||
+                            _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z))
+                            && c.Barcode.Equals("0"))
+                               .OrderBy(c => c.Name);
+                        }
+                        else
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)) ||
+                             _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)))
+                                    .OrderBy(c => c.Name);
+                        }
+                    }
+                }
+
+                //try to inner join
+                var _temp =
+                    from m in productsList
+                    join storePrd in db.StoreProducts on m.Id equals storePrd.ProductId
+                    //orderby m.Id descending
+                    select new UserProductListCompleteTempModel
+                    {
+                        Id = storePrd.Id,
+                        ProductId = m.Id,
+                        //Quantity = m.Quantity.Value,
+                        Barcode = m.Barcode,
+                        Brand = m.Brand,
+                        ItemType = "product",
+                        Name = m.Name,
+                        Category = m.CategoryString,
+                        //Price = 0,
+                        StorePrice = Math.Round(storePrd.Price.Value, 2),
+                        StoreId = storePrd.StoreId,
+                        StoreProductId = storePrd.Id,
+                        NeedsUpdate = storePrd.NeedsUpdate,
+                        Url = storePrd.Url,
+                        CreatedByUserId = storePrd.UserId,
+                        Weight = m.Weight,
+                        Unit = storePrd.Unit,
+                        UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue
+                    };
+
+                //var _distinctCount = _distinc.Count();
+                //get distinct UserProduct Id
+                //var _list = _temp.ToList();
+                var _distinc = _temp.GroupBy(c => c.ProductId).ToList();
+
+                List<Models.UserProductListCompleteModel2> _listToReturn = new List<UserProductListCompleteModel2>();
+                //int _lastId = -1;
+                foreach (var _dist in _distinc)
+                {
+
+                    UserProductListCompleteTempModel _UserProductListCompleteTempModel = _dist.First();
+                    UserProductListCompleteModel2 _UserProductListCompleteModel2New = new UserProductListCompleteModel2
+                    {
+                        Id = 0,
+                        //Id = _UserProductListCompleteTempModel.ProductId,
+                        ProductId = _UserProductListCompleteTempModel.ProductId,
+                        //Quantity = item.Quantity,
+                        Barcode = _UserProductListCompleteTempModel.Barcode,
+                        Brand = _UserProductListCompleteTempModel.Brand,
+                        //ItemType = "product",
+                        Name = _UserProductListCompleteTempModel.Name,
+                        Category = _UserProductListCompleteTempModel.Category,
+                        Weight = _UserProductListCompleteTempModel.Weight,
+                        Price = 0,
+                        //PriceList = new List<StoreProduct>(),
+                        PriceList = _dist.Select(c => new StoreProduct
+                        {
+                            Id = c.StoreProductId,
+                            StoreId = c.StoreId,
+                            Price = c.StorePrice,
+                            NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
+                            Url = c.Url,
+                            CreatedByUserId = c.CreatedByUserId,
+                            UpdateDate = c.UpdateDate,
+                            Unit = c.Unit
+                        }).ToList(),
+                        LastAddedDate = _UserProductListCompleteTempModel.LastAddedDate
+                    };
+                    _listToReturn.Add(_UserProductListCompleteModel2New);
+
+                }
+
+                return _listToReturn;
+            }
+        }
+
+        static public List<Models.UserProductListCompleteModel2> GetAllV3(int page, string query, bool withoutBarcode = false, string userId = "")
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                //List<Products> productsList = new List<Products>();
+                //IQueryable<Products> productsList = new IQueryable<Products>();
+                IQueryable<Products> productsList = Enumerable.Empty<Products>().AsQueryable();
+                if (string.IsNullOrEmpty(query))
+                {
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                }
+                else
+                {
+                    //IN FUTURE MAYBE
+                    if (page > 0)
+                    {
+                        productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
+                            c.Brand.ToLower().Contains(query.ToLower()))
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                    }
+                    else //if -1 return all
+                    {
+                        var decomposed = query.Normalize(NormalizationForm.FormD);
+                        var filtered = decomposed.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark);
+                        var _normalizedQuery = new String(filtered.ToArray());
+
+                        string[] _searchWords = query.ToLower().Trim(' ').Split(' ');
+                        string[] _searchWordsNormalized = _normalizedQuery.ToLower().Trim(' ').Split(' ');
+                        if (withoutBarcode)
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z) &&
+                            c.Barcode.Equals("0"))
+                            ||
+                            _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z))
+                            && c.Barcode.Equals("0"))
+                               .OrderBy(c => c.Name);
+                        }
+                        else
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)) ||
+                             _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)))
+                                    .OrderBy(c => c.Name);
+                        }
+                    }
+                }
+
+                //try to inner join
+                var _temp =
+                    from m in productsList
+                    join storePrd in db.StoreProducts on m.Id equals storePrd.ProductId
+                    where (!string.IsNullOrEmpty(userId) ? (!storePrd.IsTemp.HasValue || storePrd.IsTemp == false || (storePrd.IsTemp.Value && storePrd.UserId == userId)) : true)
+                    //orderby m.Id descending
+                    select new UserProductListCompleteTempModel
+                    {
+                        Id = storePrd.Id,
+                        ProductId = m.Id,
+                        //Quantity = m.Quantity.Value,
+                        Barcode = m.Barcode,
+                        Brand = m.Brand,
+                        ItemType = "product",
+                        Name = m.Name,
+                        Category = m.CategoryString,
+                        //Price = 0,
+                        StorePrice = Math.Round(storePrd.Price.Value, 2),
+                        StoreId = storePrd.StoreId,
+                        StoreProductId = storePrd.Id,
+                        NeedsUpdate = storePrd.NeedsUpdate,
+                        Url = storePrd.Url,
+                        CreatedByUserId = storePrd.UserId,
+                        Weight = m.Weight,
+                        Unit = storePrd.Unit,
+                        UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue
+                    };
+
+                //var _distinctCount = _distinc.Count();
+                //get distinct UserProduct Id
+                //var _list = _temp.ToList();
+                var _distinc = _temp.GroupBy(c => c.ProductId).ToList();
+
+                List<Models.UserProductListCompleteModel2> _listToReturn = new List<UserProductListCompleteModel2>();
+                //int _lastId = -1;
+                foreach (var _dist in _distinc)
+                {
+
+                    UserProductListCompleteTempModel _UserProductListCompleteTempModel = _dist.First();
+                    UserProductListCompleteModel2 _UserProductListCompleteModel2New = new UserProductListCompleteModel2
+                    {
+                        Id = 0,
+                        //Id = _UserProductListCompleteTempModel.ProductId,
+                        ProductId = _UserProductListCompleteTempModel.ProductId,
+                        //Quantity = item.Quantity,
+                        Barcode = _UserProductListCompleteTempModel.Barcode,
+                        Brand = _UserProductListCompleteTempModel.Brand,
+                        //ItemType = "product",
+                        Name = _UserProductListCompleteTempModel.Name,
+                        Category = _UserProductListCompleteTempModel.Category,
+                        Weight = _UserProductListCompleteTempModel.Weight,
+                        Price = 0,
+                        //PriceList = new List<StoreProduct>(),
+                        PriceList = _dist.Select(c => new StoreProduct
+                        {
+                            Id = c.StoreProductId,
+                            StoreId = c.StoreId,
+                            Price = c.StorePrice,
+                            NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
+                            Url = c.Url,
+                            CreatedByUserId = c.CreatedByUserId,
+                            UpdateDate = c.UpdateDate,
+                            Unit = c.Unit
+                        }).ToList(),
+                        LastAddedDate = _UserProductListCompleteTempModel.LastAddedDate
+                    };
+                    _listToReturn.Add(_UserProductListCompleteModel2New);
+
+                }
+
+                return _listToReturn;
+            }
+        }
+
+        static public List<Models.UserProductListCompleteModel2> GetAllV3(int page, string query, bool withoutBarcode = false, string userId = "")
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                //List<Products> productsList = new List<Products>();
+                //IQueryable<Products> productsList = new IQueryable<Products>();
+                IQueryable<Products> productsList = Enumerable.Empty<Products>().AsQueryable();
+                if (string.IsNullOrEmpty(query))
+                {
+                    //productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6).ToList();
+                    productsList = db.Products.OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                }
+                else
+                {
+                    //IN FUTURE MAYBE
+                    if (page > 0)
+                    {
+                        productsList = db.Products.Where(c => c.Name.ToLower().Contains(query.ToLower()) ||
+                            c.Brand.ToLower().Contains(query.ToLower()))
+                            .OrderBy(c => c.Name).Skip((page - 1) * 6).Take(6);
+                    }
+                    else //if -1 return all
+                    {
+                        var decomposed = query.Normalize(NormalizationForm.FormD);
+                        var filtered = decomposed.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark);
+                        var _normalizedQuery = new String(filtered.ToArray());
+
+                        string[] _searchWords = query.ToLower().Trim(' ').Split(' ');
+                        string[] _searchWordsNormalized = _normalizedQuery.ToLower().Trim(' ').Split(' ');
+                        if (withoutBarcode)
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z) &&
+                            c.Barcode.Equals("0"))
+                            ||
+                            _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z))
+                            && c.Barcode.Equals("0"))
+                               .OrderBy(c => c.Name);
+                        }
+                        else
+                        {
+                            productsList = db.Products.Where(c => _searchWords.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)) ||
+                             _searchWordsNormalized.All(z => (c.Name.ToLower() + " " + c.Brand.ToLower()).Contains(z)))
+                                    .OrderBy(c => c.Name);
+                        }
+                    }
+                }
+
+                //try to inner join
+                var _temp =
+                    from m in productsList
+                    join storePrd in db.StoreProducts on m.Id equals storePrd.ProductId
+                    where (!string.IsNullOrEmpty(userId) ? (!storePrd.IsTemp.HasValue || storePrd.IsTemp == false || (storePrd.IsTemp.Value && storePrd.UserId == userId)) : true)
+                    //orderby m.Id descending
+                    select new UserProductListCompleteTempModel
+                    {
+                        Id = storePrd.Id,
+                        ProductId = m.Id,
+                        //Quantity = m.Quantity.Value,
+                        Barcode = m.Barcode,
+                        Brand = m.Brand,
+                        ItemType = "product",
+                        Name = m.Name,
+                        Category = m.CategoryString,
+                        //Price = 0,
+                        StorePrice = Math.Round(storePrd.Price.Value, 2),
+                        StoreId = storePrd.StoreId,
+                        StoreProductId = storePrd.Id,
+                        NeedsUpdate = storePrd.NeedsUpdate,
+                        Url = storePrd.Url,
+                        CreatedByUserId = storePrd.UserId,
+                        Weight = m.Weight,
+                        Unit = storePrd.Unit,
+                        UpdateDate = storePrd.UpdateDate.HasValue ? storePrd.UpdateDate.Value : DateTime.MinValue
+                    };
+
+                //var _distinctCount = _distinc.Count();
+                //get distinct UserProduct Id
+                //var _list = _temp.ToList();
+                var _distinc = _temp.GroupBy(c => c.ProductId).ToList();
+
+                List<Models.UserProductListCompleteModel2> _listToReturn = new List<UserProductListCompleteModel2>();
+                //int _lastId = -1;
+                foreach (var _dist in _distinc)
+                {
+
+                    UserProductListCompleteTempModel _UserProductListCompleteTempModel = _dist.First();
+                    UserProductListCompleteModel2 _UserProductListCompleteModel2New = new UserProductListCompleteModel2
+                    {
+                        Id = 0,
+                        //Id = _UserProductListCompleteTempModel.ProductId,
+                        ProductId = _UserProductListCompleteTempModel.ProductId,
+                        //Quantity = item.Quantity,
+                        Barcode = _UserProductListCompleteTempModel.Barcode,
+                        Brand = _UserProductListCompleteTempModel.Brand,
+                        //ItemType = "product",
+                        Name = _UserProductListCompleteTempModel.Name,
+                        Category = _UserProductListCompleteTempModel.Category,
+                        Weight = _UserProductListCompleteTempModel.Weight,
+                        Price = 0,
+                        //PriceList = new List<StoreProduct>(),
+                        PriceList = _dist.Select(c => new StoreProduct
+                        {
+                            Id = c.StoreProductId,
+                            StoreId = c.StoreId,
+                            Price = c.StorePrice,
+                            NeedsUpdate = c.NeedsUpdate.HasValue ? c.NeedsUpdate.Value : true,
+                            Url = c.Url,
+                            CreatedByUserId = c.CreatedByUserId,
+                            UpdateDate = c.UpdateDate,
+                            Unit = c.Unit
+                        }).ToList(),
+                        LastAddedDate = _UserProductListCompleteTempModel.LastAddedDate
+                    };
+                    _listToReturn.Add(_UserProductListCompleteModel2New);
+
+                }
+
+                return _listToReturn;
+            }
+        }
+
+        static public Products AssociateProductWithBarcode(int productId, string barcode)
+        {
+            using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+            {
+                var product = db.Products.Where(c => c.Id == productId && c.Barcode == "0").FirstOrDefault();
+                if (product != null)
+                {
+                    product.Barcode = barcode;
+                    db.SaveChanges();
+                    return product;
+                }
+                else
+                    return null;
+            }
+        }
+
+        //Legacy - old
+        async static public Task<(List<ProductPricesUpdates> productPricesUpdates, List<string> details)> UpdatePrices(int productId)
+        {
+
+            using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+            {
+                OnlineProducts _OnlineProducts = new OnlineProducts();
+                var _storeProducts = db2.StoreProducts.Where(c => c.ProductId == productId).Include(c => c.Stores).ToList();
+
+                List<ProductPricesUpdates> _productPricesUpdate = new List<ProductPricesUpdates>();
+                List<string> _productPricesUpdateDetails = new List<string>();
+
+
+
+                string _productdUpdatedMessage = string.Empty;
+
+                foreach (var _storeProduct in _storeProducts)
+                {
+                    //TODO - try to remove this line now that we are with using
+                    ((IObjectContextAdapter)db2)
+                                  .ObjectContext
+                                  .Refresh(RefreshMode.StoreWins, _storeProduct);
+                    switch (_storeProduct.StoreId)
+                    {
+                        case 1:
+                            try
+                            {
+                                LisieStores.Extensibility.ProductSearchResult _jumboProductSearchResult = await _OnlineProducts.GetJumboProductMetadata(_storeProduct.Url);
+                                if (_jumboProductSearchResult != null)
+                                {
+                                    double _newPrice = double.Parse(_jumboProductSearchResult.Price.Replace("€", "").Trim());
+                                    if (_storeProduct.Price != _newPrice)
+                                    {
+                                        ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
+                                        {
+                                            OldPrice = _storeProduct.Price.Value,
+                                            NewPrice = _newPrice,
+                                            CreateDate = DateTime.Now,
+                                            CreatedByUserId = "0",
+                                            ProductId = productId,
+                                            StoreId = _storeProduct.StoreId
+                                        };
+                                        db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
+
+                                        _productPricesUpdateDetails.Add(_productdUpdatedMessage =
+                                           _storeProduct.Stores.Name + " - " +
+                                           (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
+                                           + " de preço, " + _storeProduct.Products.Name);
+
+                                        _productPricesUpdate.Add(_ProductPricesUpdate);
+
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+
+                                    }
+                                    else
+                                    {
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+                                    }
+                                }
+                                else
+                                {
+                                    _storeProduct.UpdateDate = DateTime.Now;
+                                    _storeProduct.NeedsUpdate = true;
+                                    db2.SaveChanges();
+                                }
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+
+                                _storeProduct.UpdateDate = DateTime.Now;
+                                _storeProduct.NeedsUpdate = true;
+                                db2.SaveChanges();
+
+                                break;
+                            }
+
+                        case 2:
+                            try
+                            {
+                                LisieStores.Extensibility.ProductSearchResult _continenteProductSearchResult = await _OnlineProducts.GetContinenteProductMetadata(_storeProduct.Url);
+                                if (_continenteProductSearchResult != null)
+                                {
+                                    double _newPrice = double.Parse(_continenteProductSearchResult.Price.Replace("€", "").Trim());
+                                    if (_storeProduct.Price != _newPrice)
+                                    {
+                                        ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
+                                        {
+                                            OldPrice = _storeProduct.Price.Value,
+                                            NewPrice = _newPrice,
+                                            CreateDate = DateTime.Now,
+                                            CreatedByUserId = "0",
+                                            ProductId = productId,
+                                            StoreId = _storeProduct.StoreId
+
+                                        };
+                                        db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
+
+                                        _productPricesUpdateDetails.Add(_productdUpdatedMessage =
+                                           _storeProduct.Stores.Name + " - " +
+                                           (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
+                                           + " de preço, " + _storeProduct.Products.Name);
+                                        _productPricesUpdate.Add(_ProductPricesUpdate);
+
+
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+                                    }
+                                }
+                                else
+                                {
+                                    _storeProduct.UpdateDate = DateTime.Now;
+                                    _storeProduct.NeedsUpdate = true;
+                                    db2.SaveChanges();
+                                }
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+
+                                _storeProduct.UpdateDate = DateTime.Now;
+                                _storeProduct.NeedsUpdate = true;
+                                db2.SaveChanges();
+
+                                break;
+                            }
+                        case 3:
+                            try
+                            {
+                                LisieStores.Extensibility.ProductSearchResult _pingoDoceProductSearchResult = await _OnlineProducts.GetPingoDoceProductMetadata(_storeProduct.Url);
+                                if (_pingoDoceProductSearchResult != null)
+                                {
+                                    double _newPrice = Math.Round(double.Parse(_pingoDoceProductSearchResult.Price.Replace("€", "").Trim()), 2);
+                                    if (_storeProduct.Price != _newPrice)
+                                    {
+                                        ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
+                                        {
+                                            OldPrice = _storeProduct.Price.Value,
+                                            NewPrice = _newPrice,
+                                            CreateDate = DateTime.Now,
+                                            CreatedByUserId = "0",
+                                            ProductId = productId,
+                                            StoreId = _storeProduct.StoreId
+                                        };
+                                        db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
+
+
+                                        _productPricesUpdateDetails.Add(_productdUpdatedMessage =
+                                           _storeProduct.Stores.Name + " - " +
+                                           (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
+                                           + " de preço, " + _storeProduct.Products.Name);
+                                        _productPricesUpdate.Add(_ProductPricesUpdate);
+
+
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        _storeProduct.Price = _newPrice;
+                                        _storeProduct.UpdateDate = DateTime.Now;
+                                        _storeProduct.NeedsUpdate = false;
+                                        db2.SaveChanges();
+                                    }
+                                }
+                                else
+                                {
+                                    _storeProduct.UpdateDate = DateTime.Now;
+                                    _storeProduct.NeedsUpdate = true;
+                                    db2.SaveChanges();
+                                }
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+
+                                _storeProduct.UpdateDate = DateTime.Now;
+                                _storeProduct.NeedsUpdate = true;
+                                db2.SaveChanges();
+
+                                break;
+                            }
+
+                        default:
+                            break;
+                    }
+                }
+
+                return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
+            }
+
+        }
+
+        //BACKUP - this was working good
+        //async static public Task<(List<ProductPricesUpdates> productPricesUpdates, List<string> details)> UpdatePricesNew(int productId)
+        //{
+        //    Logger.FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Logs");
+        //    Logger.Debug("#UpdatePricesNew RUNNING for ProductID - " + productId, "pricesupdate.txt");
+        //    using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
+        //    {
+        //        OnlineProducts _OnlineProducts = new OnlineProducts();
+        //        var _storeProducts = db2.StoreProducts.Where(c => c.ProductId == productId).Include(c => c.Stores).ToList();
+
+        //        List<ProductPricesUpdates> _productPricesUpdate = new List<ProductPricesUpdates>();
+        //        List<string> _productPricesUpdateDetails = new List<string>();
+
+        //        string _productdUpdatedMessage = string.Empty;
+
+        //        foreach (var _storeProduct in _storeProducts)
+        //        {
+        //            //TODO - try to remove this line now that we are with using
+        //            ((IObjectContextAdapter)db2)
+        //                          .ObjectContext
+        //                          .Refresh(RefreshMode.StoreWins, _storeProduct);
+
+        //            try
+        //            {
+        //                Logger.Debug("storeId - " + _storeProduct.StoreId, "pricesupdate.txt");
+
+        //                //if (_storeProduct.StoreId == 1)
+        //                //{
+        //                //    //put in new way
+        //                //    _storeProduct.Url = _storeProduct.Url.ToLower();
+        //                //    if (_storeProduct.Url.IndexOf("/frontoffice") > -1)
+        //                //    {
+        //                //        _storeProduct.Url = _storeProduct.Url.Replace("/frontoffice", "/pt");
+        //                //        _storeProduct.Url = _storeProduct.Url.Replace("_", "-");
+        //                //        if (_storeProduct.Url.IndexOf("auchan-amadora") > -1)
+        //                //        {
+        //                //            _storeProduct.Url = _storeProduct.Url.Substring(0, _storeProduct.Url.LastIndexOf("/"));
+        //                //        }
+        //                //        _storeProduct.Url += ".html";
+        //                //    }
+        //                //}
+
+        //                LisieStores.Extensibility.IMarketFetcher _IMarketFetcher = Helpers.Extensibility.GetStoreFetcher(_storeProduct.StoreId);
+        //                LisieStores.Extensibility.ProductSearchResult _ProductSearchResult = await _IMarketFetcher.GetProductMetadata(_storeProduct.Url);
+        //                Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult), "pricesupdate.txt");
+
+        //                if (_ProductSearchResult != null && _ProductSearchResult.Price != string.Empty) //Product online found
+        //                {
+        //                    Logger.Debug("_ProductSearchResult.Price - " + _ProductSearchResult.Price, "pricesupdate.txt");
+
+        //                    //!MPORTANT
+        //                    //FOR PRODUCTION
+        //                    //double _newPrice = double.Parse(_ProductSearchResult.Price.Replace("€", "").Trim());
+        //                    double _newPrice = 0;
+        //                    if (HttpContext.Current.Request.IsLocal) //For LOCAL
+        //                    {
+        //                        _newPrice = double.Parse(_ProductSearchResult.Price.Replace("€", "").Replace(",", ".").Trim());
+        //                    }
+        //                    else
+        //                    {
+        //                        _newPrice = double.Parse(_ProductSearchResult.Price.Replace("€", "").Replace(".", ",").Trim());
+        //                    }
+
+
+        //                    //FOR LOCAL
+        //                    //double _newPrice = double.Parse(_ProductSearchResult.Price.Replace("€", "").Replace(",", ".").Trim());
+
+        //                    Logger.Debug("_newPrice - " + _newPrice.ToString(), "pricesupdate.txt");
+
+        //                    //if (_storeProduct.Price != _newPrice)
+        //                    if (_newPrice != 0 && Math.Round(_storeProduct.Price.Value, 2) != Math.Round(_newPrice, 2))
+        //                    {
+        //                        //Add to prices update history
+        //                        ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
+        //                        {
+        //                            OldPrice = _storeProduct.Price.Value,
+        //                            NewPrice = _newPrice,
+        //                            CreateDate = DateTime.Now,
+        //                            CreatedByUserId = "0",
+        //                            ProductId = productId,
+        //                            StoreId = _storeProduct.StoreId
+        //                        };
+        //                        db2.ProductPricesUpdates.Add(_ProductPricesUpdate);
+
+        //                        //Add to the return
+        //                        _productPricesUpdateDetails.Add(_productdUpdatedMessage =
+        //                           _storeProduct.Stores.Name + " - " +
+        //                           (_storeProduct.Price > _newPrice ? "Desceu" : "Subiu")
+        //                           + " de preço, " + _storeProduct.Products.Name);
+
+        //                        _productPricesUpdate.Add(_ProductPricesUpdate);
+
+        //                        _storeProduct.Price = _newPrice;
+        //                        double _priceRatio = 0;
+        //                        if (HttpContext.Current.Request.IsLocal) //For LOCAL
+        //                        {
+        //                            _priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim());
+        //                        }
+        //                        else
+        //                        {
+        //                            _priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim());
+        //                        }
+        //                        _storeProduct.PriceRatio = _priceRatio;
+        //                        _storeProduct.Unit = _ProductSearchResult.Unit.ToLower();
+        //                        _storeProduct.UpdateDate = DateTime.Now;
+        //                        _storeProduct.NeedsUpdate = false;
+
+        //                        //if url from store GetMetadata, is different, update it
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
+        //                            _storeProduct.Url = _ProductSearchResult.Url;
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _ProductSearchResult.OnlineProductId != _storeProduct.OnlineProductId)
+        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
+
+        //                        //New fields
+        //                        if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
+        //                            _storeProduct.Name = _ProductSearchResult.Name;
+        //                        if (_storeProduct.Brand == null && !string.IsNullOrEmpty(_ProductSearchResult.Brand))
+        //                            _storeProduct.Brand = _ProductSearchResult.Brand;
+        //                        if (_storeProduct.Weight == null && !string.IsNullOrEmpty(_ProductSearchResult.Weight))
+        //                            _storeProduct.Weight = _ProductSearchResult.Weight;
+        //                        if (_storeProduct.ImageUrl == null && !string.IsNullOrEmpty(_ProductSearchResult.ImageUrl))
+        //                            _storeProduct.ImageUrl = _ProductSearchResult.ImageUrl;
+
+        //                        db2.SaveChanges();
+
+        //                    }
+        //                    else //Price is not different, check if url,OnlineProductId, PriceRatio, Unit are different, if they are, update it
+        //                    {
+        //                        //_storeProduct.Price = _newPrice;
+        //                        _storeProduct.UpdateDate = DateTime.Now;
+        //                        _storeProduct.NeedsUpdate = false;
+
+        //                        //Url
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Url) && _ProductSearchResult.Url != _storeProduct.Url)
+        //                            _storeProduct.Url = _ProductSearchResult.Url;
+        //                        //OnlineProductId
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId == null) //if OnlineProductId exists and StoreProduct OnlineProductId is null, update it
+        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
+        //                        else if (!string.IsNullOrEmpty(_ProductSearchResult.OnlineProductId) && _storeProduct.OnlineProductId.Trim() != _ProductSearchResult.OnlineProductId.Trim())
+        //                            _storeProduct.OnlineProductId = _ProductSearchResult.OnlineProductId;
+        //                        //PriceRatio
+        //                        double _priceRatio = 0;
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight))
+        //                        {
+        //                            if (HttpContext.Current.Request.IsLocal) //For LOCAL
+        //                                //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(",", ".").Trim());
+        //                                _priceRatio = TextTools.ParsePriceLocal(_ProductSearchResult.PriceWeight);
+        //                            else
+        //                                //_priceRatio = double.Parse(_ProductSearchResult.PriceWeight.Replace("€", "").Replace(".", ",").Trim());
+        //                                _priceRatio = TextTools.ParsePriceProduction(_ProductSearchResult.PriceWeight);
+
+        //                            if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio == null) //if PriceWeigh exists and StoreProduct PriceRatio is null, update it
+        //                                _storeProduct.PriceRatio = _priceRatio;
+        //                            else if (!string.IsNullOrEmpty(_ProductSearchResult.PriceWeight) && _storeProduct.PriceRatio.ToString().Trim() != _ProductSearchResult.PriceWeight.Trim())
+        //                                _storeProduct.PriceRatio = _priceRatio;
+        //                        }
+        //                        //Unit
+        //                        if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _storeProduct.Unit == null) //if Unit exists and StoreProduct Unit is null, update it
+        //                            _storeProduct.Unit = _ProductSearchResult.Unit;
+        //                        else if (!string.IsNullOrEmpty(_ProductSearchResult.Unit) && _ProductSearchResult.Unit.ToLower().Trim() != _storeProduct.Unit.ToLower().Trim())
+        //                            _storeProduct.Unit = _ProductSearchResult.Unit;
+
+        //                        //New fields
+        //                        if (_storeProduct.Name == null && !string.IsNullOrEmpty(_ProductSearchResult.Name))
+        //                            _storeProduct.Name = _ProductSearchResult.Name;
+        //                        if (_storeProduct.Brand == null && !string.IsNullOrEmpty(_ProductSearchResult.Brand))
+        //                            _storeProduct.Brand = _ProductSearchResult.Brand;
+        //                        if (_storeProduct.Weight == null && !string.IsNullOrEmpty(_ProductSearchResult.Weight))
+        //                            _storeProduct.Weight = _ProductSearchResult.Weight;
+        //                        if (_storeProduct.ImageUrl == null && !string.IsNullOrEmpty(_ProductSearchResult.ImageUrl))
+        //                            _storeProduct.ImageUrl = _ProductSearchResult.ImageUrl;
+
+        //                        db2.SaveChanges();
+        //                    }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Logger.Debug(ex.Message, "pricesupdate.txt");
+        //                    System.Diagnostics.Debug.WriteLine("[UpdatePricesNew] Error: " + ex.Message);
+
+        //                    Console.WriteLine(ex.Message);
+        //                    Console.WriteLine(ex.StackTrace);
+
+        //                    //Add to ProductPricesUpdatesFails.
+        //                    ProductPricesUpdatesFails _newProductPricesUpdatesFails = new ProductPricesUpdatesFails
+        //                    {
+        //                        StoreProductId = _storeProduct.Id,
+        //                        CreateDate = DateTime.Now,
+        //                        ProductId = productId,
+        //                        StoreId = _storeProduct.StoreId
+        //                    };
+        //                    db2.ProductPricesUpdatesFails.Add(_newProductPricesUpdatesFails);
+
+        //                    _storeProduct.UpdateDate = DateTime.Now;
+        //                    _storeProduct.NeedsUpdate = true;
+        //                    db2.SaveChanges();
+
+        //                    Microsoft.AspNet.SignalR.StockTicker.StockTicker.Instance.BroadcastStoreProductUpdate("9ff8224f-17cf-49fb-b555-05779a13eb40", _storeProduct);
+
+        //                    break;
+        //                }
+        //            }
+
+        //            //if found EAN in product metadata's, check if product EAN is 0, if it is update with newly found barcode
+        //            if (_productEanFound != string.Empty)
+        //            {
+        //                Products _product = db.Products.Include("StoreProducts").Where(c => c.Id == productId).FirstOrDefault();
+        //                if (_product != null && _product.Barcode == "0")
+        //                {
+        //                    var _productWithBarcodeAlreadyExists = db.Products.Include("StoreProducts").Where(c => c.Barcode == _productEanFound).FirstOrDefault();
+        //                    if (_productWithBarcodeAlreadyExists == null)
+        //                    {
+        //                        _product.Barcode = _productEanFound;
+        //                        db.Entry(_product).State = EntityState.Modified;
+        //                        db.SaveChanges();
+        //                    }
+        //                    else
+        //                    {
+        //                        //product already exists, delete _product
+        //                        //merge both StoreProducts to product with barcode already
+        //                        foreach (var _oldStoreProduct in _product.StoreProducts)
+        //                        {
+        //                            //if it doesen´t exists in _productWithBarcodeAlreadyExists, create it
+        //                            if (!_productWithBarcodeAlreadyExists.StoreProducts.Where(c => c.StoreId == _oldStoreProduct.StoreId).Any())
+        //                            {
+        //                                StoreProducts _StoreProductsNew = new StoreProducts
+                        {
+                            CreateDate = _oldStoreProduct.CreateDate,
+                            NeedsUpdate = _oldStoreProduct.NeedsUpdate,
+                            OnlineProductId = _oldStoreProduct.OnlineProductId,
+                            Price = _oldStoreProduct.Price,
+                            PriceRatio = _oldStoreProduct.PriceRatio,
+                            ProductId = _productWithBarcodeAlreadyExists.Id,
+                            StoreId = _oldStoreProduct.StoreId,
+                            Unit = _oldStoreProduct.Unit,
+                            UpdateDate = _oldStoreProduct.UpdateDate,
+                            Url = _oldStoreProduct.Url,
+                            UserId = _oldStoreProduct.UserId
+                        };
+                        db.StoreProducts.Add(_StoreProductsNew);
+                        db.SaveChanges();
+                    }
+                }
+                DeleteSafely(_product.Id);
+            }
+        }
+
+        return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
+    }
+
+}
+
+public class ProductCategoryScore
+{
+    public string Category { get; set; }
+    public double Score { get; set; }
+}
+}

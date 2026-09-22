@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -1572,14 +1571,12 @@ namespace SpiroWeb.Managers
 
         async static public Task<(List<ProductPricesUpdates> productPricesUpdates, List<string> details)> UpdatePricesNew(int productId)
         {
-            Debug.WriteLine("#UpdatePricesNew START for ProductID - " + productId);
             Logger.FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Logs");
             //Logger.Debug("#UpdatePricesNew RUNNING for ProductID - " + productId, "pricesupdate.txt");
             using (SpiroStockManagementEntities db2 = new SpiroStockManagementEntities())
             {
                 OnlineProducts _OnlineProducts = new OnlineProducts();
                 var _storeProducts = db2.StoreProducts.Where(c => c.ProductId == productId).Include(c => c.Stores).ToList();
-                Debug.WriteLine("#UpdatePricesNew found " + _storeProducts.Count + " store products for ProductID - " + productId);
 
                 List<ProductPricesUpdates> _productPricesUpdate = new List<ProductPricesUpdates>();
                 List<string> _productPricesUpdateDetails = new List<string>();
@@ -1588,10 +1585,8 @@ namespace SpiroWeb.Managers
                 string _productEanFound = string.Empty;
                 foreach (var _storeProduct in _storeProducts)
                 {
-                    Debug.WriteLine("#UpdatePricesNew processing StoreId - " + _storeProduct.StoreId + ", StoreProductId - " + _storeProduct.Id);
                     if (_storeProduct.StoreId != 1 && _storeProduct.StoreId != 2)
                     {
-                        Debug.WriteLine("#UpdatePricesNew skipping StoreId - " + _storeProduct.StoreId + " (not 1 or 2)");
                         continue;
                     }
                     //TODO - try to remove this line now that we are with using
@@ -1624,7 +1619,6 @@ namespace SpiroWeb.Managers
                         if (_ProductSearchResult != null && _ProductSearchResult.Price != string.Empty) //Product online found
                         {
                             Logger.Debug("_ProductSearchResult.Price - " + _ProductSearchResult.Price, "pricesupdate.txt");
-                            Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " found online price - " + _ProductSearchResult.Price);
 
                             //check if barcode exists, if it does save it
                             if (_productEanFound == string.Empty && !string.IsNullOrEmpty(_ProductSearchResult.Barcode))
@@ -1639,7 +1633,6 @@ namespace SpiroWeb.Managers
                             //Logger.Debug("_newPrice - " + _newPrice.ToString(), "pricesupdate.txt");
                             if (_newPrice != 0 && Math.Round(_storeProduct.Price.Value, 2) != Math.Round(_newPrice, 2))
                             {
-                                Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " price changed from " + _storeProduct.Price.Value + " to " + _newPrice);
                                 //Add to prices update history
                                 ProductPricesUpdates _ProductPricesUpdate = new ProductPricesUpdates
                                 {
@@ -1704,13 +1697,10 @@ namespace SpiroWeb.Managers
 
                                 _storeProduct.LastSuccessfulUpdateDate = DateTime.Now;
                                 db2.SaveChanges();
-                                Debug.WriteLine("#UpdatePricesNewSaved StoreProductId - " + _storeProduct.StoreId + " saved sucessfully. Product Id :" + productId);
-
 
                             }
                             else //Price is not different, check if url,OnlineProductId, PriceRatio, Unit are different, if they are, update it
                             {
-                                Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " price unchanged (" + _storeProduct.Price.Value + "), checking other fields");
                                 //_storeProduct.Price = _newPrice;
                                 _storeProduct.UpdateDate = DateTime.Now;
                                 _storeProduct.NeedsUpdate = false;
@@ -1767,7 +1757,6 @@ namespace SpiroWeb.Managers
                         {
                             //Logger.Debug("ProductSearchResult not filled not found", "pricesupdate.txt");
                             //Logger.Debug(new JavaScriptSerializer().Serialize(_ProductSearchResult));
-                            Debug.WriteLine("#UpdatePricesNew StoreProductId - " + _storeProduct.Id + " NOT found online, marking as needs update");
                             //Add to ProductPricesUpdatesFails.
                             ProductPricesUpdatesFails _newProductPricesUpdatesFails = new ProductPricesUpdatesFails
                             {
@@ -1789,7 +1778,6 @@ namespace SpiroWeb.Managers
                     {
                         Logger.Debug(ex.Message, "pricesupdate.txt");
 
-                        Debug.WriteLine("#UpdatePricesNew EXCEPTION for StoreProductId - " + _storeProduct.Id + ": " + ex.Message);
                         Console.WriteLine(ex.Message);
                         Console.WriteLine(ex.StackTrace);
 
@@ -1858,7 +1846,6 @@ namespace SpiroWeb.Managers
                     }
                 }
 
-                Debug.WriteLine("#UpdatePricesNew END for ProductID - " + productId + ", " + _productPricesUpdate.Count + " price(s) updated");
                 return (productPricesUpdates: _productPricesUpdate, details: _productPricesUpdateDetails);
             }
 
