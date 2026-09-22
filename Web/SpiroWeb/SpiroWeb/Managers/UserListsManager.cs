@@ -1,5 +1,6 @@
 ﻿using ClassLibrary1;
 using Microsoft.Ajax.Utilities;
+using PuppeteerSharp;
 using SpiroWeb.Helpers;
 using SpiroWeb.Models;
 using SpiroWeb.Objects;
@@ -8,6 +9,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+
 //using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -4221,11 +4224,40 @@ namespace SpiroWeb.Managers
             var userProducts = GetV4(userId);
             foreach (var userProduct in userProducts)
             {
+                if (userProduct.ItemType.Contains("inventory"))
+                {
+                    continue;
+                }
                 var storeProducts = await ProductsManager.FindStoreProductsWithAI(userProduct.ProductId);
                 //return storeProducts;
             }
             return new List<StoreProducts>();
         }
+
+        static async public Task<bool> UpdateUserProducts(string userId)
+        {
+            try
+            {
+                var userProducts = GetV4(userId);
+                foreach (var userProduct in userProducts)
+                {
+                    if (userProduct.ItemType.Contains("inventory"))
+                    {
+                        continue;
+                    }
+                    var _pricesUpdates = await Managers.ProductsManager.UpdatePricesNew(userProduct.ProductId);
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+            //return false;
+        }
+
 
     }
 }
