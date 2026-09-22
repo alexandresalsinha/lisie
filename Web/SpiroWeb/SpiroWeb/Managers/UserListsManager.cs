@@ -3995,20 +3995,20 @@ namespace SpiroWeb.Managers
 
                 //check if last lisie home entry was more then 12 hours ago and list = "bought"
                 //if true, change user list to "consumed"
-                if (list == "bought")
-                {
-                    var _lastUserHistoryEntry = UserHistoryManager.GetLastEntry(userId, list);
-                    if (_lastUserHistoryEntry != null)
+                //if (list == "bought")
+                //{
+                //    var _lastUserHistoryEntry = UserHistoryManager.GetLastEntry(userId, list);
+                //    if (_lastUserHistoryEntry != null)
 
-                    {
-                        var _hours = (DateTime.Now - _lastUserHistoryEntry.InsertDate).TotalHours;
-                        if (_hours >= 12)
-                        {
-                            Managers.LisieHomeManager.SetUserState(userId, "consumed");
-                            list = "consumed";
-                        }
-                    }
-                }
+                //    {
+                //        var _hours = (DateTime.Now - _lastUserHistoryEntry.InsertDate).TotalHours;
+                //        if (_hours >= 12)
+                //        {
+                //            Managers.LisieHomeManager.SetUserState(userId, "consumed");
+                //            list = "consumed";
+                //        }
+                //    }
+                //}
 
                 if (_product != null)
                 {
