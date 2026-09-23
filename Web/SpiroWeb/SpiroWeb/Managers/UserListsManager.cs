@@ -4258,6 +4258,31 @@ namespace SpiroWeb.Managers
             //return false;
         }
 
+        static public bool ResetQuantatiesOfUserProducts(string userId)
+        {
+            try
+            {
+                using (SpiroStockManagementEntities db = new SpiroStockManagementEntities())
+                {
+                    //var userProducts = GetV4(userId);
+                    var _userProducts = db.UserProductsList.Where(c => c.UserId.Equals(userId));
+                    foreach (var userProduct in _userProducts)
+                    {
+                        userProduct.Quantity = 1;
+                        //db.UserProductsList.Where(c => c.Id == userProduct.Id).FirstOrDefault().Quantity = 1;
+                    }
+                    db.SaveChanges();
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
     }
 }
