@@ -133,7 +133,7 @@ namespace SpiroWeb.Markets
 
         async public Task<LisieStores.Extensibility.ProductSearchResult> GetProductMetadataById(string onlineProductId)
         {
-            string url = "/api/products/" + onlineProductId;
+            string url = "/on/demandware.store/Sites-pingo-doce-Site/default/Product-Show?pid=" + onlineProductId;
             return await GetMetadata(url);
         }
         //async Task<List<LisieStores.Extensibility.ProductSearchResult>> IMarketFetcher.GetSearchResults(string searchQuery)
@@ -325,124 +325,89 @@ namespace SpiroWeb.Markets
         {
             try
             {
-                string _htmlResult = await FetchUrl("https://mercadao.pt" + url);
-                //System.Diagnostics.Debug.WriteLine("TRYING: " + "https://mercadao.pt" + url);
-                //System.Threading.Thread.Sleep(4000);
-                //if (_htmlResult == "null")
-                //{
-                //    url = url.Replace("5afbf7f176f9b3001a672515", "6107d28d72939a003ff6bf51");
-                //    _htmlResult = await FetchUrl("https://mercadao.pt" + url);
-                //    System.Diagnostics.Debug.WriteLine("TRYING: " + "https://mercadao.pt" + url);
-                //}
-                if (_htmlResult == "null" || _htmlResult == string.Empty)
-                {
-                    int _startIndex = url.IndexOf("/catalogues/") + ("/catalogues/").Length;
-                    int _endIndex = url.IndexOf("/product/", _startIndex);
-                    url = url.Replace(url.Substring(_startIndex, _endIndex - _startIndex), "6107d28d72939a003ff6bf51");
-                    //url = url.Replace("5afbf7f176f9b3001a672515", "6107d28d72939a003ff6bf51");
-                    _htmlResult = await FetchUrl("https://mercadao.pt" + url);
-                    //System.Diagnostics.Debug.WriteLine("TRYING: " + "https://mercadao.pt" + url);
-                }
-                ProductSearchResult _productSearchResultData = new ProductSearchResult();
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                Models.PingoDoceProduct.Product _PingoDoceProduct = (Models.PingoDoceProduct.Product)js.Deserialize(_htmlResult, typeof(Models.PingoDoceProduct.Product));
+                string _fullUrl = url.ToLower().StartsWith("http") ? url : "https://www.pingodoce.pt" + url;
+                string _htmlResult = await FetchUrl(_fullUrl);
 
-                if (_PingoDoceProduct == null) //if null return
+                if (string.IsNullOrEmpty(_htmlResult))
                     return null;
 
+                CQ _dom = _htmlResult;
+                CQ _productWrapper = _dom[".product-wrapper"].First();
 
-                //If is from /api/products/ , go also get from url, to get buyngPrice (price with discount) and PriceWeight and category
-                if (url.ToLower().Contains("/api/products/"))
+                if (_productWrapper.Length == 0)
+                    return null;
+
+                string _productId = _productWrapper.Attr("data-pid");
+                string _gtmInfoJson = _productWrapper.Attr("data-gtm-info");
+
+                string _productCategory = string.Empty;
+                string _productCategoryParent = string.Empty;
+                if (!string.IsNullOrEmpty(_gtmInfoJson))
                 {
-                    //System.Threading.Thread.Sleep(4000);
-                    string _CatalogueApiUrl = "/api/catalogues/" + _PingoDoceProduct.catalogueId + "/product/" + _PingoDoceProduct.slug;
-                    _htmlResult = await FetchUrl("https://mercadao.pt" + _CatalogueApiUrl);
-                    System.Diagnostics.Debug.WriteLine("TRYING: " + "https://mercadao.pt" + _CatalogueApiUrl);
-                    if (!string.IsNullOrEmpty(_htmlResult))
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    dynamic _gtmInfo = js.Deserialize<dynamic>(_gtmInfoJson);
+                    object[] _gtmItems = (object[])_gtmInfo["items"];
+                    if (_gtmItems != null && _gtmItems.Length > 0)
                     {
-                        Models.PingoDoceProduct.Product _PingoDoceProductOfCatalogue = (Models.PingoDoceProduct.Product)js.Deserialize(_htmlResult, typeof(Models.PingoDoceProduct.Product));
-
-                        if (_PingoDoceProductOfCatalogue != null) //fill _PingoDoceProduct with missing properties
-                        {
-                            _PingoDoceProduct.buyingPrice = _PingoDoceProductOfCatalogue.buyingPrice;
-                            _PingoDoceProduct.ancestorsCategoriesArray = _PingoDoceProductOfCatalogue.ancestorsCategoriesArray;
-                            _PingoDoceProduct.categories = _PingoDoceProductOfCatalogue.categories;
-                            _PingoDoceProduct.brand = _PingoDoceProductOfCatalogue.brand;
-
-                            url = _CatalogueApiUrl;
-                        }
+                        dynamic _gtmItem = _gtmItems[0];
+                        _productCategory = (string)_gtmItem["item_category"];
+                        _productCategoryParent = (string)_gtmItem["item_category2"];
                     }
                 }
+                string _productCategoriesFull = !string.IsNullOrEmpty(_productCategoryParent) ? _productCategoryParent + " > " + _productCategory : _productCategory;
 
-                //Categories
-                int _productCategoriesCounter = 1;
-                string _productCategory = "";
-                string _productCategoriesFull = "";
-                if (_PingoDoceProduct.ancestorsCategoriesArray != null)
+                string _productName = _dom[".product-name"].First().Text().Replace("\n", "").Trim();
+                string _productBrand = _dom[".product-brand"].First().Text().Replace("\n", "").Trim();
+                string _productImageUrl = _dom[".primary-images img"].First().Attr("src");
+                string _productCanonicalUrl = _dom["link[rel='canonical']"].First().Attr("href");
+                if (string.IsNullOrEmpty(_productCanonicalUrl))
+                    _productCanonicalUrl = url;
+
+                string _productUnitText = _dom[".product-unit-measure"].First().Text().Replace("\n", "").Trim();
+                string _productWeight = _productUnitText;
+                string _productPriceWeight = string.Empty;
+                string _productUnit = string.Empty;
+                if (_productUnitText.IndexOf("|") > -1)
                 {
-                    foreach (var _produtosCategory in _PingoDoceProduct.ancestorsCategoriesArray.Reverse<string>())
-                    {
-                        if (_productCategoriesCounter == 1)
-                        {
-                            _productCategory = _produtosCategory;
-                            break;
-                        }
-                    }
-                }
-                if (_PingoDoceProduct.categories != null)
-                {
-                    foreach (var _produtosCategory in _PingoDoceProduct.categories.Reverse<Models.PingoDoceProduct.Category>())
-                    {
-                        if (_productCategoriesCounter > 0 && _productCategoriesCounter < _PingoDoceProduct.categories.Count)
-                        {
-                            _productCategoriesFull += _produtosCategory.name + " > ";
-                        }
-                        else if (_productCategoriesCounter == _PingoDoceProduct.categories.Count)
-                        {
-                            _productCategoriesFull += _produtosCategory.name;
-                        }
-                        _productCategoriesCounter++;
-                    }
+                    string[] _unitParts = _productUnitText.Split('|');
+                    _productWeight = _unitParts[0].Trim();
+                    _productPriceWeight = _unitParts[1].Trim();
+                    _productUnit = _productPriceWeight.IndexOf("/") > -1 ? _productPriceWeight.Split('/')[1].Trim() : string.Empty;
                 }
 
+                string _productPriceValue = _dom[".price .sales .value"].First().Attr("content");
+                string _productPriceWithoutDiscountValue = _dom[".price .strike-through .value"].First().Attr("content");
 
-                double _calculatedPriceWeight = 0;
-                _calculatedPriceWeight = Math.Round(double.Parse(_PingoDoceProduct.buyingPrice.ToString()) / _PingoDoceProduct.netContent, 2);
+                float _productPriceLiteral = 0;
+                float.TryParse(_productPriceValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out _productPriceLiteral);
 
-                string _ean = _PingoDoceProduct.defaultEan;
-                if (_ean == null || string.IsNullOrEmpty(_ean))
+                ProductSearchResult _productSearchResultData = new ProductSearchResult
                 {
-                    if (_PingoDoceProduct.eans.Count > 0)
-                    {
-                        _ean = _PingoDoceProduct.eans[0];
-                    }
-                }
-
-                _productSearchResultData = new ProductSearchResult
-                {
-                    Barcode = _ean,
-                    Brand = _PingoDoceProduct.brand.name,
+                    Barcode = string.Empty,
+                    Brand = _productBrand,
                     Category = _productCategory,
                     FullCategory = _productCategoriesFull,
-                    ImageUrl = "https://res.cloudinary.com/fonte-online/image/upload/c_fill,h_300,q_auto,w_300/v1/PDO_PROD/" + _PingoDoceProduct.sku + "_1",
-                    Name = _PingoDoceProduct.firstName,
-                    Price = _PingoDoceProduct.buyingPrice.ToString() != "0" ? _PingoDoceProduct.buyingPrice.ToString() : _PingoDoceProduct.regularPrice.ToString(),
-                    PriceLiteral = float.Parse(_PingoDoceProduct.buyingPrice.ToString()),
-                    PriceWeight = _calculatedPriceWeight.ToString(),
-                    Unit = _PingoDoceProduct.netContentUnit.ToLower().Replace("kgr", "kg").Replace("ltr", "lt").Replace("kgm", "kg").Replace("ltm", "lt"),
-                    PriceWeightLiteral = float.Parse(_PingoDoceProduct.buyingPrice.ToString()),
+                    ImageUrl = _productImageUrl,
+                    Name = _productName,
+                    Price = (!string.IsNullOrEmpty(_productPriceValue) ? _productPriceValue : "0") + "€",
+                    PriceWithoutDiscount = !string.IsNullOrEmpty(_productPriceWithoutDiscountValue) ? _productPriceWithoutDiscountValue + "€" : string.Empty,
+                    PriceLiteral = _productPriceLiteral,
+                    PriceWeight = _productPriceWeight,
+                    PriceWeightLiteral = _productPriceLiteral,
                     StoreName = this.StoreName,
                     StoreId = this.StoreId,
                     StoreColor = this.StoreColor,
-                    Url = url,
-                    ViewableUrl = "/store/pingo-doce/product/" + _PingoDoceProduct.slug,
-                    Weight = _PingoDoceProduct.capacity,
-                    OnlineProductId = _PingoDoceProduct.id
+                    Url = _productCanonicalUrl,
+                    ViewableUrl = this.StoreUrl + _productCanonicalUrl,
+                    Weight = _productWeight,
+                    OnlineProductId = _productId,
+                    Unit = _productUnit
                 };
                 return _productSearchResultData;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
