@@ -7,6 +7,7 @@
 *.exe
 *.pdb
 *.dll.config
+Web/SpiroWeb/.vs
 *.cache
 *.suo
 # Include dlls if they’re in the NuGet packages directory
@@ -77,3 +78,7 @@ _[Ss]cripts
 /Web/SpiroWeb/SpiroWeb/Logs/pricesupdate.txt
 /Web/SpiroWeb/SpiroWeb/Media/Temp
 /Web/SpiroWeb/.vs/Lisie/FileContentIndex/843f9181-d484-4920-9e78-c110101965e3.vsidx
+Web/SpiroWeb/.vs/Lisie/v17
+Web/SpiroWeb/.vs/Lisie/v17/DocumentLayout.json
+.vs/
+**/.vs/

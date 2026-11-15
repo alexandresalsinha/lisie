@@ -1,4 +1,5 @@
-﻿using LisieStores.Extensibility;
+﻿using CsQuery;
+using LisieStores.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -243,76 +244,72 @@ namespace SpiroWeb.Markets
         async Task<List<LisieStores.Extensibility.ProductSearchResult>> IMarketFetcher.GetSearchResults(string searchQuery)
         {
             string _searchQuery = string.IsNullOrEmpty(searchQuery) ? "" : searchQuery;
-            string _searchResultsHtml = string.Empty;
+            string _searchResultsHtml = await FetchUrl("https://www.pingodoce.pt/on/demandware.store/Sites-pingo-doce-Site/default/Search-Show?q=" + _searchQuery);
 
-            //HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("https://mercadao.pt/api/catalogues/5afbf7f176f9b3001a672515/products/search?query=" + searchQuery);
-            //HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("https://mercadao.pt/api/catalogues/5afbf7f176f9b3001a672515/products/search?query=" + searchQuery);
-            //Last One
-            //HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("https://mercadao.pt/api/catalogues/5b2d35b85ce104001af36fca/products/search?query=" + searchQuery);
-
-            //is this one the generic one??? it was on incognito mode - 6107d28d72939a003ff6bf51
-            HttpWebRequest webReq = (HttpWebRequest)HttpWebRequest.Create("https://mercadao.pt/api/catalogues/6107d28d72939a003ff6bf51/products/search?esPreference=0.985508185983917&query=" + searchQuery);
-
-            webReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36";
-            webReq.Accept = "*/*";
-            string _htmlResult = string.Empty;
             List<ProductSearchResult> _products = new List<ProductSearchResult>();
             try
             {
-                webReq.CookieContainer = new CookieContainer();
-                webReq.Method = "GET";
+                CQ _dom = _searchResultsHtml;
+                CQ _produtos = _dom[".product"];
 
-                using (WebResponse response = webReq.GetResponse())
+                List<IDomObject> _productsList = _produtos.ToList();
+
+                foreach (IDomObject _productResult in _productsList)
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    try
                     {
-                        StreamReader reader = new StreamReader(stream);
-                        _searchResultsHtml = reader.ReadToEnd();
+                        CQ _productResultCQ = _productResult.OuterHTML;
 
-                        int startIndex = _searchResultsHtml.IndexOf("\"products\":[{");
-                        int lastIndex = _searchResultsHtml.LastIndexOf("\"categories\":[{");
-                        int lastIndex2 = _searchResultsHtml.Remove(lastIndex).LastIndexOf("]") + 1;
+                        string _productOnlineId = _productResultCQ.Attr("data-pid");
+                        string _productUrl = _productResultCQ[".product-tile-image-link"].First().Attr("href");
+                        string _productImageUrl = _productResultCQ[".product-tile-component-image"].First().Attr("src");
+                        string _productName = _productResultCQ[".product-name-link"].Text().Replace("\n", "").Trim();
+                        string _productBrand = _productResultCQ[".product-brand-name"].Text().Replace("\n", "").Trim();
 
-                        string lastJson = _searchResultsHtml.Substring(startIndex, lastIndex2 - startIndex);
-                        //var values = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(_searchResultsHtml);
-
-
-                        lastJson = "{" + lastJson + "}";
-
-                        JavaScriptSerializer js = new JavaScriptSerializer();
-                        Models.PingoDoceSearch.ProductSerchResults _PingoDoceSearchResults = (Models.PingoDoceSearch.ProductSerchResults)js.Deserialize(lastJson, typeof(Models.PingoDoceSearch.ProductSerchResults));
-
-                        foreach (Models.PingoDoceSearch.Product _product in _PingoDoceSearchResults.products)
+                        string _productUnitText = _productResultCQ[".product-unit"].Text().Replace("\n", "").Trim();
+                        string _productWeight = _productUnitText;
+                        string _productPriceWeight = string.Empty;
+                        string _productUnit = string.Empty;
+                        if (_productUnitText.IndexOf("|") > -1)
                         {
-                            _products.Add(new ProductSearchResult
-                            {
-                                Barcode = _product._source.eans != null && _product._source.eans.Count > 0 ? _product._source.eans[0] : string.Empty,
-                                Brand = _product._source.brand.name,
-                                Category = _product._source.categories.Count > 0 ? _product._source.categories[0].name : string.Empty,
-                                ImageUrl = "https://res.cloudinary.com/fonte-online/image/upload/c_fill,h_300,q_auto,w_300/v1/PDO_PROD/" + _product._source.sku + "_1",
-                                Name = _product._source.firstName,
-                                //Price = "€ " + Math.Round(_product._source.buyingPrice, 2).ToString(),
-                                Price = Math.Round(_product._source.buyingPrice, 2).ToString() + "€",
-                                PriceWithoutDiscount = _product._source.buyingPrice != _product._source.regularPrice ? Math.Round(_product._source.regularPrice, 2).ToString() + "€" : string.Empty,
-                                PriceLiteral = float.Parse(_product._source.buyingPrice.ToString()),
-                                PriceWeight = _product._source.buyingPrice.ToString() + " / " + _product._source.capacity,
-                                PriceWeightLiteral = float.Parse(_product._source.buyingPrice.ToString()),
-                                StoreName = this.StoreName,
-                                StoreId = this.StoreId,
-                                StoreColor = this.StoreColor,
-                                //OLD ONE, maybe i will still use
-                                //Url = "/api/catalogues/5afbf7f176f9b3001a672515/product/" + _product._source.slug,
-                                //ViewableUrl = "/api/catalogues/5afbf7f176f9b3001a672515/product/" + _product._source.slug,
-                                //Url = "/api/catalogues/5b2d35b85ce104001af36fca/product/" + _product._source.slug,
-                                Url = "/api/catalogues/6107d28d72939a003ff6bf51/product/" + _product._source.slug,
-                                ViewableUrl = "/store/pingo-doce/product/" + _product._source.slug,
-                                Weight = _product._source.capacity,
-                                OnlineProductId = _product._id,
-                                FullCategory = "",
-                                Unit = ""
-                            });
+                            string[] _unitParts = _productUnitText.Split('|');
+                            _productWeight = _unitParts[0].Trim();
+                            _productPriceWeight = _unitParts[1].Trim();
+                            _productUnit = _productPriceWeight.IndexOf("/") > -1 ? _productPriceWeight.Split('/')[1].Trim() : string.Empty;
                         }
-                        return _products;
+
+                        string _productPriceValue = _productResultCQ[".sales .value"].First().Attr("content");
+                        string _productPriceWithoutDiscountValue = _productResultCQ[".strike-through .value"].First().Attr("content");
+
+                        float _productPriceLiteral = 0;
+                        float.TryParse(_productPriceValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out _productPriceLiteral);
+
+                        _products.Add(new ProductSearchResult
+                        {
+                            Barcode = string.Empty,
+                            Brand = _productBrand,
+                            Category = "",
+                            FullCategory = "",
+                            ImageUrl = _productImageUrl,
+                            Name = _productName,
+                            Price = (!string.IsNullOrEmpty(_productPriceValue) ? _productPriceValue : "0") + "€",
+                            PriceWithoutDiscount = !string.IsNullOrEmpty(_productPriceWithoutDiscountValue) ? _productPriceWithoutDiscountValue + "€" : string.Empty,
+                            PriceLiteral = _productPriceLiteral,
+                            PriceWeight = _productPriceWeight,
+                            PriceWeightLiteral = _productPriceLiteral,
+                            StoreName = this.StoreName,
+                            StoreId = this.StoreId,
+                            StoreColor = this.StoreColor,
+                            Url = _productUrl,
+                            ViewableUrl = this.StoreUrl + _productUrl,
+                            Weight = _productWeight,
+                            OnlineProductId = _productOnlineId,
+                            Unit = _productUnit
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
                 }
             }
