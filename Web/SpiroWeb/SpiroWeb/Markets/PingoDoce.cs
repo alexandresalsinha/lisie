@@ -363,6 +363,10 @@ namespace SpiroWeb.Markets
                 if (string.IsNullOrEmpty(_productCanonicalUrl))
                     _productCanonicalUrl = url;
 
+                string _productPriceValue = _dom[".price .sales .value"].First().Attr("content");
+                string _productPriceWithoutDiscountValue = _dom[".price .strike-through .value"].First().Attr("content");
+                string _productSalesText = _dom[".price .sales"].First().Text().Replace("\n", "").Trim();
+
                 string _productUnitText = _dom[".product-unit-measure"].First().Text().Replace("\n", "").Trim();
                 string _productWeight = _productUnitText;
                 string _productPriceWeight = string.Empty;
@@ -371,15 +375,22 @@ namespace SpiroWeb.Markets
                 {
                     string[] _unitParts = _productUnitText.Split('|');
                     _productWeight = _unitParts[0].Trim();
-                    _productPriceWeight = _unitParts[1].Trim();
-                    _productUnit = _productPriceWeight.IndexOf("/") > -1 ? _productPriceWeight.Split('/')[1].Trim() : string.Empty;
+                    string _pricePerUnitText = _unitParts[1].Trim(); // e.g. "1,91 €/L"
+                    _productPriceWeight = _pricePerUnitText.Split(' ')[0].Replace(',', '.'); // e.g. "1.91"
+                    _productUnit = _pricePerUnitText.IndexOf("/") > -1 ? _pricePerUnitText.Split('/')[1].Trim() : string.Empty;
                 }
+                else if (_productSalesText.IndexOf("/") > -1)
+                {
+                    //price is already expressed per unit (products sold by weight, e.g. "19,89 €/Kg")
+                    _productPriceWeight = _productPriceValue;
+                    _productUnit = _productSalesText.Split('/')[1].Trim();
+                }
+                _productUnit = _productUnit.ToLower();
+                if (_productUnit == "l")
+                    _productUnit = "lt";
 
-                string _productPriceValue = _dom[".price .sales .value"].First().Attr("content");
-                string _productPriceWithoutDiscountValue = _dom[".price .strike-through .value"].First().Attr("content");
-
-                float _productPriceLiteral = 0;
-                float.TryParse(_productPriceValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out _productPriceLiteral);
+                string _productPriceDisplay = !string.IsNullOrEmpty(_productPriceValue) ? _productPriceValue.Replace('.', ',') : string.Empty;
+                string _productPriceWithoutDiscountDisplay = !string.IsNullOrEmpty(_productPriceWithoutDiscountValue) ? _productPriceWithoutDiscountValue.Replace('.', ',') : string.Empty;
 
                 ProductSearchResult _productSearchResultData = new ProductSearchResult
                 {
@@ -389,11 +400,9 @@ namespace SpiroWeb.Markets
                     FullCategory = _productCategoriesFull,
                     ImageUrl = _productImageUrl,
                     Name = _productName,
-                    Price = (!string.IsNullOrEmpty(_productPriceValue) ? _productPriceValue : "0") + "€",
-                    PriceWithoutDiscount = !string.IsNullOrEmpty(_productPriceWithoutDiscountValue) ? _productPriceWithoutDiscountValue + "€" : string.Empty,
-                    PriceLiteral = _productPriceLiteral,
+                    Price = _productPriceDisplay,
+                    PriceWithoutDiscount = _productPriceWithoutDiscountDisplay,
                     PriceWeight = _productPriceWeight,
-                    PriceWeightLiteral = _productPriceLiteral,
                     StoreName = this.StoreName,
                     StoreId = this.StoreId,
                     StoreColor = this.StoreColor,
