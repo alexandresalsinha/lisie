@@ -81,91 +81,88 @@ namespace SpiroWeb.Markets
 
         async Task<List<LisieStores.Extensibility.ProductSearchResult>> IMarketFetcher.GetSearchResults(string searchQuery)
         {
+            List<LisieStores.Extensibility.ProductSearchResult> _productSearchResultList = new List<LisieStores.Extensibility.ProductSearchResult>();
             try
             {
                 string _searchQuery = string.IsNullOrEmpty(searchQuery) ? "" : searchQuery;
-                //Heroku server 1
-                //string _SearchResultsHtml = await FetchUrl("https://puppeteer-lisie.herokuapp.com/getIntermarcheSearchResults?search=" + searchQuery);
-                //Heroku server 2
-                //string _SearchResultsHtml = await FetchUrl("https://lisie.herokuapp.com/getIntermarcheSearchResults?search=" + searchQuery);
-                //Localhost server
-                //string _SearchResultsHtml = await FetchUrl("http://localhost:3000/getIntermarcheSearchResults?search=" + searchQuery);
 
+                string _searchResultsHtml = await FetchUrl("http://localhost:3005/GetSearchResults?storeId=4&search=" + HttpUtility.UrlEncode(_searchQuery));
 
-                var cli = new WebClient();
-                cli.Encoding = System.Text.Encoding.UTF8;
-                cli.Headers[HttpRequestHeader.Cookie] = "itm_device_id=86e2a66e-6155-47ab-90be-960d96971cef;itm_pdv={%22ref%22:%2209700%22%2C%22isEcommerce%22:true};itm_usid=34615a43-717f-49fa-8ae3-230dee5120c5";
+                if (string.IsNullOrEmpty(_searchResultsHtml))
+                    return _productSearchResultList;
 
-                string _SearchResultsHtml = cli.DownloadString("https://www.loja-online.intermarche.pt/search/" + searchQuery);
+                CQ _Dom = _searchResultsHtml;
+                string _nextDataJson = _Dom["#__NEXT_DATA__"].First().Text();
+
+                if (string.IsNullOrEmpty(_nextDataJson))
+                    return _productSearchResultList;
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                List<LisieStores.Extensibility.ProductSearchResult> _productSearchResultList = new List<LisieStores.Extensibility.ProductSearchResult>();
+                dynamic _nextData = js.Deserialize<dynamic>(_nextDataJson);
+                dynamic _list = _nextData["props"]["pageProps"]["initialProps"]["list"];
+                object[] _products = _list != null && _list["produits"] != null ? (object[])_list["produits"] : null;
 
-                CQ _Dom = _SearchResultsHtml;
-                CQ _produtos = _Dom[".product"];
+                if (_products == null)
+                    return _productSearchResultList;
 
-                List<IDomObject> _productsList = _produtos.ToList();
-
-                foreach (IDomObject _productResult in _productsList)
+                foreach (var _productObj in _products)
                 {
-
-                    Console.WriteLine(_productResult.InnerHTML);
-
-                    CQ _productResultCQ = _productResult.OuterHTML;
-
-                    var _productOnlineId = "";
-                    string _productUrl = _productResultCQ[".product__info"].First().Attr("href");
-                    string _productBarcode = _productUrl.Substring(_productUrl.LastIndexOf("/") + 1);
-                    string _productName = _productResultCQ[".product__name"].Text();
-                    string _productBrand = _productResultCQ[".product__brand"].First().Text().Replace("\n", "").Trim();
-                    _productBrand = _productBrand.Substring(0, _productBrand.LastIndexOf(" -")).Trim();
-                    var _productImageUrl = _productResultCQ[".product__image"].ElementAt(1).Attributes["src"];
-                    var _productWeightHtml = _productResultCQ[".product__texts"].First().Html();
-                    var _productWeight = _productWeightHtml.Substring(_productWeightHtml.LastIndexOf("</div>")).Replace("</div>", string.Empty);
-
-                    var _productPricesText = _productResultCQ[".product__footer__pricesWrapper"].Text();
-                    var _productPricesTextSpliteed = _productPricesText.Split('€');
-                    var _productPriceWithDiscountValue = _productResultCQ[".value.ct-tile--price-value"].First().Attr("content");
-
-                    var _productPrice = string.Empty;
-                    var _productPriceWeight = string.Empty;
-                    var _productUnitRatio = string.Empty;
-                    if (_productPricesTextSpliteed.Length < 4)
+                    try
                     {
-                        _productPrice = _productPricesTextSpliteed[0].Replace(" ", "").Trim();
-                        _productPriceWeight = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
-                        _productUnitRatio = _productPricesTextSpliteed[2].Replace("/", "").Trim();
+                        dynamic _product = _productObj;
+
+                        string _productBarcode = _product["produitEan13"].ToString();
+                        string _productName = _product["libelle"].ToString();
+                        string _productBrand = _product["marque"] != null ? _product["marque"].ToString() : string.Empty;
+                        string _productOnlineId = _product["itemId"] != null ? _product["itemId"].ToString() : string.Empty;
+
+                        object[] _images = (object[])_product["images"];
+                        string _productImageUrl = _images != null && _images.Length > 0 ? _images[0].ToString() : string.Empty;
+
+                        double _productPriceNumeric = Convert.ToDouble(_product["prix"]);
+                        double _productPriceWithoutDiscountNumeric = Convert.ToDouble(_product["prixBarre"]);
+                        double _productUnitPriceNumeric = Convert.ToDouble(_product["unitPrice"]);
+                        double _productCapacity = Convert.ToDouble(_product["capacite"]);
+
+                        string _unitLabelRaw = _product["unitePrixVente"] != null ? _product["unitePrixVente"]["value"].ToString() : string.Empty; // e.g. "€/Kg"
+                        string _productUnitRatio = _unitLabelRaw.IndexOf("/") > -1 ? _unitLabelRaw.Split('/')[1].Trim() : string.Empty;
+                        _productUnitRatio = _productUnitRatio.ToLower();
+                        if (_productUnitRatio == "l")
+                            _productUnitRatio = "lt";
+
+                        string _productWeight = _productCapacity > 0 ? (_productCapacity / 1000).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + (!string.IsNullOrEmpty(_productUnitRatio) ? " " + _productUnitRatio : string.Empty) : string.Empty;
+
+                        string _productPrice = _productPriceNumeric.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',');
+                        string _productPriceWithDiscountValue = _productPriceWithoutDiscountNumeric > 0 && Math.Abs(_productPriceWithoutDiscountNumeric - _productPriceNumeric) > 0.001 ? _productPriceWithoutDiscountNumeric.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',') : string.Empty;
+                        string _productPriceWeight = _productUnitPriceNumeric.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+
+                        string _productUrl = "/product/ean/" + _productBarcode;
+
+                        _productSearchResultList.Add(new LisieStores.Extensibility.ProductSearchResult
+                        {
+                            Barcode = _productBarcode,
+                            Name = _productName,
+                            Brand = _productBrand,
+                            Price = _productPrice,
+                            PriceWithoutDiscount = _productPriceWithDiscountValue,
+                            PriceWeight = _productPriceWeight,
+                            StoreId = this.StoreId,
+                            StoreName = this.StoreName,
+                            StoreColor = this.StoreColor,
+                            Url = _productUrl,
+                            ViewableUrl = this.StoreUrl + _productUrl,
+                            Weight = _productWeight,
+                            ImageUrl = _productImageUrl,
+                            Category = "",
+                            FullCategory = "",
+                            Unit = _productUnitRatio,
+                            OnlineProductId = _productOnlineId
+                        });
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        _productPrice = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
-                        _productPriceWeight = _productPricesTextSpliteed[2].Replace(" ", "").Trim();
-                        _productUnitRatio = _productPricesTextSpliteed[3].Replace("/", "").Trim();
+                        Console.WriteLine(ex.Message);
                     }
-
-                    _productUnitRatio = _productUnitRatio.Replace("/", "");
-                    _productSearchResultList.Add(new LisieStores.Extensibility.ProductSearchResult
-                    {
-                        Barcode = _productBarcode,
-                        Name = _productName,
-                        Brand = _productBrand,
-                        Price = _productPrice,
-                        PriceWithoutDiscount = _productPriceWithDiscountValue != null ? _productPriceWithDiscountValue + "€" : string.Empty,
-                        PriceWeight = _productPriceWeight,
-                        StoreId = this.StoreId,
-                        StoreName = this.StoreName,
-                        StoreColor = this.StoreColor,
-                        Url = _productUrl,
-                        ViewableUrl = "https://www.loja-online.intermarche.pt" + _productUrl,
-                        Weight = _productWeight,
-                        ImageUrl = _productImageUrl,
-                        PriceLiteral = 0,
-                        PriceWeightLiteral = 0,
-                        Category = "",
-                        FullCategory = "",
-                        Unit = _productUnitRatio,
-                        OnlineProductId = _productOnlineId
-                    });
                 }
 
                 return _productSearchResultList;
@@ -291,99 +288,84 @@ namespace SpiroWeb.Markets
         {
             try
             {
-                var _product = new LisieStores.Extensibility.ProductSearchResult();
-                _product.StoreColor = this.StoreColor;
-                _product.StoreId = this.StoreId;
-                _product.StoreName = this.StoreName;
-
                 var _url = "http://localhost:3005/GetProductMetadata?storeId=4&url=" + HttpUtility.UrlEncode(url);
                 string _html = await FetchUrl(_url);
 
+                if (string.IsNullOrEmpty(_html))
+                    return null;
+
                 CQ _Dom = _html;
-                CQ _produtos = _Dom[".productDetail__detail"];
-                string _htmlSrc = _produtos.Html();
+                string _nextDataJson = _Dom["#__NEXT_DATA__"].First().Text();
 
+                if (string.IsNullOrEmpty(_nextDataJson))
+                    return null;
 
-                //image
-                var _imageSrc = _produtos["img.image"].First()["img"].Attr("src");
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                dynamic _nextData = js.Deserialize<dynamic>(_nextDataJson);
+                dynamic _product = _nextData["props"]["pageProps"]["product"];
 
-                //barcode
-                var _barcodeFindIndex = _html.IndexOf("\"ean\":\"") + ("\"ean\":\"").Length;
-                var _barcodeFindLastIndex = _html.IndexOf("\",", _barcodeFindIndex);
-                var _barcode = _html.Substring(_barcodeFindIndex, _barcodeFindLastIndex - _barcodeFindIndex);
+                if (_product == null)
+                    return null;
 
-                //prices
-                var _productAllHtml = _produtos[".productDetail__prices"].First().Html();
-                var _productAllText = _produtos[".productDetail__prices"].First().Text();
-                var _productPricesTextSpliteed = _productAllText.Split('€');
-                var _price = string.Empty;
-                var _priceWeight = string.Empty;
-                var _unit = string.Empty;
-                if (_productPricesTextSpliteed.Length < 4)
+                string _barcode = _product["produitEan13"].ToString();
+                string _name = _product["libelle"].ToString();
+                string _brand = _product["marque"] != null ? _product["marque"].ToString() : string.Empty;
+                string _onlineProductId = _product["itemId"] != null ? _product["itemId"].ToString() : string.Empty;
+
+                object[] _images = (object[])_product["images"];
+                string _imageUrl = _images != null && _images.Length > 0 ? _images[0].ToString() : string.Empty;
+
+                double _price = Convert.ToDouble(_product["prix"]);
+                double _priceWithoutDiscount = Convert.ToDouble(_product["prixBarre"]);
+                double _unitPrice = Convert.ToDouble(_product["unitPrice"]);
+                double _capacity = Convert.ToDouble(_product["capacite"]);
+
+                string _unitLabelRaw = _product["unitePrixVente"] != null ? _product["unitePrixVente"]["value"].ToString() : string.Empty; // e.g. "€/L"
+                string _unit = _unitLabelRaw.IndexOf("/") > -1 ? _unitLabelRaw.Split('/')[1].Trim() : string.Empty;
+                _unit = _unit.ToLower();
+                if (_unit == "l")
+                    _unit = "lt";
+
+                string _weight = _capacity > 0 ? (_capacity / 1000).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + (!string.IsNullOrEmpty(_unit) ? " " + _unit : string.Empty) : string.Empty;
+
+                //category (breadcrumb array of { type, id, label })
+                List<string> _categoryLabels = new List<string>();
+                object[] _breadcrumbItems = (object[])_product["breadcrumb"];
+                if (_breadcrumbItems != null)
                 {
-                    _price = _productPricesTextSpliteed[0].Replace(" ", "").Trim();
-                    _priceWeight = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
-                    _unit = _productPricesTextSpliteed[2].Replace("/", "").Trim();
-                }
-                else
-                {
-                    _price = _productPricesTextSpliteed[1].Replace(" ", "").Trim();
-                    _priceWeight = _productPricesTextSpliteed[2].Replace(" ", "").Trim();
-                    _unit = _productPricesTextSpliteed[3].Replace("/", "").Trim();
-                }
-
-                var _name = _produtos[".productDetail__main_title"].First().Text().Replace("\n", "").Trim();
-                var _brand = _produtos[".productDetail__brand"].First().Text().Replace("\n", "").Trim();
-                var _weight = _produtos[".productDetail__packaging"].First().Text().Replace("\n", "").Trim();
-
-
-                //category
-                var _categoryString = "";
-                var _categoryStringFull = "";
-                var _categoryHtml = _Dom[".productDetail__pdpBreadcrumb__item"];
-                int _counter = 0;
-                foreach (var item in _categoryHtml)
-                {
-                    if (_counter == 0)
+                    foreach (var _breadcrumbItem in _breadcrumbItems)
                     {
-                        _counter++;
-                        continue;
+                        dynamic _breadcrumbItemDynamic = _breadcrumbItem;
+                        _categoryLabels.Add(_breadcrumbItemDynamic["label"].ToString());
                     }
-                    if (_counter == _categoryHtml.Length - 2)
-                    {
-                        _categoryString = HttpUtility.HtmlDecode(item.InnerText);
-                    }
-                    if (_counter == _categoryHtml.Length - 1)
-                    {
-                        break;
-                    }
-                    _categoryStringFull += _counter != _categoryHtml.Length - 2 ? HttpUtility.HtmlDecode(item.InnerText) + " > " : HttpUtility.HtmlDecode(item.InnerText);
-                    _counter++;
                 }
+                string _category = _categoryLabels.Count > 0 ? _categoryLabels[_categoryLabels.Count - 1] : string.Empty;
+                string _categoryFull = string.Join(" > ", _categoryLabels);
 
-                _product = new LisieStores.Extensibility.ProductSearchResult
+                string _priceDisplay = _price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',');
+                string _priceWithoutDiscountDisplay = _priceWithoutDiscount > 0 && Math.Abs(_priceWithoutDiscount - _price) > 0.001 ? _priceWithoutDiscount.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',') : string.Empty;
+                string _priceWeightDisplay = _unitPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+
+                return new LisieStores.Extensibility.ProductSearchResult
                 {
                     Barcode = _barcode,
                     Name = _name,
                     Brand = _brand,
-                    Price = _price,
-                    PriceWeight = _priceWeight,
+                    Price = _priceDisplay,
+                    PriceWithoutDiscount = _priceWithoutDiscountDisplay,
+                    PriceWeight = _priceWeightDisplay,
                     StoreId = this.StoreId,
                     StoreName = this.StoreName,
                     StoreColor = this.StoreColor,
                     Url = url,
-                    ViewableUrl = "https://www.loja-online.intermarche.pt" + url,
+                    ViewableUrl = this.StoreUrl + url,
                     Weight = _weight,
-                    ImageUrl = _imageSrc,
-                    PriceLiteral = 0,
-                    PriceWeightLiteral = 0,
-                    Category = _categoryString,
-                    FullCategory = _categoryStringFull,
+                    ImageUrl = _imageUrl,
+                    Category = _category,
+                    FullCategory = _categoryFull,
                     Unit = _unit,
-                    OnlineProductId = _barcode
+                    OnlineProductId = _onlineProductId
                 };
-
-                return _product;
             }
             catch (Exception ex)
             {
