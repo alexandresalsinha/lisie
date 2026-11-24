@@ -14,6 +14,21 @@ namespace LisieStores.Extensibility
         public string StoreColor { get; set; }
 
         public Type ClassType { get; set; }
+
+        public Market()
+        {
+            MarketAttr _attr = (MarketAttr)Attribute.GetCustomAttribute(this.GetType(), typeof(MarketAttr));
+            if (_attr != null)
+            {
+                StoreId = _attr.GetId();
+                StoreName = _attr.GetName();
+                StoreUrl = _attr.GetUrl();
+                StoreSearchUrl = _attr.GetSearchUrl();
+                StoreColor = _attr.GetColor();
+                ClassType = this.GetType();
+            }
+        }
+
         public async Task<string> FetchUrl(String url)
         {
             var client = new HttpClient();
